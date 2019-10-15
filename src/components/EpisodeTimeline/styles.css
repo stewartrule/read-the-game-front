@@ -1,0 +1,56 @@
+.episode-timeline {
+  overflow: scroll;
+  width: 100%;
+}
+
+.episode-timeline__inner {
+  margin: 10px 0;
+  padding: 20px 0;
+}
+
+.episode-timeline__control {
+  position: relative;
+  height: 50px;
+  overflow: hidden;
+}
+
+.episode-timeline__control div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 45px;
+}
+
+.episode-timeline__control--home div {
+  border-top: 5px solid #0076ff;
+  background-color: rgba(0, 118, 255, 0.33);
+}
+
+.episode-timeline__control--away div {
+  border-bottom: 5px solid #42dd84;
+  background-color: rgba(66, 221, 132, 0.33);
+}
+
+.episode-timeline__inert {
+  height: 50px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 0 16px #ddd;
+  position: relative;
+}
+
+.episode-timeline__period {
+  background-color: #ccc;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 10px;
+}
+
+.episode-timeline__marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
