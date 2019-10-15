@@ -1,0 +1,43 @@
+.score-board {
+  display: flex;
+  justify-content: space-between;
+  background: #000;
+  color: #fff;
+  font-size: 13px;
+  padding: 5px 0 20px 0;
+}
+
+.score-board__logo {
+  height: 40px;
+  background: url(/svg/logo_fc_bayern_munchen.svg) center center no-repeat;
+  background-size: contain;
+  width: 100%;
+}
+
+.score-board h3 {
+  color: #fff;
+}
+
+.score-board__team {
+  width: 40%;
+}
+
+.score-board__team--home {
+  text-align: right;
+}
+.score-board__team--home h5 {
+  color: #0076ff;
+}
+
+.score-board__score {
+  width: 20%;
+  text-align: center;
+}
+
+.score-board__team--away {
+  text-align: left;
+}
+
+.score-board__team--away h5 {
+  color: #42dd84;
+}
