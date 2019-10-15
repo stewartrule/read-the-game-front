@@ -1,0 +1,7 @@
+.episode-overview {
+  overflow: scroll;
+}
+
+.episode-overview__inner {
+  width: 1890px;
+}
