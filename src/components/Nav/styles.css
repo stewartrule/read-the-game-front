@@ -1,0 +1,19 @@
+.nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background-color: #222;
+  overflow: scroll;
+}
+
+.nav__item {
+  padding: 15px 15px 10px 15px;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 4px solid #222;
+  white-space: nowrap;
+}
+
+.nav__item--active {
+  border-bottom: 5px solid #fff;
+}
