@@ -1,0 +1,32 @@
+.card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  margin-top: 10px;
+  display: block;
+}
+
+.card__logo {
+  height: 45px;
+  background: url(/svg/logo_fc_bayern_munchen.svg) center center no-repeat;
+  background-size: contain;
+  width: 100%;
+}
+
+.card__section {
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card__section--soft {
+  background-color: #f6f6f6;
+}
+
+.card__column {
+  width: 100%;
+  text-align: center;
+  padding: 7px 0;
+  align-self: flex-end;
+}
