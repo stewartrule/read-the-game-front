@@ -1,0 +1,25 @@
+.simple-percentage-bar {
+  position: relative;
+  height: 10px;
+  background-color: #ccc;
+  width: 100%;
+}
+
+.simple-percentage-bar__segment {
+  position: absolute;
+  height: 10px;
+  top: 0;
+  bottom: 0;
+}
+
+.simple-percentage-bar__segment--left {
+  background-color: #0076ff;
+  left: 0;
+  width: 61%;
+}
+
+.simple-percentage-bar__segment--right {
+  background-color: #42dd84;
+  right: 0;
+  width: 30%;
+}
