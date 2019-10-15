@@ -1,0 +1,46 @@
+.button {
+  font: 15px/16px 'Montserrat', Verdana;
+  color: #fff;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 15px 5px;
+  border: 0;
+  background-color: rgba(255, 255, 255, 0);
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+}
+
+.button--compact {
+  padding: 10px 5px;
+}
+
+.button--active {
+  background-color: #fff;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  color: #000;
+  border-radius: 5px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.button-group .button {
+  display: block;
+}
+
+.button--inverted {
+  color: rgba(255, 255, 255, 0.5)
+}
+
+.button--primary {
+  background-color: #0076ff;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 23, 50, 0.3);
+}
