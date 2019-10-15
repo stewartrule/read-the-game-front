@@ -1,0 +1,22 @@
+.icon-button {
+  background-color: #f9f9f9;
+  color: #000;
+  height: 46px;
+  width: 46px;
+  border-radius: 23px;
+  text-align: center;
+  padding: 0;
+  border: 0;
+  font-size: 16px;
+  line-height: 46px;
+}
+
+.icon-button--primary {
+  background-color: #0076ff;
+  color: #fff;
+}
+
+.icon-button--success {
+  background-color: #42dd84;
+  color: #fff;
+}
