@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { BrandColor } from "../../util/skin";
+import { BrandColor, FontFamily } from "../../util/skin";
 import { Tuple } from "../../util/types";
 import { getPolarPoint, Point } from "../../util/geometry";
 import Donut from "../Donut/Donut";
@@ -138,22 +138,35 @@ const PeriodGraph: React.FC<Props> = ({
     );
   });
 
-  const dots: Dot[] = [];
-  const dotLines: DotLine[] = [];
-  const quarters = [1, 2, 3];
-  quarters.forEach((_, i) => {
-    const offset = 10;
-    const startAngle = (i - 1) * 90 + offset;
-    const stopAngle = i * 90 - offset;
-    const start = getPolarPoint(center, middleRadius, startAngle);
-    const stop = getPolarPoint(center, middleRadius, stopAngle);
+  const getArcAngles = (offset: number = 0) => {
+    return [1, 2, 3].map((_, i) => {
+      const startAngle = (i - 1) * 90 + offset;
+      const stopAngle = i * 90 - offset;
+      const start = getPolarPoint(center, middleRadius, startAngle);
+      const stop = getPolarPoint(center, middleRadius, stopAngle);
+      return { start, stop, startAngle, stopAngle };
+    });
+  };
 
+  const dots: Dot[] = [];
+  getArcAngles(11).forEach(({ start, stop }, i) => {
     const color = i % 2 === 0 ? BrandColor.primary : "#aaa";
     dots.push([start, color]);
     dots.push([stop, color]);
+  });
 
+  const dotLines: DotLine[] = [];
+  getArcAngles(12).forEach(({ startAngle, stopAngle }, i) => {
+    const color = i % 2 === 0 ? BrandColor.primary : "#aaa";
     const arcPath = getArcPath(center, middleRadius, startAngle, stopAngle);
     dotLines.push([arcPath, color]);
+  });
+
+  const labels: LabelProps[] = [];
+  getArcAngles(5).forEach(({ start, stop }, i) => {
+    const color = i % 2 === 0 ? BrandColor.primary : "#aaa";
+    labels.push({ color, center: start, value: i === 0 ? 0 : i * 15 + 1 });
+    labels.push({ color, center: stop, value: (i + 1) * 15 });
   });
 
   return (
@@ -226,14 +239,48 @@ const PeriodGraph: React.FC<Props> = ({
       </g>
 
       {dots.map(([point, color]) => (
-        <circle cx={point.x} cy={point.y} fill={color} r={3} />
+        <circle
+          cx={point.x}
+          cy={point.y}
+          key={`${point.x}_${point.y}`}
+          fill={color}
+          r={3}
+        />
       ))}
 
-      {dotLines.map(([d, color]) => (
-        <path d={d} stroke={color} fill="transparent" strokeDasharray="2, 2" />
+      {dotLines.map(([d, color], i) => (
+        <path
+          d={d}
+          key={i}
+          stroke={color}
+          fill="transparent"
+          strokeDasharray="2, 2"
+        />
+      ))}
+
+      {labels.map(({ center, value, color }) => (
+        <Label center={center} value={value} color={color} />
       ))}
     </svg>
   );
 };
+
+type LabelProps = { center: Point; value: number; color: string };
+
+const Label = ({ center, value, color }: LabelProps) => (
+  <text
+    x={center.x}
+    y={center.y}
+    textAnchor="middle"
+    alignmentBaseline="central"
+    fontFamily={FontFamily.Default}
+    fontWeight="bold"
+    style={{ textAlign: "center" }}
+    fontSize="13px"
+    fill={color}
+  >
+    {value}
+  </text>
+);
 
 export default PeriodGraph;
