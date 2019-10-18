@@ -1,7 +1,9 @@
 import * as React from "react";
+
+import { BrandColor } from "../../util/skin";
 import Card, { CardColumn, CardSection } from "../Card";
-import Time from "../Time";
 import SimplePercentageBar from "../SimplePercentageBar";
+import Time from "../Time";
 import { Game, Team } from "./types";
 
 const TeamScoreList = ({ team }: { team: Team }) => (
@@ -10,12 +12,12 @@ const TeamScoreList = ({ team }: { team: Team }) => (
       .filter(({ hit }) => hit)
       .sort((a, b) => a.time.valueOf() - b.time.valueOf())
       .map(shot => (
-        <p key={shot.time.valueOf()}>
+        <p key={shot.id}>
           <strong>
             {shot.time.getMinutes()}
             {`' `}
           </strong>
-          {shot.player.lastname}
+          {shot.player.lastName}
         </p>
       ))}
   </>
@@ -32,28 +34,36 @@ const GameCard: React.FC<Props> = ({
   game: { homeTeam, awayTeam, start, stop }
 }) => (
   <Card>
-    <CardSection>
+    <CardSection padding={[1]}>
       <CardColumn>
         <div className="card__logo"></div>
-        <h4>{homeTeam.name}</h4>
       </CardColumn>
       <CardColumn>
         <h1>
           {calculateScore(homeTeam)} {` : `}
           {calculateScore(awayTeam)}
         </h1>
-        <p>
+      </CardColumn>
+      <CardColumn>
+        <div className="card__logo"></div>
+      </CardColumn>
+    </CardSection>
+    <CardSection padding={[0, 1, 1, 1]}>
+      <CardColumn>
+        <h4 style={{ color: BrandColor.primary }}>{homeTeam.name}</h4>
+      </CardColumn>
+      <CardColumn>
+        <p style={{ color: "#777" }}>
           <Time date={start} />
           {` - `}
           <Time date={stop} />
         </p>
       </CardColumn>
       <CardColumn>
-        <div className="card__logo"></div>
-        <h4>{awayTeam.name}</h4>
+        <h4 style={{ color: BrandColor.secondary }}>{awayTeam.name}</h4>
       </CardColumn>
     </CardSection>
-    <CardSection soft>
+    <CardSection soft padding={[1]}>
       <CardColumn>
         <TeamScoreList team={homeTeam} />
       </CardColumn>
@@ -62,18 +72,26 @@ const GameCard: React.FC<Props> = ({
         <TeamScoreList team={awayTeam} />
       </CardColumn>
     </CardSection>
-    <CardSection>
+    <CardSection padding={[1]}>
       <CardColumn>
-        <h4>{Math.round(homeTeam.control * 100)}%</h4>
+        <h4 style={{ color: BrandColor.primary }}>
+          {Math.round(homeTeam.control * 100)}%
+        </h4>
       </CardColumn>
       <CardColumn>
-        <h4>Ballcontrol</h4>
+        <h4>Ballkontrole</h4>
       </CardColumn>
       <CardColumn>
-        <h4>{Math.round(awayTeam.control * 100)}%</h4>
+        <h4 style={{ color: BrandColor.secondary }}>
+          {Math.round(awayTeam.control * 100)}%
+        </h4>
       </CardColumn>
     </CardSection>
-    <SimplePercentageBar left={homeTeam.control} right={awayTeam.control} />
+    <CardSection>
+      <CardColumn>
+        <SimplePercentageBar left={homeTeam.control} right={awayTeam.control} />
+      </CardColumn>
+    </CardSection>
   </Card>
 );
 

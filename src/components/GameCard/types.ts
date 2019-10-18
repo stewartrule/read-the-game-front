@@ -1,9 +1,10 @@
 export type Shot = {
+  id: number
   hit: boolean;
   time: Date;
   player: {
     id: number;
-    lastname: string;
+    lastName: string;
   };
 };
 
