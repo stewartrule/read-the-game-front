@@ -138,7 +138,7 @@ const PeriodGraph: React.FC<Props> = ({
     );
   });
 
-  const getArcAngles = (offset: number = 0) => {
+  const getArcOffsets = (offset: number = 0) => {
     return [1, 2, 3].map((_, i) => {
       const startAngle = (i - 1) * 90 + offset;
       const stopAngle = i * 90 - offset;
@@ -149,21 +149,21 @@ const PeriodGraph: React.FC<Props> = ({
   };
 
   const dots: Dot[] = [];
-  getArcAngles(11).forEach(({ start, stop }, i) => {
+  getArcOffsets(11).forEach(({ start, stop }, i) => {
     const color = i % 2 === 0 ? BrandColor.primary : "#aaa";
     dots.push([start, color]);
     dots.push([stop, color]);
   });
 
   const dotLines: DotLine[] = [];
-  getArcAngles(12).forEach(({ startAngle, stopAngle }, i) => {
+  getArcOffsets(12).forEach(({ startAngle, stopAngle }, i) => {
     const color = i % 2 === 0 ? BrandColor.primary : "#aaa";
     const arcPath = getArcPath(center, middleRadius, startAngle, stopAngle);
     dotLines.push([arcPath, color]);
   });
 
   const labels: LabelProps[] = [];
-  getArcAngles(5).forEach(({ start, stop }, i) => {
+  getArcOffsets(5).forEach(({ start, stop }, i) => {
     const color = i % 2 === 0 ? BrandColor.primary : "#aaa";
     labels.push({ color, center: start, value: i === 0 ? 0 : i * 15 + 1 });
     labels.push({ color, center: stop, value: (i + 1) * 15 });
@@ -259,7 +259,12 @@ const PeriodGraph: React.FC<Props> = ({
       ))}
 
       {labels.map(({ center, value, color }) => (
-        <Label center={center} value={value} color={color} />
+        <Label
+          key={`${center.x}_${center.y}`}
+          center={center}
+          value={value}
+          color={color}
+        />
       ))}
     </svg>
   );
