@@ -2,7 +2,6 @@ import { Game } from "./types";
 
 const teams = [
   "Borussia Dortmund",
-  "Borussia Mönchengladbach",
   "Eintracht Frankfurt",
   "FC Augsburg",
   "FC Bayern München",
@@ -44,7 +43,7 @@ const getShots = () =>
 const games: Game[] = teams.map((_, i) => {
   const shotsHome = getShots();
   const shotsAway = getShots();
-  const factor = 1 / (shotsHome.length + shotsAway.length);
+  const factor = 1 / (shotsHome.length + shotsAway.length + 3);
 
   return {
     start: time(i * 90),
