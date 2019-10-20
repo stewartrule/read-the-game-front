@@ -6,7 +6,7 @@ import GameCard from ".";
 import { games } from "./fixtures";
 
 storiesOf("GameCard", module)
-  .addDecorator(getStory => <Section>{getStory()}</Section>)
+  .addDecorator(getStory => <Section padding={[1, 2]}>{getStory()}</Section>)
   .add("GameCard", () => <GameCard game={games[0]} />)
   .add("GameCards", () => (
     <>

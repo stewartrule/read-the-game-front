@@ -6,7 +6,7 @@ import Section from "../Section";
 import Meter from "./Meter";
 
 storiesOf("Meter", module)
-  .addDecorator(getStory => <Section spacious>{getStory()}</Section>)
+  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
   .add("Meter", () => (
     <Meter value={0.5} color={BrandColor.primary}>
       {value => value * 100}
