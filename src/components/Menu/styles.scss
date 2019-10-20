@@ -1,0 +1,22 @@
+.menu {
+  padding-bottom: 0.5rem;
+}
+
+.menu__head,
+.menu__item {
+  font-size: 1rem;
+  display: block;
+  font-weight: bold;
+  padding: 0.75rem 1.5rem;
+}
+
+.menu__item--active {
+  color: #fff;
+}
+
+.menu__head {
+  border-top: 1px solid rgba(0, 10, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 10, 0, 0.2);
+  color: rgba(0, 0, 0, 0.4);
+  margin: 0 0 0.5rem 0;
+}

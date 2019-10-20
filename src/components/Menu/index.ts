@@ -1,4 +1,4 @@
-import "./styles.css";
+import "./styles.scss";
 
 export { default } from "./Menu";
 export { default as MenuItem } from "./MenuItem";
