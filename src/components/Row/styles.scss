@@ -1,0 +1,48 @@
+.row {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  background: #fff;
+  color: #fff;
+}
+
+.row--light {
+  background-color: #f6f6f6;
+}
+
+.row--primary {
+  background-color: #0076ff;
+}
+
+.row--secondary {
+  background-color: #42dd84;
+}
+
+.row--dark {
+  background-color: #000;
+}
+
+.row__cell {
+  width: 100%;
+  // display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.row__cell--right {
+  text-align: right;
+}
+
+.row__cell--center {
+  text-align: center;
+  // justify-content: center;
+  // align-items: center;
+}
+
+.row__cell--top {
+  align-items: flex-start;
+}
+
+.row__cell--bottom {
+  justify-content: end;
+}
