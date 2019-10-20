@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  x="0"
+  y="0"
+  width="600"
+  height="1000"
+  viewBox="0 0 600 1000"
+>
+  <!-- field boundary -->
+  <rect
+    x="2"
+    y="2"
+    width="596"
+    height="996"
+    fill="#fff"
+    stroke="#fff"
+    stroke-width="4"
+  />
+
+  <!-- circle top -->
+  <circle
+    cx="300"
+    cy="120"
+    r="96"
+    fill="#fff"
+    stroke="#ddd"
+    stroke-width="4"
+  />
+
+  <!-- circle bottom -->
+  <circle
+    cx="300"
+    cy="880"
+    r="96"
+    fill="#fff"
+    stroke="#ddd"
+    stroke-width="4"
+  />
+
+  <!-- goal area top -->
+  <rect
+    x="160"
+    y="2"
+    width="280"
+    height="170"
+    fill="#fff"
+    stroke="#ddd"
+    stroke-width="4"
+  />
+
+  <!-- goal top -->
+  <rect
+    x="225"
+    y="2"
+    width="150"
+    height="60"
+    fill="#fff"
+    stroke="#ddd"
+    stroke-width="4"
+  />
+
+  <!-- middle circle -->
+  <circle
+    cx="300"
+    cy="500"
+    r="86"
+    fill="#fff"
+    stroke="#ddd"
+    stroke-width="4"
+  />
+
+  <!-- goal area bottom -->
+  <rect
+    x="160"
+    y="828"
+    width="280"
+    height="170"
+    fill="#fff"
+    stroke="#ddd"
+    stroke-width="4"
+  />
+
+  <!-- goal bottom -->
+  <rect
+    x="225"
+    y="938"
+    width="150"
+    height="60"
+    fill="#fff"
+    stroke="#ddd"
+    stroke-width="4"
+  />
+
+  <!-- middle line -->
+  <rect
+    x="0"
+    y="498"
+    width="600"
+    height="4"
+    fill="#ddd"
+    stroke-width="0"
+  />
+
+</svg>
