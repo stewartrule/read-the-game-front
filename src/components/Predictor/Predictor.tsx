@@ -6,38 +6,50 @@ import PredictorItem from "./PredictorItem";
 import { DurationItemType, PositionItemType, PredictorItemType } from "./types";
 
 type Props = {
-  values: PredictorItemType[];
-  onChangeDuration: (value: DurationItemType, index: number) => void;
-  onChangePosition: (value: PositionItemType, index: number) => void;
+  items: PredictorItemType[];
+  onChangeDuration: (value: DurationItemType) => void;
+  onChangePosition: (value: PositionItemType) => void;
 };
 
 const Predictor: React.FC<Props> = ({
-  values,
+  items,
   onChangePosition,
   onChangeDuration
 }) => (
   <div className="predictor">
-    {values.map((value, i) => {
-      switch (value.type) {
+    {items.map(item => {
+      switch (item.type) {
         case "text":
-          return <PredictorItem key={i}>{value.value}</PredictorItem>;
+          return (
+            <PredictorItem state={item.state} key={item.id}>
+              {item.value}
+            </PredictorItem>
+          );
 
         case "position":
           return (
-            <PredictorItem key={i} onChange={() => onChangePosition(value, i)}>
-              {value.value}
+            <PredictorItem
+              key={item.id}
+              state={item.state}
+              onChange={() => onChangePosition(item)}
+            >
+              {item.value}
             </PredictorItem>
           );
 
         case "duration":
           return (
-            <PredictorItem key={i} onChange={() => onChangeDuration(value, i)}>
-              {value.value}
+            <PredictorItem
+              key={item.id}
+              state={item.state}
+              onChange={() => onChangeDuration(item)}
+            >
+              {item.value}
             </PredictorItem>
           );
       }
 
-      return unreachable(value);
+      return unreachable(item);
     })}
   </div>
 );
