@@ -26,7 +26,7 @@ const SimpleRadarGraph: React.FC<Props> = ({
   };
 
   const outer = stats
-    .map((_, i) => getPolarPoint(center, radius, i * step))
+    .map((_, i) => getPolarPoint(center, radius - 2, i * step))
     .map(({ x, y }) => `${x},${y}`)
     .join(" ");
 
@@ -38,22 +38,24 @@ const SimpleRadarGraph: React.FC<Props> = ({
     .join(" ");
 
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-      <polygon
-        points={outer}
-        fill="rgba(0, 0, 0, 0)"
-        stroke="rgba(0, 0, 0, 0.5)"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-      <polygon
-        points={inner}
-        fill="rgba(255, 255, 255, 0.3)"
-        stroke="#fff"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <div>
+      <svg width="100%" height="100%" viewBox={`0 0 ${size} ${size}`}>
+        <polygon
+          points={outer}
+          fill="rgba(0, 0, 0, 0)"
+          stroke="rgba(0, 0, 0, 0.4)"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <polygon
+          points={inner}
+          fill="rgba(255, 255, 255, 0.3)"
+          stroke="#fff"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
   );
 };
 
