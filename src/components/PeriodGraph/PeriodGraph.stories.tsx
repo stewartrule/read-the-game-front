@@ -8,7 +8,7 @@ import Section from "../Section";
 import Graph, { ValueType } from "./PeriodGraph";
 
 storiesOf("PeriodGraph", module)
-  .addDecorator(getStory => <Section spacious>{getStory()}</Section>)
+  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
   .addDecorator(withKnobs)
   .add("PeriodGraph", () => {
     const values: ValueType[] = Array.from({ length: 6 }, (_, i) => {
