@@ -23,17 +23,8 @@ module.exports = {
         loader: "awesome-typescript-loader"
       },
       {
-        test: /\.css$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: "./",
-              hmr: process.env.NODE_ENV === "development"
-            }
-          },
-          "css-loader"
-        ]
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"]
       }
     ]
   },
