@@ -6,5 +6,5 @@ import { game } from "./fixture";
 import ScoreBoard from "./ScoreBoard";
 
 storiesOf("ScoreBoard", module)
-  .addDecorator(getStory => <Section spacious>{getStory()}</Section>)
+  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
   .add("ScoreBoard", () => <ScoreBoard game={game} />);

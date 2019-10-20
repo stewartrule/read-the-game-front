@@ -7,11 +7,11 @@ import PercentageBar from "./SimplePercentageBar";
 const fibonacci = [0.1, 0.2, 0.3, 0.5, 0.8];
 
 storiesOf("SimplePercentageBar", module)
-  .addDecorator(getStory => <Section>{getStory()}</Section>)
+  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
   .add("Without gap", () => (
     <>
       {fibonacci.map(left => (
-        <Section key={left}>
+        <Section padding={[1]} key={left}>
           <PercentageBar left={left} right={1 - left} />
         </Section>
       ))}
@@ -20,7 +20,7 @@ storiesOf("SimplePercentageBar", module)
   .add("With Gap", () => (
     <>
       {fibonacci.map(left => (
-        <Section key={left}>
+        <Section padding={[1]} key={left}>
           <PercentageBar left={left} right={(1 - left) / 2} />
         </Section>
       ))}

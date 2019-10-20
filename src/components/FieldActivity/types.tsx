@@ -1,7 +1,10 @@
-export type Stats = {
+export type Activity = {
   x: number;
   y: number;
   value: number;
 };
 
-export type Area = Stats[];
+export type TeamActivity = {
+  id: number
+  activity: Activity[]
+};

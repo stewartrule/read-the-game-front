@@ -4,13 +4,19 @@ import bem from "../../util/bem";
 
 type Props = {
   active?: boolean;
-  arrow?: boolean;
+  primary?: boolean;
 };
 
-const Tab: React.FC<Props> = ({ active = false, arrow = false, children }) => (
-  <button className={bem({ tab: true, "tab--active": active })}>
+const Tab: React.FC<Props> = ({
+  active = false,
+  primary = false,
+  children
+}) => (
+  <button
+    className={bem({ tab: { "--active": active, "--primary": primary } })}
+  >
     <span>{children}</span>
-    {arrow && <span className="icon-down-open"></span>}
+    <span className="icon icon-down-open"></span>
   </button>
 );
 

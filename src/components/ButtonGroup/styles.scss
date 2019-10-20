@@ -1,10 +1,10 @@
 .button {
-  font: 15px/16px 'Montserrat', Verdana;
+  font: 1rem/1rem 'Montserrat', Verdana;
   color: #fff;
   display: block;
   width: 100%;
   margin: 0;
-  padding: 15px 5px;
+  padding: 1rem 0.5px;
   border: 0;
   background-color: rgba(255, 255, 255, 0);
   color: rgba(0, 0, 0, 0.5);
@@ -12,23 +12,22 @@
 }
 
 .button--compact {
-  padding: 10px 5px;
+  padding: 0.75rem 0.5px;
 }
 
 .button--active {
   background-color: #fff;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
   color: #000;
-  border-radius: 5px;
+  border-radius: 0.25rem;
 }
 
 .button-group {
   display: flex;
   justify-content: space-between;
   padding: 0;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  margin: 10px;
+  background-color: rgba(0, 0, 0, 0.075);
+  border-radius: 0.25rem;
 }
 
 .button-group .button {

@@ -3,68 +3,76 @@ import * as React from "react";
 import { Tuple } from "../../util/types";
 import AreaActivity from "./AreaActivity";
 import Lines from "./Lines";
-import { Area } from "./types";
+import { TeamActivity } from "./types";
 
 type RGB = Tuple<number, 3>;
-type Offsets = Tuple<number, 5>;
-type AreaConfig = ["left" | "right", Offsets, Area, RGB];
+type Offsets = number[];
+type AreaConfig = [TeamActivity, Offsets, RGB];
 
 type Props = {
-  left: Area;
-  right: Area;
+  teams: TeamActivity[];
 };
 
 const width = 1000;
 const height = 600;
-const maskWidth = width / 10;
+const colors: RGB[] = [[0, 118, 255], [66, 221, 132]];
 
-const FieldActivity: React.FC<Props> = ({ left, right }) => {
-  const areas: AreaConfig[] = [
-    ["left", [0, 2, 4, 6, 8], left, [0, 118, 255]],
-    ["right", [1, 3, 5, 7, 9], right, [66, 221, 132]]
-  ];
+const FieldActivity: React.FC<Props> = ({ teams }) => {
+  const teamCount = teams.length;
+  const maskWidth = width / (teamCount * 5);
+
+  const areas: AreaConfig[] = teams.map((team, i) => [
+    team,
+    [0, 0, 0, 0, 0].map((_, col) => col * teamCount + i),
+    colors[i % 2]
+  ]);
 
   return (
-    <svg width="100%" height="60%" viewBox={`0 0 ${width} ${height}`}>
-      <Lines />
-      <defs>
-        {areas.map(([id, offsets]) => (
-          <mask
-            key={id}
-            id={`mask_area_${id}`}
-            x={0}
-            y={0}
+    <div>
+      <svg width="100%" height="60%" viewBox={`0 0 ${width} ${height}`}>
+        <Lines />
+        {areas.length > 1 && (
+          <defs>
+            {areas.map(([{ id }, offsets]) => (
+              <mask
+                key={id}
+                id={`mask_area_${id}`}
+                x={0}
+                y={0}
+                width={width}
+                height={height}
+              >
+                {offsets.map(offset => (
+                  <rect
+                    key={offset}
+                    x={offset * maskWidth + 1}
+                    y={0}
+                    width={maskWidth - 2}
+                    height={height}
+                    fill="#fff"
+                    stroke="#fff"
+                    strokeWidth="0"
+                  />
+                ))}
+              </mask>
+            ))}
+          </defs>
+        )}
+
+        {areas.map(([team, _, [r, g, b]]) => (
+          <AreaActivity
+            key={team.id}
+            team={team}
+            mask={areas.length > 1 ? `url(#mask_area_${team.id})` : undefined}
+            r={r}
+            g={g}
+            b={b}
             width={width}
             height={height}
-          >
-            {offsets.map(i => (
-              <rect
-                key={i}
-                x={i * maskWidth + 1}
-                y={0}
-                width={maskWidth - 2}
-                height={height}
-                fill="#fff"
-                stroke="#fff"
-                strokeWidth="0"
-              />
-            ))}
-          </mask>
+          />
         ))}
-      </defs>
-      {areas.map(([id, _, area, [r, g, b]]) => (
-        <AreaActivity
-          stats={area}
-          key={id}
-          id={id}
-          r={r}
-          g={g}
-          b={b}
-          width={width}
-          height={height}
-        />
-      ))}
-    </svg>
+      </svg>
+    </div>
   );
 };
 

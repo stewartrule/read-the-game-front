@@ -29,7 +29,7 @@ const mapped = players.map(({ id, shots }, i) => {
 });
 
 storiesOf("Avatar", module)
-  .addDecorator(getStory => <Section>{getStory()}</Section>)
+  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
   .add("Primary", () => (
     <>
       {mapped.map((player, i) => (

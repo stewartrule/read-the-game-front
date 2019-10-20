@@ -1,8 +1,9 @@
-import "./styles.css";
+import "./styles.scss";
 
 import * as React from "react";
 
-import Avatar from "../Avatar/Avatar";
+import { BrandColor } from "../../util/skin";
+import Avatar from "../Avatar";
 
 type Shot = {
   hit: boolean;
@@ -23,17 +24,20 @@ type Props = {
   imageRadius?: number;
   imageBorder?: number;
   valueBorder?: number;
+  color?: BrandColor;
 };
 
 const Player: React.FC<Props> = ({
   player,
   imageRadius = 20,
   imageBorder = 1,
-  valueBorder = 3
+  valueBorder = 3,
+  color = BrandColor.primary
 }) => {
   const uid = `player_item_${imageRadius}_${player.id}`;
   const shots = player.shots;
   const hits = shots.filter(({ hit }) => hit);
+
   return (
     <div className="player-item" key={uid}>
       <Avatar
@@ -42,11 +46,10 @@ const Player: React.FC<Props> = ({
         radius={imageRadius}
         border={imageBorder}
         valueBorder={valueBorder}
+        color={color}
       />
       <div>
         <h4>
-          {player.firstname}
-          {` `}
           {player.lastname}
         </h4>
         <p>{player.dob.toLocaleDateString()}</p>

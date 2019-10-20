@@ -67,7 +67,7 @@ const reducer = (state: State, action: Action): State => {
 };
 
 storiesOf("Predictor", module)
-  .addDecorator(getStory => <Section spacious>{getStory()}</Section>)
+  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
   .add("Predictor", () => {
     const [index, setIndex] = useState<number | undefined>(undefined);
 

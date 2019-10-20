@@ -1,6 +1,6 @@
-import "../src/css/reset.css";
-import "../src/css/base.css";
-import "../src/css/fontello.css";
+import "../src/scss/reset.scss";
+import "../src/scss/base.scss";
+import "../src/scss/fontello.scss";
 
 import { addParameters, addDecorator, configure } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";

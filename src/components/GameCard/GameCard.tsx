@@ -53,11 +53,11 @@ const GameCard: React.FC<Props> = ({
         <h4 style={{ color: BrandColor.primary }}>{homeTeam.name}</h4>
       </CardColumn>
       <CardColumn>
-        <p style={{ color: "#777" }}>
+        <h4 style={{ color: "#999" }}>
           <Time date={start} />
           {` - `}
           <Time date={stop} />
-        </p>
+        </h4>
       </CardColumn>
       <CardColumn>
         <h4 style={{ color: BrandColor.secondary }}>{awayTeam.name}</h4>

@@ -26,11 +26,13 @@ export const CardSection: React.FC<CardSectionProps> = ({
       card__section: true,
       "card__section--soft": soft
     })}
-    style={{
-      padding: padding
-        ? padding.map(value => `${value * 6}px`).join(" ")
+    style={
+      padding
+        ? {
+            padding: padding.map(value => `${value * 0.5}rem`).join(" ")
+          }
         : undefined
-    }}
+    }
   >
     {filterChildren(children, [CardColumn])}
   </div>

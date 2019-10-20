@@ -7,7 +7,7 @@ import AreaSelect from "./";
 const { useState } = React;
 
 storiesOf("AreaSelect", module)
-  .addDecorator(getStory => <Section spacious>{getStory()}</Section>)
+  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
   .add("AreaSelect", () => {
     const [index, setIndex] = useState<number | undefined>(undefined);
 

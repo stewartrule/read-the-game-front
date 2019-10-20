@@ -1,10 +1,9 @@
-import "./styles.css";
-
 import * as React from "react";
 
-import bem from "../../util/bem";
+import { BrandColor } from "../../util/skin";
 import { Game, Team } from "./types";
 import PercentageBar from "../PercentageBar";
+import Row, { Cell } from "../Row";
 
 type TeamScoreBoardProps = {
   game: Game;
@@ -19,17 +18,12 @@ const TeamScoreBoard: React.FC<TeamScoreBoardProps> = ({ team, type }) => {
   const hits = team.shots.filter(({ hit }) => hit);
 
   return (
-    <div
-      className={bem({
-        "score-board__team": {
-          [`--${type}`]: true
-        }
-      })}
-    >
-      <h5>{team.name}</h5>
-      {hits.map(({ player, time }) => (
+    <div>
+      {hits.map(({ player: { lastname }, time }) => (
         <p key={time.valueOf()}>
-          <strong>{time.getMinutes()}'</strong> {player.lastname}
+          {type === "away" && `${lastname} `}
+          <strong>{time.getMinutes()}'</strong>
+          {type === "home" && ` ${lastname}`}
         </p>
       ))}
     </div>
@@ -38,16 +32,29 @@ const TeamScoreBoard: React.FC<TeamScoreBoardProps> = ({ team, type }) => {
 
 const ScoreBoard: React.FC<{ game: Game }> = ({ game }) => (
   <>
-    <div className="score-board">
-      <TeamScoreBoard type="home" team={game.homeTeam} game={game} />
-      <div className="score-board__score">
-        <h3>
+    <Row padding={[2, 1]} dark>
+      <Cell right bottom>
+        <h5 style={{ color: BrandColor.primary }}>{game.homeTeam.name}</h5>
+      </Cell>
+      <Cell center bottom width={14}>
+        <h3 style={{ color: "#fff", lineHeight: "1.5rem" }}>
           {calculateScore(game.homeTeam)} {` : `}
           {calculateScore(game.awayTeam)}
         </h3>
-      </div>
-      <TeamScoreBoard type="away" team={game.awayTeam} game={game} />
-    </div>
+      </Cell>
+      <Cell bottom>
+        <h5 style={{ color: BrandColor.secondary }}>{game.awayTeam.name}</h5>
+      </Cell>
+    </Row>
+    <Row padding={[0, 0, 4, 0]} dark>
+      <Cell right>
+        <TeamScoreBoard type="home" team={game.homeTeam} game={game} />
+      </Cell>
+      <Cell center width={14}></Cell>
+      <Cell>
+        <TeamScoreBoard type="away" team={game.awayTeam} game={game} />
+      </Cell>
+    </Row>
     <PercentageBar left={game.homeTeam.control} right={game.awayTeam.control} />
   </>
 );

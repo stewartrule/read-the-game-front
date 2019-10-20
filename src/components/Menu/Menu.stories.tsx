@@ -7,7 +7,7 @@ import MenuItem from "./MenuItem";
 
 storiesOf("Menu", module)
   .addDecorator(getStory => (
-    <Section secondary compact>
+    <Section secondary>
       {getStory()}
     </Section>
   ))

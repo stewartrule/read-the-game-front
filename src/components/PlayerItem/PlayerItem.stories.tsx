@@ -3,6 +3,7 @@ import * as React from "react";
 
 import Section from "../Section";
 import PlayerItem from ".";
+import { BrandColor } from "../../util/skin";
 
 const names = [
   "Bonmann",
@@ -28,11 +29,21 @@ const players = names.map((name, i) => ({
 }));
 
 storiesOf("PlayerItem", module)
-  .addDecorator(getStory => <Section>{getStory()}</Section>)
+  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
   .add("PlayerItem", () => (
     <>
-      {players.map(player => (
-        <PlayerItem key={player.id} player={player} />
+      {players.map((player, i) => (
+        <PlayerItem
+          key={player.id}
+          player={player}
+          color={
+            i % 4 === 3
+              ? BrandColor.warn
+              : i % 2 === 0
+              ? BrandColor.primary
+              : BrandColor.secondary
+          }
+        />
       ))}
     </>
   ));

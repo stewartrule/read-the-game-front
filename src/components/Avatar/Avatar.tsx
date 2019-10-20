@@ -29,50 +29,52 @@ const Avatar: React.FC<Props> = ({
   const maskId = `avatar_${radius}_${value}`;
 
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-      <defs>
-        <mask id={maskId} x={0} y={0} width={size} height={size}>
-          <circle
-            cx={outerRadius}
-            cy={outerRadius}
-            r={radius}
-            stroke="black"
-            strokeWidth={0}
-            fill="white"
-          />
-        </mask>
-      </defs>
-      <circle
-        cx={outerRadius}
-        cy={outerRadius}
-        r={outerRadius}
-        opacity="0.2"
-        strokeWidth={0}
-        fill={color}
-      />
-      <circle
-        cx={outerRadius}
-        cy={outerRadius}
-        r={radius + border}
-        strokeWidth={0}
-        fill="#ccc"
-      />
-      <Donut
-        cx={outerRadius}
-        cy={outerRadius}
-        radius={pieRadius}
-        innerRadius={5}
-        segments={[{ value, fill: color }]}
-      />
-      <image
-        href={image}
-        x={border + bgSize}
-        y={border + bgSize}
-        height={imageSize}
-        width={imageSize}
-        mask={`url(#${maskId}`}
-      />
-    </svg>
+    <div className="avatar">
+      <svg width="100%" height="100%" viewBox={`0 0 ${size} ${size}`}>
+        <defs>
+          <mask id={maskId} x={0} y={0} width={size} height={size}>
+            <circle
+              cx={outerRadius}
+              cy={outerRadius}
+              r={radius}
+              stroke="black"
+              strokeWidth={0}
+              fill="white"
+            />
+          </mask>
+        </defs>
+        <circle
+          cx={outerRadius}
+          cy={outerRadius}
+          r={outerRadius}
+          opacity="0.2"
+          strokeWidth={0}
+          fill={color}
+        />
+        <circle
+          cx={outerRadius}
+          cy={outerRadius}
+          r={radius + border}
+          strokeWidth={0}
+          fill="#ccc"
+        />
+        <Donut
+          cx={outerRadius}
+          cy={outerRadius}
+          radius={pieRadius}
+          innerRadius={5}
+          segments={[{ value, fill: color }]}
+        />
+        <image
+          href={image}
+          x={border + bgSize}
+          y={border + bgSize}
+          height={imageSize}
+          width={imageSize}
+          mask={`url(#${maskId}`}
+        />
+      </svg>
+    </div>
   );
 };
 

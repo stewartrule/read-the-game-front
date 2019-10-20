@@ -9,7 +9,7 @@ import Dialog, { DialogBody, DialogHeader } from "./";
 
 storiesOf("Dialog", module)
   .addDecorator(getStory => (
-    <Section secondary spacious>
+    <Section secondary padding={[1]}>
       {getStory()}
     </Section>
   ))
@@ -21,7 +21,7 @@ storiesOf("Dialog", module)
           <p>Devensives Mittelfeld</p>
         </div>
         <div>
-          <IconButton icon="cancel" />
+          <IconButton icon="cancel" margin={[0, 1, 0, 0]} />
           <IconButton icon="ok" success />
         </div>
       </DialogHeader>
