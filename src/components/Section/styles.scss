@@ -1,0 +1,47 @@
+.section {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+}
+
+.section--center {
+  display: flex;
+  justify-content: center;
+}
+
+.section--soft {
+  background-color: #f6f6f6;
+}
+
+.section--primary {
+  background-color: #0076ff;
+}
+
+.section--secondary {
+  background-color: #42dd84;
+}
+
+.section--dark {
+  background-color: #000;
+}
+
+// .row {
+//   display: flex;
+//   justify-content: space-between;
+//   flex-direction: row;
+//   margin: 0 -10px;
+// }
+
+// .row__col {
+//   width: 100%;
+//   box-sizing: border-box;
+//   padding: 0 10px;
+// }
+
+// .col--3 {
+//   width: 33.333%;
+//   margin: 0 10px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+// }
