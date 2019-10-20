@@ -1,0 +1,47 @@
+.tab {
+  font: 1rem/1rem "Montserrat", Verdana;
+  color: #fff;
+  background-color: #42dd84;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.25rem 1rem;
+  border: 0;
+  margin: 0;
+}
+
+.tab--primary {
+  background-color: #0076ff;
+}
+
+.tab-group {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  background-color: #0076ff;
+}
+
+.tab-group--scrollable {
+  overflow: scroll;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.tab-group .tab {
+  width: 100%;
+}
+
+.tab-group .icon {
+  // padding: 3px 0 0 2px;
+}
+
+.tab-group--scrollable .tab {
+  width: auto;
+  white-space: nowrap;
+  display: block;
+  padding: 1.25rem 1.5rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.tab-group--scrollable .tab--active {
+  color: rgba(255, 255, 255, 1);
+}

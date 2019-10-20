@@ -7,9 +7,26 @@ import TabGroup from "./";
 
 storiesOf("Tab", module)
   .addDecorator(getStory => <Section dark>{getStory()}</Section>)
-  .add("Tab", () => (
+  .add("toggle", () => (
     <TabGroup>
-      <Tab>Bayern</Tab>
-      <Tab active>Dortmun</Tab>
+      <Tab primary>
+        Heim: <strong>Bayern</strong>
+      </Tab>
+      <Tab>
+        Ausw: <strong>Dortmund</strong>
+      </Tab>
+    </TabGroup>
+  ))
+  .add("scrollable", () => (
+    <TabGroup scrollable>
+      <Tab primary>Bayern</Tab>
+      <Tab primary active>
+        Dortmund
+      </Tab>
+      <Tab primary>Dortmund</Tab>
+      <Tab primary>Dortmund</Tab>
+      <Tab primary>Dortmund</Tab>
+      <Tab primary>Dortmund</Tab>
+      <Tab primary>Dortmund</Tab>
     </TabGroup>
   ));
