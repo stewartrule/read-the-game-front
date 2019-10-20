@@ -1,0 +1,27 @@
+.predictor {
+  overflow: hidden;
+  background: #000;
+  padding: 0.5rem 1.25rem 1.25rem 1.25rem;
+}
+
+.predictor__item {
+  border: 0.2rem solid transparent;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  display: inline-block;
+  padding: 0.25rem 0;
+  margin: 0.2rem 0;
+}
+
+.predictor__item--interactive {
+  padding: 0.25rem 0.5rem;
+  border: 0.2rem solid #42dd84;
+  margin: 0.25rem 0.25rem;
+}
+
+.predictor__item--active {
+  border: 0.2rem solid #0076ff;
+  background: #0076ff;
+}
