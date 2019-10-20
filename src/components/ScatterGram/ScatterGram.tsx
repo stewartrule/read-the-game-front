@@ -1,27 +1,37 @@
 import * as React from "react";
+import { FontFamily, BrandColor } from "../../util/skin";
 
 type Player = {
   id: number;
   x: number;
   y: number;
   avatar: string;
+  scored: boolean;
+  substitution: boolean;
+  offense: boolean;
 };
 
 export type Team = {
   id: number;
   players: Player[];
-  color: string;
 };
 
 type Props = {
-  teams: Team[];
+  team: Team;
   size?: number;
   itemRadius?: number;
   borderWidth?: number;
 };
 
+const textProps = {
+  fontFamily: FontFamily.Default,
+  fontWeight: "bold",
+  fontSize: "1rem",
+  fill: BrandColor.dark
+};
+
 const ScatterGram: React.FC<Props> = ({
-  teams = [],
+  team,
   size = 600,
   itemRadius = 12,
   borderWidth = 2
@@ -33,10 +43,11 @@ const ScatterGram: React.FC<Props> = ({
   const halfLineSize = lineSize / 2;
   const viewBox = `0 0 ${size} ${size}`;
   const innerOffset = 20;
-  const dist = size - outerRadius * 2;
+  const dist = size - outerRadius * 2 - innerOffset * 2;
+  const radius = size / 2;
 
   return (
-    <svg x="0" y="0" width={size} height={size} viewBox={viewBox}>
+    <svg width="100%" height="100%" viewBox={viewBox}>
       <rect
         x={halfLineSize}
         y={halfLineSize}
@@ -48,11 +59,11 @@ const ScatterGram: React.FC<Props> = ({
       />
       <polygon
         points={`0,0 ${size},0 0,${size}`}
-        fill="#42dd84"
+        fill={BrandColor.highlight}
         opacity="0.2"
       />
       <line
-        stroke="#42dd84"
+        stroke={BrandColor.highlight}
         strokeWidth={lineSize}
         x1={size - lineSize}
         y1={lineSize}
@@ -63,9 +74,9 @@ const ScatterGram: React.FC<Props> = ({
         stroke="#ddd"
         strokeWidth={lineSize}
         strokeDasharray={dashArray}
-        x1={size / 2 - halfLineSize}
+        x1={radius - halfLineSize}
         y1={innerOffset}
-        x2={size / 2 - halfLineSize}
+        x2={radius - halfLineSize}
         y2={size - innerOffset}
       />
       <line
@@ -73,55 +84,128 @@ const ScatterGram: React.FC<Props> = ({
         strokeWidth={lineSize}
         strokeDasharray={dashArray}
         x1={innerOffset}
-        y1={size / 2 - halfLineSize}
+        y1={radius - halfLineSize}
         x2={size - innerOffset}
-        y2={size / 2 - halfLineSize}
+        y2={radius - halfLineSize}
       />
+
+      <text
+        x={innerOffset}
+        y={radius - 8}
+        textAnchor="left"
+        alignmentBaseline="after-edge"
+        style={{ textAlign: "left" }}
+        {...textProps}
+      >
+        Gespielte Minuten
+      </text>
+
+      <text
+        x={radius - 8}
+        y={size - innerOffset}
+        textAnchor="left"
+        alignmentBaseline="after-edge"
+        style={{ textAlign: "left" }}
+        transform={`rotate(-90 ${radius - 8} ${size - innerOffset})`}
+        {...textProps}
+      >
+        Gespielte Minuten
+      </text>
+
+      <text
+        x={innerOffset}
+        y={radius + 6}
+        textAnchor="left"
+        alignmentBaseline="before-edge"
+        style={{ textAlign: "left" }}
+        {...textProps}
+      >
+        0'
+      </text>
+
+      <text
+        x={size - innerOffset}
+        y={radius + 6}
+        textAnchor="end"
+        alignmentBaseline="before-edge"
+        style={{ textAlign: "right" }}
+        {...textProps}
+      >
+        90'
+      </text>
+
       <defs>
-        {teams.map(team =>
-          team.players.map(({ x, y, id }) => (
-            <mask
-              key={`${id}_${x}_${y}`}
-              id={`scatter_${id}_${size}_${team.id}`}
-              x="0"
-              y="0"
-              width={size}
-              height={size}
-            >
-              <circle
-                cx={x * dist + outerRadius}
-                cy={y * dist + outerRadius}
-                r={itemRadius}
-                stroke="black"
-                strokeWidth="0"
-                fill="white"
-              />
-            </mask>
-          ))
-        )}
+        {team.players.map(({ x, y, id }) => (
+          <mask
+            key={id}
+            id={`scatter_${id}`}
+            x="0"
+            y="0"
+            width={size}
+            height={size}
+          >
+            <circle
+              cx={x * dist + outerRadius + innerOffset}
+              cy={y * dist + outerRadius + innerOffset}
+              r={itemRadius}
+              stroke="black"
+              strokeWidth="0"
+              fill="white"
+            />
+          </mask>
+        ))}
       </defs>
-      {teams.map(team =>
-        team.players.map(({ x, y, avatar, id }) => [
-          <circle
-            key={`circle_${x}_${y}`}
-            cx={x * dist + outerRadius}
-            cy={y * dist + outerRadius}
-            r={outerRadius}
-            strokeWidth="0"
-            fill={team.color}
-          />,
-          <image
-            key={`image_${x}_${y}`}
-            href={avatar}
-            x={x * dist + borderWidth}
-            y={y * dist + borderWidth}
-            height={itemRadius * 2}
-            width={itemRadius * 2}
-            mask={`url(#scatter_${id}_${size}_${team.id})`}
-          />
-        ])
-      )}
+      {team.players.map(player => (
+        <Item
+          key={player.id}
+          player={player}
+          cx={player.x * dist + outerRadius + innerOffset}
+          cy={player.y * dist + outerRadius + innerOffset}
+          radius={itemRadius}
+          border={2}
+        />
+      ))}
     </svg>
+  );
+};
+
+type ItemProps = {
+  player: Player;
+  cx: number;
+  cy: number;
+  radius: number;
+  border: number;
+};
+
+const Item: React.FC<ItemProps> = ({
+  cx,
+  cy,
+  radius,
+  border,
+  player: { avatar, id, scored, offense, substitution }
+}) => {
+  return (
+    <>
+      <circle
+        cx={cx}
+        cy={cy}
+        r={radius + border}
+        strokeWidth="0"
+        fill={
+          scored ? BrandColor.highlight : offense ? BrandColor.warn : "#eee"
+        }
+      />
+      <circle cx={cx} cy={cy} r={radius} strokeWidth="0" fill={"#fff"} />
+      <image
+        href={avatar}
+        x={cx - radius}
+        y={cy - radius}
+        height={radius * 2}
+        width={radius * 2}
+        mask={`url(#scatter_${id})`}
+        opacity={substitution && (!scored && !offense) ? 0.5 : 1}
+      />
+    </>
   );
 };
 
