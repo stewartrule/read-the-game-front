@@ -1,19 +1,19 @@
 import * as React from "react";
-import { Area } from "./types";
+import { TeamActivity } from "./types";
 
 type Props = {
-  stats: Area;
-  id: "left" | "right";
+  team: TeamActivity;
   width?: number;
   height?: number;
   r?: number;
   g?: number;
   b?: number;
+  mask?: string;
 };
 
 const AreaActivity: React.FC<Props> = ({
-  stats,
-  id,
+  team,
+  mask,
   width = 1000,
   height = 600,
   r = 0,
@@ -25,26 +25,26 @@ const AreaActivity: React.FC<Props> = ({
 
   return (
     <>
-      {stats.map(({ x, y, value }) => [
+      {team.activity.map(({ x, y, value }) => [
         <circle
-          key={`${id}_${y}_${x}`}
+          key={`${team.id}_${y}_${x}`}
           cx={x * step + radius}
           cy={y * step + radius}
           r={value * (radius - 4)}
           stroke="black"
           strokeWidth="0"
           fill={`rgba(${r}, ${g}, ${b}, 0.33)`}
-          mask={`url(#mask_area_${id})`}
+          mask={mask}
         />,
         <circle
-          key={`inner_${id}_${y}_${x}`}
+          key={`inner_${team.id}_${y}_${x}`}
           cx={x * step + radius}
           cy={y * step + radius}
           r={(value / 3) * (radius - 4)}
           stroke="black"
           strokeWidth="0"
           fill={`rgba(${r}, ${g}, ${b}, 1)`}
-          mask={`url(#mask_area_${id})`}
+          mask={mask}
         />
       ])}
     </>
