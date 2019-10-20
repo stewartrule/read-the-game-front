@@ -1,14 +1,14 @@
 .card {
   background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: .25rem;
+  box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  margin-top: 10px;
+  margin-top: 1rem;
   display: block;
 }
 
 .card__logo {
-  height: 45px;
+  height: 3rem;
   background: url(/svg/logo_fc_bayern_munchen.svg) center center no-repeat;
   background-size: contain;
   width: 100%;
