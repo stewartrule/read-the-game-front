@@ -6,17 +6,37 @@ import Button from "./Button";
 import ButtonGroup from "./";
 
 storiesOf("ButtonGroup", module)
-  .add("Button Group", () => (
-    <Section secondary>
+  .add("Default", () => (
+    <>
+      <Section secondary padding={[2]}>
+        <ButtonGroup>
+          <Button>Click me</Button>
+          <Button>Click me</Button>
+          <Button active>Click me</Button>
+        </ButtonGroup>
+      </Section>
+      <Section primary padding={[2]}>
+        <ButtonGroup>
+          <Button inverted>Click me</Button>
+          <Button inverted>Click me</Button>
+          <Button active>Click me</Button>
+        </ButtonGroup>
+      </Section>
+    </>
+  ))
+  .add("Compact", () => (
+    <Section secondary padding={[1]}>
       <ButtonGroup>
-        <Button>Click me</Button>
-        <Button>Click me</Button>
-        <Button active>Click me</Button>
+        <Button compact>Click me</Button>
+        <Button compact>Click me</Button>
+        <Button compact active>
+          Click me
+        </Button>
       </ButtonGroup>
     </Section>
   ))
-  .add("Button Toggle", () => (
-    <Section>
+  .add("Toggle", () => (
+    <Section padding={[3]}>
       <ButtonGroup>
         <Button>Bayern</Button>
         <Button active primary>
@@ -27,7 +47,11 @@ storiesOf("ButtonGroup", module)
   ));
 
 storiesOf("Button", module)
-  .addDecorator(getStory => <Section secondary>{getStory()}</Section>)
+  .addDecorator(getStory => (
+    <Section padding={[1]} secondary>
+      {getStory()}
+    </Section>
+  ))
   .add("Button", () => <Button>Click me</Button>)
   .add("Button Active", () => <Button active>Click me</Button>)
   .add("Button Inverted", () => <Button inverted>Click me</Button>)
