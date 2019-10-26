@@ -3,15 +3,14 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
 import { BrandColor } from "../../util/skin";
-import { Tuple } from "../../util/types";
 import Section from "../Section";
-import Graph, { ValueType } from "./PeriodGraph";
+import Graph, { PeriodGraphPeriod } from "./PeriodGraph";
 
 storiesOf("PeriodGraph", module)
   .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
   .addDecorator(withKnobs)
   .add("PeriodGraph", () => {
-    const values: ValueType[] = Array.from({ length: 6 }, (_, i) => {
+    const periods: PeriodGraphPeriod[] = Array.from({ length: 6 }, (_, i) => {
       const inner = number(
         `Inner`,
         Math.round(Math.random() * 10) / 10,
@@ -48,5 +47,5 @@ storiesOf("PeriodGraph", module)
       };
     });
 
-    return <Graph values={values as Tuple<ValueType, 6>} />;
+    return <Graph periods={periods} />;
   });

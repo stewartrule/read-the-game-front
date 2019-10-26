@@ -5,20 +5,20 @@ import { Tuple } from "../../util/types";
 import { getPolarPoint, Point } from "../../util/geometry";
 import Donut from "../Donut/Donut";
 
-type Segment = {
+export type PeriodGraphValue = {
   fill: BrandColor;
   value: number;
 };
 
-export type ValueType = {
-  inner: Segment;
-  outer: Segment;
+export type PeriodGraphPeriod = {
+  inner: PeriodGraphValue;
+  outer: PeriodGraphValue;
 };
 
 type RGB = Tuple<number, 3>;
-type Values = Tuple<ValueType, 6> | Tuple<ValueType, 9> | Tuple<ValueType, 12>;
+
 type Props = {
-  values: Values;
+  periods: PeriodGraphPeriod[];
   radius?: number;
   innerRadius?: number;
   colors?: RGB[];
@@ -57,7 +57,7 @@ function getArcPath(
 }
 
 const PeriodGraph: React.FC<Props> = ({
-  values,
+  periods,
   radius = 240,
   innerRadius = 60,
   colors = [[66, 221, 132], [0, 118, 255]],
@@ -72,10 +72,10 @@ const PeriodGraph: React.FC<Props> = ({
   const middleOuterRadius = middleRadius + middleOffset;
 
   const size = radius * 2;
-  const angle = 1 / ((values.length / 3) * 4);
+  const angle = 1 / ((periods.length / 3) * 4);
   const center = { x: radius, y: radius };
 
-  const outer = values.map(({ outer }, i) => (
+  const outer = periods.map(({ outer }, i) => (
     <Donut
       key={`outer_${i}`}
       cx={radius}
@@ -89,7 +89,7 @@ const PeriodGraph: React.FC<Props> = ({
     />
   ));
 
-  const outerBorder = values.map(({ outer }, i) => {
+  const outerBorder = periods.map(({ outer }, i) => {
     const donutRadius = middleOuterRadius + valueRange * outer.value;
 
     return (
@@ -107,7 +107,7 @@ const PeriodGraph: React.FC<Props> = ({
     );
   });
 
-  const inner = values.map(({ inner }, i) => (
+  const inner = periods.map(({ inner }, i) => (
     <Donut
       key={`inner_${i}`}
       cx={radius}
@@ -121,7 +121,7 @@ const PeriodGraph: React.FC<Props> = ({
     />
   ));
 
-  const innerBorder = values.map(({ inner }, i) => {
+  const innerBorder = periods.map(({ inner }, i) => {
     const donutRadius = middleInnerRadius - valueRange * inner.value;
     return (
       <Donut
