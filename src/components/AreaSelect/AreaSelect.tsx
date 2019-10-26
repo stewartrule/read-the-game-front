@@ -29,26 +29,24 @@ type Props = {
   onSelect: (index: number) => void;
 };
 
-const AreaSelect: React.FC<Props> = ({ selectedIndex, onSelect }) => {
-  return (
-    <div className="area-select">
-      {grids.map((abbr, index) => (
-        <div
-          key={abbr}
-          role="button"
-          onPointerUp={() => onSelect(index)}
-          className={bem({
-            "area-select__cell": true,
-            "area-select__cell--active": index === selectedIndex
-          })}
-        >
-          <div>
-            <strong>{abbr}</strong>
-          </div>
+const AreaSelect: React.FC<Props> = ({ selectedIndex, onSelect }) => (
+  <div className="area-select">
+    {grids.map((abbr, index) => (
+      <div
+        key={abbr}
+        role="button"
+        onPointerUp={() => onSelect(index)}
+        className={bem({
+          "area-select__cell": true,
+          "area-select__cell--active": index === selectedIndex
+        })}
+      >
+        <div>
+          <strong>{abbr}</strong>
         </div>
-      ))}
-    </div>
-  );
-};
+      </div>
+    ))}
+  </div>
+);
 
 export default AreaSelect;
