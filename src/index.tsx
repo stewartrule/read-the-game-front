@@ -16,7 +16,7 @@ import IconButton from "./components/IconButton/IconButton";
 import Menu, { MenuItem } from "./components/Menu";
 import Nav, { NavItem } from "./components/Nav";
 import PeriodGraph from "./components/PeriodGraph";
-import { periodGraphValues } from "./components/PeriodGraph/fixture";
+import { periodGraphPeriods } from "./components/PeriodGraph/fixture";
 import Row, { Cell } from "./components/Row";
 import ScatterGram from "./components/ScatterGram";
 import { teamFixture } from "./components/ScatterGram/fixture";
@@ -35,7 +35,7 @@ ReactDOM.render(
       <p>Torzeitpunkt</p>
     </Section>
     <Section padding={[1, 3]}>
-      <PeriodGraph values={periodGraphValues as any} />
+      <PeriodGraph periods={periodGraphPeriods} />
     </Section>
     <Section padding={[2, 5]}>
       <ButtonGroup>

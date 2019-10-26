@@ -16,15 +16,27 @@ module.exports = {
     filename: "bundle.min.js"
   },
 
+  node: {
+    __filename: true,
+    __dirname: true
+  },
+
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         loader: "awesome-typescript-loader"
       },
+
       {
         test: /\.scss$/,
         use: ["style-loader", "css-loader", "sass-loader"]
+      },
+
+      {
+        test: /\.(graphql|gql)$/,
+        use: "graphql-mini-transforms/webpack",
+        exclude: /node_modules/
       }
     ]
   },
