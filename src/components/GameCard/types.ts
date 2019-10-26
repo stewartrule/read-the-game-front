@@ -1,23 +1,25 @@
 export type Shot = {
-  id: number
+  id: string
   hit: boolean;
   time: Date;
   player: {
-    id: number;
+    id: string;
     lastName: string;
   };
 };
 
 export type Team = {
-  id: number;
+  id: string;
   name: string;
   control: number;
-  shots: Shot[];
 };
 
 export type Game = {
+  id: string;
   start: Date;
   stop: Date;
+  homeTeamShots: Shot[]
+  awayTeamShots: Shot[]
   homeTeam: Team;
   awayTeam: Team;
 };

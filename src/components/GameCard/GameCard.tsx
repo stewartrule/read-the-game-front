@@ -4,11 +4,11 @@ import { BrandColor } from "../../util/skin";
 import Card, { CardColumn, CardSection } from "../Card";
 import SimplePercentageBar from "../SimplePercentageBar";
 import Time from "../Time";
-import { Game, Team } from "./types";
+import { Game, Shot } from "./types";
 
-const TeamScoreList = ({ team }: { team: Team }) => (
+const TeamScoreList = ({ shots }: { shots: Shot[] }) => (
   <>
-    {team.shots
+    {shots
       .filter(({ hit }) => hit)
       .sort((a, b) => a.time.valueOf() - b.time.valueOf())
       .map(shot => (
@@ -23,15 +23,14 @@ const TeamScoreList = ({ team }: { team: Team }) => (
   </>
 );
 
-const calculateScore = (team: Team) =>
-  team.shots.filter(({ hit }) => hit).length;
+const calculateScore = (shots: Shot[]) => shots.filter(({ hit }) => hit).length;
 
 type Props = {
   game: Game;
 };
 
 const GameCard: React.FC<Props> = ({
-  game: { homeTeam, awayTeam, start, stop }
+  game: { homeTeam, awayTeam, start, stop, homeTeamShots, awayTeamShots }
 }) => (
   <Card>
     <CardSection padding={[1]}>
@@ -40,8 +39,8 @@ const GameCard: React.FC<Props> = ({
       </CardColumn>
       <CardColumn>
         <h1>
-          {calculateScore(homeTeam)} {` : `}
-          {calculateScore(awayTeam)}
+          {calculateScore(homeTeamShots)} {` : `}
+          {calculateScore(awayTeamShots)}
         </h1>
       </CardColumn>
       <CardColumn>
@@ -65,11 +64,11 @@ const GameCard: React.FC<Props> = ({
     </CardSection>
     <CardSection soft padding={[1]}>
       <CardColumn>
-        <TeamScoreList team={homeTeam} />
+        <TeamScoreList shots={homeTeamShots} />
       </CardColumn>
       <CardColumn></CardColumn>
       <CardColumn>
-        <TeamScoreList team={awayTeam} />
+        <TeamScoreList shots={awayTeamShots} />
       </CardColumn>
     </CardSection>
     <CardSection padding={[1]}>
