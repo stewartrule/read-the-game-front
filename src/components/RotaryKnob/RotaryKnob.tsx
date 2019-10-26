@@ -4,6 +4,7 @@ import { Point, getAngleFromCenter, getPolarPoint } from "../../util/geometry";
 import { BrandColor } from "../../util/skin";
 import AngledLines from "../AngledLines/AngledLines";
 import Donut from "../Donut/Donut";
+import onDimensionChange from "../../util/onDimensionChange";
 
 const { useState, useRef, useEffect } = React;
 
@@ -48,6 +49,7 @@ const RotaryKnob: React.FC<Props> = ({
 }) => {
   const knobOffset = 20;
   const radius = knobRadius + knobOffset;
+  const innerRadius = knobRadius - knobOffset * 2;
 
   const [dragged, setDragged] = useState(false);
   const [centerX, setCenterX] = useState(radius);
@@ -103,10 +105,7 @@ const RotaryKnob: React.FC<Props> = ({
 
   useEffect(() => {
     setCenter();
-    document.addEventListener("scroll", setCenter);
-    return () => {
-      document.removeEventListener("scroll", setCenter);
-    };
+    return ref.current ? onDimensionChange(ref.current, setCenter) : () => {};
   }, [ref.current]);
 
   useEffect(() => {
@@ -115,8 +114,6 @@ const RotaryKnob: React.FC<Props> = ({
       document.removeEventListener("pointerup", onPointerUp);
     };
   }, [value]);
-
-  const innerRadius = knobRadius - knobOffset * 2;
 
   return (
     <svg

@@ -33,35 +33,37 @@ const getShots = () =>
   players
     .slice(0, 3 + Math.round(Math.random() * players.length))
     .map((player, j) => ({
-      id: j + 1,
+      id: `${j + 1}`,
       hit: Math.random() > 0.7,
       time: time(j * 3),
       player: {
-        id: j + 1,
+        id: `${j + 1}`,
         lastName: player
       }
     }));
 
 export const games: Game[] = teams.map((_, i) => {
-  const shotsHome = getShots();
-  const shotsAway = getShots();
+  const homeTeamShots = getShots();
+  const awayTeamShots = getShots();
   const uncontrolled = 2;
-  const factor = 1 / (shotsHome.length + shotsAway.length + uncontrolled);
+  const factor =
+    1 / (homeTeamShots.length + awayTeamShots.length + uncontrolled);
 
   return {
+    id: `${i + 1}`,
     start: time(i * 90),
     stop: time(i * 60 + 90),
+    homeTeamShots,
+    awayTeamShots,
     homeTeam: {
-      control: shotsHome.length * factor,
-      id: i + 1,
-      name: teams[(i + 1) % teams.length],
-      shots: shotsHome
+      control: homeTeamShots.length * factor,
+      id: `${i + 1}`,
+      name: teams[(i + 1) % teams.length]
     },
     awayTeam: {
-      control: shotsAway.length * factor,
-      id: i + 1 + teams.length,
-      name: teams[i % teams.length],
-      shots: shotsAway
+      control: awayTeamShots.length * factor,
+      id: `${i + teams.length}`,
+      name: teams[i % teams.length]
     }
   };
 });

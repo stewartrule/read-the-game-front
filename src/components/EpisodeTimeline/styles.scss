@@ -1,38 +1,58 @@
-.episode-timeline {
+.episode {
   overflow: scroll;
   width: 100%;
 }
 
-.episode-timeline__inner {
+.episode__inner {
   margin: 10px 0;
   padding: 20px 0;
+  position: relative;
 }
 
-.episode-timeline__control {
+.episode__control {
   position: relative;
   height: 50px;
   overflow: hidden;
 }
 
-.episode-timeline__control div {
+.episode__period {
+  background-color: #ddd;
   position: absolute;
   top: 0;
   left: 0;
   width: 10px;
+  height: 50px;
+}
+
+.episode__period-home,
+.episode__period-away {
+  background-color: #ddd;
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 45px;
+  width: 10px;
 }
 
-.episode-timeline__control--home div {
+.episode__period-home {
   border-top: 5px solid #0076ff;
-  background-color: rgba(0, 118, 255, 0.33);
+  background-color: rgba(0, 118, 255, 0.4);
+
+  &--active {
+    background-color: #0076ff;
+  }
 }
 
-.episode-timeline__control--away div {
+.episode__period-away {
   border-bottom: 5px solid #42dd84;
-  background-color: rgba(66, 221, 132, 0.33);
+  background-color: rgba(66, 221, 132, 0.4);
+
+  &--active {
+    background-color: #42dd84;
+  }
 }
 
-.episode-timeline__inert {
+.episode__uncontrolled {
   height: 50px;
   width: 100%;
   overflow: hidden;
@@ -40,17 +60,27 @@
   position: relative;
 }
 
-.episode-timeline__period {
-  background-color: #ccc;
+.episode__marker-bar {
   position: absolute;
-  top: 0;
+  top: 83px;
   left: 0;
-  height: 50px;
-  width: 10px;
+  width: 100%;
+  height: 24px;
+  box-shadow: 0 0 8px #ddd;
+  background-color: #fff;
 }
 
-.episode-timeline__marker {
+.episode__marker {
   position: absolute;
   top: 0;
   left: 0;
+  width: 50px;
+  height: 24px;
+  text-align: center;
+  transform: translateX(-25px);
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  justify-content: center;
 }

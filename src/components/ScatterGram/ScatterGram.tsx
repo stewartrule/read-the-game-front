@@ -26,7 +26,7 @@ type Props = {
 const textProps = {
   fontFamily: FontFamily.Default,
   fontWeight: "bold",
-  fontSize: "1rem",
+  fontSize: "20px",
   fill: BrandColor.dark
 };
 
@@ -109,7 +109,7 @@ const ScatterGram: React.FC<Props> = ({
         transform={`rotate(-90 ${radius - 8} ${size - innerOffset})`}
         {...textProps}
       >
-        Gespielte Minuten
+        Torbeteiligungen
       </text>
 
       <text

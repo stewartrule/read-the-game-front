@@ -2,7 +2,8 @@
 
 ### Description
 
-Found [this design](https://www.behance.net/gallery/55747919/read-the-gamecom) made by [Bureau Oberhaeuser](https://oberhaeuser.info/) on Behance, and thought it looked pretty awesome, so I decided to build a component library to try out [storybook](https://github.com/storybookjs/storybook), and also give [NestJS](https://docs.nestjs.com) a try for the backend.
+A while ago I ran into [this cool design](https://www.behance.net/gallery/55747919/read-the-gamecom) made by [Bureau Oberhaeuser](https://oberhaeuser.info/) on Behance, and thought it had some pretty awesome components, so I decided to create the frontend using React, TypeScript and Storybook, and also give [TypeGraphQL](https://typegraphql.ml/) and [TypeORM](https://typeorm.io/) a try for the [GraphQL backend](https://github.com/stewartrule/read-the-game-back).
+
 
 ### Install
 
@@ -10,14 +11,25 @@ Found [this design](https://www.behance.net/gallery/55747919/read-the-gamecom) m
 yarn
 ```
 
-### Usage
-
-```sh
-yarn start
-```
 
 ### Storybook
 
 ```sh
 yarn storybook
+```
+
+### Running the app
+
+First [start the GraphQL server](https://github.com/stewartrule/read-the-game-back).
+
+Generate type definitions for the GraphQL queries.
+
+```sh
+yarn create-query-types
+```
+
+Start the app.
+
+```sh
+yarn start
 ```

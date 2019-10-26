@@ -12,6 +12,7 @@
       "babel-loader": "^8.0.6",
       "copy-webpack-plugin": "^5.0.4",
       "css-loader": "^3.2.0",
+      "graphql-mini-transforms": "^1.0.3",
       "html-webpack-plugin": "^3.2.0",
       "node-sass": "^4.12.0",
       "react-docgen-typescript-loader": "^3.3.0",
@@ -23,18 +24,26 @@
       "webpack-dev-server": "^3.8.1"
    },
    "dependencies": {
+      "@apollo/react-hooks": "^3.1.3",
       "@types/react": "^16.9.2",
       "@types/react-dom": "^16.9.1",
+      "apollo": "^2.21.0",
+      "apollo-cache-inmemory": "^1.6.3",
+      "apollo-client": "^2.6.4",
+      "apollo-client-transform": "^0.1.0",
+      "apollo-link-http": "^1.5.16",
       "mini-css-extract-plugin": "^0.8.0",
       "react": "^16.9.0",
       "react-dom": "^16.9.0",
       "react-spring": "^8.0.27",
       "react-use-gesture": "^6.0.9",
+      "resize-observer": "^1.0.0",
       "typescript": "^3.6.3"
    },
    "scripts": {
       "start": "webpack-dev-server --mode development --open --hot",
       "build": "webpack --mode production",
-      "storybook": "start-storybook -s ./public --ci -p 6006"
+      "storybook": "start-storybook -s ./public --ci -p 6006",
+      "create-query-types": "./create-query-types.sh"
    }
 }

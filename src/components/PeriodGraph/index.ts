@@ -1,1 +1,1 @@
-export { default } from './PeriodGraph'
+export { default, PeriodGraphValue, PeriodGraphPeriod } from './PeriodGraph'

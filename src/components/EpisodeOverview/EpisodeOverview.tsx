@@ -59,8 +59,12 @@ const EpisodeOverview: React.FC<Props> = ({ periods, height = 240 }) => {
 
   return (
     <div className="episode-overview">
-      <div className="episode-overview__inner">
-        <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
+      <div className="episode-overview__inner" style={ { width }}>
+        <svg
+          width="100%"
+          height="100%"
+          viewBox={`0 0 ${width} ${height}`}
+        >
           {homeShots.map(shot => [
             <line
               key={`home_shot_line_${shot.time}`}

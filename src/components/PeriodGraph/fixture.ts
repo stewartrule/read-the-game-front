@@ -1,7 +1,7 @@
 import { BrandColor } from "../../util/skin";
-import { ValueType } from "./PeriodGraph";
+import { PeriodGraphPeriod } from "./PeriodGraph";
 
-export const periodGraphValues: ValueType[] = Array.from(
+export const periodGraphPeriods: PeriodGraphPeriod[] = Array.from(
   { length: 6 },
   (_, i) => {
     return {

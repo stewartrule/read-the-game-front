@@ -2,61 +2,142 @@ import "./styles.scss";
 
 import * as React from "react";
 
-import { Controlled, Period, Uncontrolled } from "./types";
+import bem from "../../util/bem";
+import { Controlled, Uncontrolled } from "./types";
+import { formatTime } from "./util";
 
 const px = (num: number) => `${num}px`;
-const scale = 1; //fixme
 
-const PeriodRange = ({
+type SelectPeriod = (period: Controlled) => void;
+
+const ControlledPeriodRange = ({
+  theme,
   periods,
-  interval = 5
+  scale,
+  onSelectPeriod
 }: {
-  periods: Period[];
-  interval?: number;
+  theme: "home" | "away";
+  periods: Controlled[];
+  scale: number;
+  onSelectPeriod: SelectPeriod;
 }) => (
-  <>
-    {periods.map(({ time = 0 }) => (
-      <div
-        className="episode-timeline__period"
-        key={`${time}_${interval}`}
-        style={{ left: px(time * scale), width: px(interval * scale) }}
-      />
-    ))}
-  </>
+  <div className="episode__control">
+    {periods.map(period => {
+      const { start, duration = 0 } = period;
+
+      return (
+        <div
+          key={`${start}_${duration}`}
+          role="button"
+          onClick={() => onSelectPeriod(period)}
+          className={bem({
+            [`episode__period-${theme}`]: {
+              "--active": period.active
+            }
+          })}
+          style={{ left: px(start * scale), width: px(duration * scale) }}
+        />
+      );
+    })}
+  </div>
 );
 
-type Props = {
-  periods: Period[];
-  interval?: number;
-};
+const UncontrolledPeriodRange = ({
+  periods,
+  scale
+}: {
+  periods: Uncontrolled[];
+  scale: number;
+}) => (
+  <div className="episode__uncontrolled">
+    {periods.map(({ start, duration = 0 }) => (
+      <div
+        key={`${start}_${duration}`}
+        className="episode__period"
+        style={{ left: px(start * scale), width: px(duration * scale) }}
+      />
+    ))}
+  </div>
+);
 
-const EpisodeTimeline: React.FC<Props> = ({ periods, interval = 5 }) => {
-  const controlled = periods.filter(
-    (period): period is Controlled => period.control
-  );
-
-  const uncontrolled = periods.filter(
-    (period): period is Uncontrolled => !period.control
-  );
-
-  const home = controlled.filter(({ type }) => type == "home");
-  const away = controlled.filter(({ type }) => type == "away");
-
-  const duration = periods.length * interval;
-  const width = scale * duration;
+const MarkerRange = ({
+  markers,
+  interval,
+  scale
+}: {
+  markers: number[];
+  interval: number;
+  scale: number;
+}) => {
+  const width = interval * scale;
 
   return (
-    <div className="episode-timeline">
-      <div className="episode-timeline__inner" style={{ width: px(width) }}>
-        <div className="episode-timeline__control episode-timeline__control--home">
-          <PeriodRange periods={home} interval={interval} />
+    <div className="episode__marker-bar">
+      {markers.map(start => (
+        <div
+          key={start}
+          className="episode__marker"
+          style={{
+            left: px(start * scale),
+            width: px(width),
+            transform: `translateX(-${width / 2}px)`
+          }}
+        >
+          {formatTime(start)}
         </div>
-        <div className="episode-timeline__inert">
-          <PeriodRange periods={uncontrolled} interval={interval} />
-        </div>
-        <div className="episode-timeline__control episode-timeline__control--away">
-          <PeriodRange periods={away} interval={interval} />
-        </div>
+      ))}
+    </div>
+  );
+};
+
+type Props = {
+  scale?: number;
+  controlled: Controlled[];
+  uncontrolled: Uncontrolled[];
+  onSelectPeriod: SelectPeriod;
+};
+
+const EpisodeTimeline: React.FC<Props> = ({
+  scale = 1,
+  controlled,
+  uncontrolled,
+  onSelectPeriod
+}) => {
+  if (controlled.length === 0) {
+    return null;
+  }
+
+  const home = controlled.filter(({ type }) => type === "home");
+  const away = controlled.filter(({ type }) => type === "away");
+
+  const lastPeriod = controlled[controlled.length - 1];
+  const duration = lastPeriod.start + lastPeriod.duration;
+  const width = scale * duration;
+
+  const interval = 60;
+  const steps = Math.floor(duration / interval);
+  const markers = Array.from(
+    { length: steps - 1 },
+    (_, i) => (i + 1) * interval
+  );
+
+  return (
+    <div className="episode">
+      <div className="episode__inner" style={{ width: px(width) }}>
+        <ControlledPeriodRange
+          theme="home"
+          scale={scale}
+          periods={home}
+          onSelectPeriod={onSelectPeriod}
+        />
+        <UncontrolledPeriodRange periods={uncontrolled} scale={scale} />
+        <MarkerRange markers={markers} interval={interval} scale={scale} />
+        <ControlledPeriodRange
+          theme="away"
+          scale={scale}
+          periods={away}
+          onSelectPeriod={onSelectPeriod}
+        />
       </div>
     </div>
   );

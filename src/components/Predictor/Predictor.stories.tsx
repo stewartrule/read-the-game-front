@@ -5,60 +5,70 @@ import { BrandColor, FontFamily } from "../../util/skin";
 import RotaryKnob from "../RotaryKnob/RotaryKnob";
 import Section from "../Section";
 import Predictor from "./Predictor";
-import { DurationItemType, PredictorItemType } from "./types";
+import {
+  DurationItemType,
+  PredictorItemState,
+  PredictorItemType
+} from "./types";
 
-const { useReducer, useState } = React;
+const { useReducer } = React;
 
 type State = PredictorItemType[];
 
 const initialState: State = [
-  { type: "text", value: "Wenn" },
-  { type: "text", value: "Bayern" },
-  { type: "text", value: "den" },
-  { type: "text", value: "Ball" },
-  { type: "position", value: "zd" },
-  { type: "text", value: "per" },
-  { type: "text", value: "Zweikamp" },
-  { type: "text", value: "erobert," },
-  { type: "text", value: "die" },
-  { type: "text", value: "Ballkontrolphase" },
-  { type: "text", value: "ca." },
-  { type: "duration", value: 10 },
-  { type: "text", value: "dauert" },
-  { type: "text", value: "und" },
-  { type: "text", value: "an" },
-  { type: "text", value: "der" },
-  { type: "text", value: "Phase" },
-  { type: "text", value: "4 spieler" },
-  { type: "text", value: "beteiligt" },
-  { type: "text", value: "sind" },
-  { type: "text", value: "liegt" },
-  { type: "text", value: "die" },
-  { type: "text", value: "Torwahrscheinlichkeit" },
-  { type: "text", value: "bei:" }
+  { id: 1, type: "text", value: "Wenn" },
+  { id: 2, type: "text", value: "Bayern" },
+  { id: 3, type: "text", value: "den" },
+  { id: 4, type: "text", value: "Ball" },
+  { id: 5, type: "position", value: "zd" },
+  { id: 6, type: "text", value: "per" },
+  { id: 7, type: "text", value: "Zweikamp" },
+  { id: 8, type: "text", value: "erobert," },
+  { id: 9, type: "text", value: "die" },
+  { id: 10, type: "text", value: "Ballkontrolphase" },
+  { id: 11, type: "text", value: "ca." },
+  { id: 12, type: "duration", value: 10 },
+  { id: 13, type: "text", value: "dauert" },
+  { id: 14, type: "text", value: "und" },
+  { id: 15, type: "text", value: "an" },
+  { id: 16, type: "text", value: "der" },
+  { id: 17, type: "text", value: "Phase" },
+  { id: 18, type: "text", value: "4 spieler" },
+  { id: 19, type: "text", value: "beteiligt" },
+  { id: 20, type: "text", value: "sind" },
+  { id: 21, type: "text", value: "liegt" },
+  { id: 22, type: "text", value: "die" },
+  { id: 23, type: "text", value: "Torwahrscheinlichkeit" },
+  { id: 24, type: "text", value: "bei:" }
 ];
 
 type DurationAction = {
   type: "duration";
+  item: DurationItemType;
   value: number;
-  index: number;
 };
 
-type PositionAction = {
-  type: "position";
-  value: string;
-  index: number;
+type ActivateAction = {
+  type: "activate";
+  item: PredictorItemType;
 };
 
-type Action = DurationAction | PositionAction;
+type Action = DurationAction | ActivateAction;
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "duration":
-      return state.map((item, i) =>
-        i === action.index && item.type === "duration"
+      return state.map(item =>
+        item.id === action.item.id && item.type === "duration"
           ? { ...item, value: action.value }
           : item
+      );
+
+    case "activate":
+      return state.map(item =>
+        item.id === action.item.id
+          ? { ...item, state: PredictorItemState.active }
+          : { ...item, state: PredictorItemState.disabled }
       );
 
     default:
@@ -69,46 +79,42 @@ const reducer = (state: State, action: Action): State => {
 storiesOf("Predictor", module)
   .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
   .add("Predictor", () => {
-    const [index, setIndex] = useState<number | undefined>(undefined);
-
-    const [values, dispatch] = useReducer(reducer, initialState);
-
-    const duration = values.find(
-      (value, i): value is DurationItemType =>
-        value.type === "duration" && i === index
-    );
-
     const range = 60;
     const factor = 1 / range;
+
+    const [items, dispatch] = useReducer(reducer, initialState);
+    const active = items.find(item => item.state === PredictorItemState.active);
+
     return (
       <div>
         <Predictor
-          values={values}
-          onChangeDuration={(item, index) => {
-            setIndex(index);
+          items={items}
+          onChangeDuration={item => {
+            dispatch({
+              type: "activate",
+              item
+            });
           }}
-          onChangePosition={(item, index) => {}}
+          onChangePosition={item => {}}
         />
 
-        {duration && (
+        {active && active.type === "duration" && (
           <RotaryKnob
-            value={duration.value * factor}
+            value={active.value * factor}
             onStartDrag={() => {}}
-            onDrag={val => {
-              index != null &&
-                dispatch({
-                  type: "duration",
-                  index: index,
-                  value: Math.round(val * range)
-                });
+            onDrag={value => {
+              dispatch({
+                item: active,
+                type: "duration",
+                value: Math.round(value * range)
+              });
             }}
-            onEndDrag={val => {
-              index != null &&
-                dispatch({
-                  type: "duration",
-                  index: index,
-                  value: Math.round(val * range)
-                });
+            onEndDrag={value => {
+              dispatch({
+                item: active,
+                type: "duration",
+                value: Math.round(value * range)
+              });
             }}
             render={({ center, value }) => (
               <text

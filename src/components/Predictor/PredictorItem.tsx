@@ -1,22 +1,21 @@
 import * as React from "react";
+
 import bem from "../../util/bem";
+import { PredictorItemState } from "./types";
 
 type Props = {
-  active?: boolean;
   onChange?: () => void;
+  state?: PredictorItemState;
 };
 
-const PredictorItem: React.FC<Props> = ({
-  children,
-  onChange,
-  active = false
-}) => (
+const PredictorItem: React.FC<Props> = ({ children, onChange, state }) => (
   <span
     role={onChange != null ? "button" : undefined}
     onPointerUp={onChange}
     className={bem({
       predictor__item: {
-        "--active": active,
+        "--active": state == PredictorItemState.active,
+        "--disabled": state == PredictorItemState.disabled,
         "--interactive": onChange != null
       }
     })}

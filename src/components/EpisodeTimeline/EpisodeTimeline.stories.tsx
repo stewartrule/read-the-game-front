@@ -1,73 +1,82 @@
-import { withKnobs } from "@storybook/addon-knobs";
+import { number, withKnobs } from "@storybook/addon-knobs";
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
 import Section from "../Section";
 import EpisodeTimeline from "./";
-import { Period } from "./types";
+import { periods as fixture } from "./fixture";
+import { Controlled, Uncontrolled } from "./types";
+import { formatTime } from "./util";
 
-const homePlayers = Array.from("abcdefghijk").map((name, i) => ({
-  id: 1 + i,
-  name
-}));
+const { useReducer } = React;
 
-const awayPlayers = Array.from("lmnopqrstuv").map((name, i) => ({
-  id: 20 + i,
-  name
-}));
+type ActivateAction = {
+  type: "activate";
+  period: Controlled;
+};
 
-const duration = 60 * 45; // time.
-const interval = 5;
+type Action = ActivateAction;
 
-const periods: Period[] = [];
-for (let time = 0; time < duration; time += interval) {
-  if (Math.random() > 0.9) {
-    periods.push({
-      time,
-      control: false
-    });
-  } else if (Math.random() > 0.3) {
-    const last = periods[periods.length - 1];
+const reducer = (state: Controlled[], action: Action): Controlled[] => {
+  switch (action.type) {
+    case "activate":
+      return state.map(period =>
+        period.start === action.period.start
+          ? { ...period, active: true }
+          : { ...period, active: false }
+      );
 
-    if (last && last.control && last.type === "home" && Math.random() > 0.5) {
-      periods.push({
-        time,
-        type: "home",
-        control: true,
-        playerId: last.playerId
-      });
-    } else {
-      periods.push({
-        time,
-        type: "home",
-        control: true,
-        playerId: homePlayers[time % homePlayers.length].id
-      });
-    }
-  } else {
-    const last = periods[periods.length - 1];
-
-    if (last && last.control && last.type === "away" && Math.random() > 0.5) {
-      periods.push({
-        time,
-        type: "away",
-        control: true,
-        playerId: last.playerId
-      });
-    } else {
-      periods.push({
-        time,
-        type: "away",
-        control: true,
-        playerId: awayPlayers[time % awayPlayers.length].id
-      });
-    }
+    default:
+      return state;
   }
-}
+};
 
 storiesOf("EpisodeTimeline", module)
-  .addDecorator(getStory => <Section>{getStory()}</Section>)
+  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
   .addDecorator(withKnobs)
   .add("EpisodeTimeline", () => {
-    return <EpisodeTimeline periods={periods} interval={interval} />;
+    const scale = number(
+      "Scale",
+      1,
+      {
+        range: true,
+        min: 1,
+        max: 5
+      },
+      "scale"
+    );
+
+    const initialState = fixture.filter(
+      (period): period is Controlled => period.control
+    );
+
+    const uncontrolled = fixture.filter(
+      (period): period is Uncontrolled => period.control === false
+    );
+
+    const [controlled, dispatch] = useReducer(reducer, initialState);
+    const active = controlled.find(period => period.control && period.active);
+
+    return (
+      <>
+        <EpisodeTimeline
+          scale={scale}
+          controlled={controlled}
+          uncontrolled={uncontrolled}
+          onSelectPeriod={period => {
+            dispatch({ type: "activate", period });
+          }}
+        />
+        {active && (
+          <dl style={{ fontSize: 16 }}>
+            <dt>Start</dt>
+            <dd>{formatTime(active.start)}</dd>
+            <dt>Duration</dt>
+            <dd>{active.duration}</dd>
+            <dt>Player</dt>
+            <dd>{active.playerId}</dd>
+          </dl>
+        )}
+      </>
+    );
   });

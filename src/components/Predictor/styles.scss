@@ -25,3 +25,8 @@
   border: 0.2rem solid #0076ff;
   background: #0076ff;
 }
+
+.predictor__item--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
