@@ -18,16 +18,19 @@ type Props = {
   primary?: boolean;
   success?: boolean;
   margin?: [Margin] | [Margin, Margin] | [Margin, Margin, Margin, Margin];
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
-const IconButton: React.FC<Props> = ({
+const IconButton = ({
   icon,
   margin,
   primary = false,
   success = false,
-  type = "button"
-}) => (
+  type = "button",
+  onClick
+}: Props) => (
   <button
+    onClick={onClick}
     type={type}
     style={
       margin
