@@ -1,0 +1,21 @@
+fragment countByPeriod on TeamShotCountByPeriod {
+  count
+  shots {
+    id
+    hit
+  }
+}
+
+query GetShotCountByPeriod {
+  games(take: 1) {
+    id
+    shotCountByPeriod {
+      homeTeam {
+        ...countByPeriod
+      }
+      awayTeam {
+        ...countByPeriod
+      }
+    }
+  }
+}
