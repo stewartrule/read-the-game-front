@@ -2,7 +2,11 @@ import * as React from "react";
 
 import bem from "../../util/bem";
 
-type Padding = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+type PaddingValue = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+type Padding =
+  | [PaddingValue]
+  | [PaddingValue, PaddingValue]
+  | [PaddingValue, PaddingValue, PaddingValue, PaddingValue];
 
 type Props = {
   center?: boolean;
@@ -10,10 +14,7 @@ type Props = {
   primary?: boolean;
   secondary?: boolean;
   soft?: boolean;
-  padding?:
-    | [Padding]
-    | [Padding, Padding]
-    | [Padding, Padding, Padding, Padding];
+  padding?: Padding;
 };
 
 const Section: React.FC<Props> = ({

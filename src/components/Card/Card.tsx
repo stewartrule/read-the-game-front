@@ -7,7 +7,7 @@ export const CardColumn: React.FC = ({ children }) => (
   <div className="card__column">{children}</div>
 );
 
-type Padding = 0 | 1 | 2 | 3;
+type Padding = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 type CardSectionProps = {
   soft?: boolean;
   padding?:

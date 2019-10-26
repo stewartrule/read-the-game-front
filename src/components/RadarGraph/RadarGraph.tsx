@@ -61,30 +61,32 @@ const RadarGraph: React.FC<Props> = ({ radius = 120, stats }) => {
   });
 
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-      {background.map((poly, i) => (
-        <polygon
-          key={`bg_${i}`}
-          points={poly.join(" ")}
-          fill="#fff"
-          stroke="#eee"
-          strokeWidth={2}
-          strokeDasharray={i === 0 ? undefined : "2, 2"}
-          strokeLinejoin="round"
-        />
-      ))}
-      {polys.map((poly, i) => (
-        <polygon
-          key={`stat_${i}`}
-          points={poly.points}
-          fill={poly.fill}
-          stroke={poly.stroke}
-          strokeWidth={2}
-          strokeLinejoin="round"
-        />
-      ))}
-      {dots}
-    </svg>
+    <div className="radar-graph">
+      <svg width="100%" height="100%" viewBox={`0 0 ${size} ${size}`}>
+        {background.map((poly, i) => (
+          <polygon
+            key={`bg_${i}`}
+            points={poly.join(" ")}
+            fill="#fff"
+            stroke="#eee"
+            strokeWidth={2}
+            strokeDasharray={i === 0 ? undefined : "2, 2"}
+            strokeLinejoin="round"
+          />
+        ))}
+        {polys.map((poly, i) => (
+          <polygon
+            key={`stat_${i}`}
+            points={poly.points}
+            fill={poly.fill}
+            stroke={poly.stroke}
+            strokeWidth={2}
+            strokeLinejoin="round"
+          />
+        ))}
+        {dots}
+      </svg>
+    </div>
   );
 };
 
