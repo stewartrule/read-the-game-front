@@ -1,13 +1,16 @@
 export type Uncontrolled = {
-  time: number;
+  start: number;
+  duration: number;
   control: false;
 };
 
 export type Controlled = {
-  time: number;
+  start: number;
   control: true;
+  duration: number;
   type: "home" | "away";
   playerId: number;
+  active: boolean;
 };
 
 export type Period = Uncontrolled | Controlled;
