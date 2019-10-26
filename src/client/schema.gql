@@ -1,0 +1,129 @@
+type ActionCount {
+  x: Float!
+  y: Float!
+  count: Float!
+  time: DateTime!
+  teamId: Float!
+}
+
+type AreaActionCount {
+  homeTeam: [ActionCount!]!
+  awayTeam: [ActionCount!]!
+}
+
+scalar DateTime
+
+type Game {
+  id: ID!
+  name: String!
+  start: DateTime!
+  stop: DateTime!
+  homeTeam: Team!
+  awayTeam: Team!
+  passes: [Pass!]!
+  shots: [Shot!]!
+  intercepts: [Intercept!]!
+  homeTeamShots: [Shot!]!
+  awayTeamShots: [Shot!]!
+  shotCountByArea: AreaActionCount!
+  hitCountByArea: AreaActionCount!
+  passCountByArea: AreaActionCount!
+  shotCountByPeriod: ShotCountByPeriod!
+}
+
+type Intercept {
+  id: ID!
+  time: DateTime!
+  game: Game!
+  player: Player!
+  x: Int!
+  y: Int!
+}
+
+type Pass {
+  id: ID!
+  time: DateTime!
+  type: PassType!
+  game: Game!
+  gameId: Int!
+  team: Team!
+  teamId: Int!
+  player: Player!
+  playerId: Int!
+  x: Int!
+  y: Int!
+}
+
+type PassType {
+  id: ID!
+  name: String!
+  passes: [Pass!]!
+}
+
+type Player {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  height: Int!
+  strength: Int!
+  balance: Int!
+  stamina: Int!
+  dob: DateTime!
+  team: Team!
+  shots: [Shot!]!
+  passes: [Pass!]!
+  intercepts: [Intercept!]!
+}
+
+type Query {
+  games(skip: Int = 0, take: Int = 25): [Game!]!
+  teams(skip: Int = 0, take: Int = 25): [Team!]!
+  teamActivity(skip: Int = 0, take: Int = 25): [Team!]!
+}
+
+type Shot {
+  id: ID!
+  time: DateTime!
+  hit: Boolean!
+  out: Boolean!
+  onTarget: Boolean!
+  type: ShotType!
+  typeId: Int!
+  game: Game!
+  gameId: Int!
+  player: Player!
+  playerId: Int!
+  team: Team!
+  teamId: Int!
+  x: Int!
+  y: Int!
+}
+
+type ShotCountByPeriod {
+  homeTeam: [TeamShotCountByPeriod!]!
+  awayTeam: [TeamShotCountByPeriod!]!
+}
+
+type ShotType {
+  id: ID!
+  name: String!
+  shots: [Shot!]!
+}
+
+type Team {
+  id: ID!
+  name: String!
+  abbr: String!
+  awayGames: [Game!]!
+  homeGames: [Game!]!
+  players: [Player!]!
+  shots: [Shot!]!
+  passes: [Pass!]!
+}
+
+type TeamShotCountByPeriod {
+  start: DateTime!
+  stop: DateTime!
+  count: Int!
+  shots: [Shot!]!
+}
