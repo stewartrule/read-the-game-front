@@ -20,7 +20,7 @@ storiesOf("Nav", module)
   .add("Nav", () => (
     <Nav>
       {items.map(item => (
-        <NavItem active={item.active} key={item.label}>
+        <NavItem to="/" key={item.label}>
           {item.label}
         </NavItem>
       ))}
