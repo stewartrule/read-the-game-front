@@ -1,14 +1,20 @@
-import { useQuery } from "@apollo/react-hooks";
 import * as React from "react";
+import { useState, useEffect, useRef } from "react";
 
+import ButtonGroup, { Button } from "../components/ButtonGroup";
 import ApolloErrorMessage from "../components/Error/ApolloErrorMessage";
 import PeriodGraph, { PeriodGraphPeriod } from "../components/PeriodGraph";
-import { Game } from "../queries";
+import Row, { Cell } from "../components/Row";
+
+import InView from "../components/InView";
 import {
-  GetShotCountByPeriod,
+  useGetShotCountByPeriodQuery,
+  useGetShotCountByPeriodLazyQuery
+} from "../graph/game";
+import {
   GetShotCountByPeriod_games as RawGame,
   GetShotCountByPeriod_games_shotCountByPeriod_homeTeam as RawPeriod
-} from "../queries/types/GetShotCountByPeriod";
+} from "../graph/types/GetShotCountByPeriod";
 import { BrandColor } from "../util/skin";
 
 const getMaxCount = (periods: RawPeriod[]) =>
@@ -38,10 +44,40 @@ const parseGamePeriods = ({
   }));
 };
 
-const PeriodGraphView: React.FC<{}> = ({}) => {
-  const { data, loading, error } = useQuery<GetShotCountByPeriod>(
-    Game.GetShotCountByPeriod
+const PeriodGraphSelect: React.FC<{ games: RawGame[] }> = ({ games }) => {
+  const [gameId, setGameId] = useState(games.length ? games[0].id : "");
+  const selectedGame = games.find(game => game.id === gameId);
+
+  return (
+    <>
+      {selectedGame && (
+        <PeriodGraph
+          periods={parseGamePeriods(selectedGame)}
+          shadow
+        />
+      )}
+      <Row>
+        <Cell padding={[2, 4]}>
+          <ButtonGroup>
+            {games.map(game => (
+              <Button
+                key={game.id}
+                compact
+                active={gameId === game.id}
+                onClick={() => setGameId(game.id)}
+              >
+                {game.id}
+              </Button>
+            ))}
+          </ButtonGroup>
+        </Cell>
+      </Row>
+    </>
   );
+};
+
+const PeriodGraphView: React.FC<{}> = ({}) => {
+  const { data, loading, error } = useGetShotCountByPeriodQuery();
 
   if (error) {
     return (
@@ -53,17 +89,62 @@ const PeriodGraphView: React.FC<{}> = ({}) => {
     );
   }
 
-  if (loading || !data) {
-    return <PeriodGraph periods={[]} />;
+  if (data && data.games.length) {
+    return (
+      <>
+        <IntroText />
+        <PeriodGraphSelect games={data.games} />
+      </>
+    );
   }
 
-  return (
-    <>
-      {data.games.map(game => (
-        <PeriodGraph key={game.id} periods={parseGamePeriods(game)} />
-      ))}
-    </>
-  );
+  return <PlaceholderView />;
 };
 
-export default PeriodGraphView;
+const PlaceholderView = () => (
+  <>
+    <IntroText />
+    <PeriodGraph periods={[]} immediate />
+    <Row>
+      <Cell padding={[2, 4]}>
+        <ButtonGroup>
+          <Button compact active>
+            &nbsp;
+          </Button>
+          <Button compact>&nbsp;</Button>
+        </ButtonGroup>
+      </Cell>
+    </Row>
+  </>
+);
+
+const IntroText = () => (
+  <>
+    <h2>Torzeitpunkt</h2>
+    <p>Geschossene und gefangene Tore unterteilt in 15 minuten Abschnitte</p>
+  </>
+);
+
+const Wrapper = () => (
+  <InView>
+    {({ seen, isIntersecting }) =>
+      isIntersecting ? <PeriodGraphView /> : <PlaceholderView />
+    }
+  </InView>
+);
+export default Wrapper;
+
+export function emptyGraph(): PeriodGraphPeriod[] {
+  return Array.from({ length: 6 }, (_, i) => {
+    return {
+      inner: {
+        fill: i % 2 === 0 ? BrandColor.primary : BrandColor.secondary,
+        value: 0
+      },
+      outer: {
+        fill: i % 2 === 0 ? BrandColor.secondary : BrandColor.primary,
+        value: 0
+      }
+    };
+  });
+}
