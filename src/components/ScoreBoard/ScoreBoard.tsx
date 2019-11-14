@@ -32,7 +32,7 @@ const TeamScoreBoard: React.FC<TeamScoreBoardProps> = ({ team, type }) => {
 
 const ScoreBoard: React.FC<{ game: Game }> = ({ game }) => (
   <>
-    <Row padding={[2, 1]} dark>
+    <Row padding={[2, 1]} theme="dark">
       <Cell right bottom>
         <h5 style={{ color: BrandColor.primary }}>{game.homeTeam.name}</h5>
       </Cell>
@@ -46,7 +46,7 @@ const ScoreBoard: React.FC<{ game: Game }> = ({ game }) => (
         <h5 style={{ color: BrandColor.secondary }}>{game.awayTeam.name}</h5>
       </Cell>
     </Row>
-    <Row padding={[0, 0, 4, 0]} dark>
+    <Row padding={[0, 0, 4, 0]} theme="dark">
       <Cell right>
         <TeamScoreBoard type="home" team={game.homeTeam} game={game} />
       </Cell>

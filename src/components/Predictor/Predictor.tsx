@@ -49,13 +49,13 @@ const Predictor: React.FC<Props> = ({
           );
       }
 
-      return unreachable(item);
+      return exhaustiveCheck(item);
     })}
   </div>
 );
 
-function unreachable(_: never): never {
-  throw Error("Item type does not exist");
+function exhaustiveCheck(_: never): never {
+  throw Error("Predictor item type does not exist");
 }
 
 export default Predictor;
