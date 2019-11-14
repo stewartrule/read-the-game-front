@@ -51,27 +51,18 @@ export const Cell: React.FC<CellProps> = ({
 
 type RowProps = {
   padding?: Padding;
-  light?: boolean;
-  primary?: boolean;
-  secondary?: boolean;
-  dark?: boolean;
+  theme?: "light" | "primary" | "secondary" | "dark";
 };
 
 const Row: React.FC<RowProps> = ({
   children,
   padding,
-  light = false,
-  primary = false,
-  secondary = false,
-  dark = false
+  theme = ""
 }) => (
   <div
     className={bem({
       row: {
-        "--light": light,
-        "--primary": primary,
-        "--secondary": secondary,
-        "--dark": dark
+        [`--${theme}`]: theme.length > 0
       }
     })}
     style={{ padding: padding ? getPadding(padding) : undefined }}
