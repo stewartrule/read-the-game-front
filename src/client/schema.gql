@@ -6,6 +6,14 @@ type ActionCount {
   teamId: Float!
 }
 
+input AddShotInput {
+  gameId: Int!
+  playerId: Int!
+  teamId: Int!
+  shotTypeId: Int!
+  hit: Boolean!
+}
+
 type AreaActionCount {
   homeTeam: [ActionCount!]!
   awayTeam: [ActionCount!]!
@@ -36,8 +44,13 @@ type Intercept {
   time: DateTime!
   game: Game!
   player: Player!
+  team: Team!
   x: Int!
   y: Int!
+}
+
+type Mutation {
+  addShot(data: AddShotInput!): Shot!
 }
 
 type Pass {
@@ -73,10 +86,14 @@ type Player {
   shots: [Shot!]!
   passes: [Pass!]!
   intercepts: [Intercept!]!
+  shotCount: Int!
+  hitCount: Int!
 }
 
 type Query {
   games(skip: Int = 0, take: Int = 25): [Game!]!
+  players: [Player!]!
+  shotTypes: [ShotType!]!
   teams(skip: Int = 0, take: Int = 25): [Team!]!
   teamActivity(skip: Int = 0, take: Int = 25): [Team!]!
 }
@@ -110,6 +127,12 @@ type ShotType {
   shots: [Shot!]!
 }
 
+type Subscription {
+  gameUpdated: Game!
+  shotAdded: Shot!
+  teamUpdated: Team!
+}
+
 type Team {
   id: ID!
   name: String!
@@ -119,6 +142,13 @@ type Team {
   players: [Player!]!
   shots: [Shot!]!
   passes: [Pass!]!
+  intercepts: [Intercept!]!
+  passCount: Int!
+  shotCount: Int!
+  hitCount: Int!
+  involvedPlayerCount: Int!
+  averageStrength: Int!
+  interceptCount: Int!
 }
 
 type TeamShotCountByPeriod {
