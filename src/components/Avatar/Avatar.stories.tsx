@@ -2,7 +2,7 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
 import { BrandColor } from "../../util/skin";
-import Section from "../Section";
+import Block from "../Block";
 import Avatar from "./";
 
 const players = [
@@ -29,7 +29,7 @@ const mapped = players.map(({ id, shots }, i) => {
 });
 
 storiesOf("Avatar", module)
-  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
+  .addDecorator(getStory => <Block padding={[1]}>{getStory()}</Block>)
   .add("Primary", () => (
     <>
       {mapped.map((player, i) => (

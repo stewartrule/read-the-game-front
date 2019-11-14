@@ -16,7 +16,7 @@ type Props = {
   padding?: Padding;
 };
 
-const Section: React.FC<Props> = ({
+const Block: React.FC<Props> = ({
   children,
   fit = false,
   center = false,
@@ -26,7 +26,7 @@ const Section: React.FC<Props> = ({
 }) => (
   <div
     className={bem({
-      section: {
+      block: {
         "--fit": fit,
         "--center": center,
         "--scrollable": scrollable,
@@ -45,4 +45,4 @@ const Section: React.FC<Props> = ({
   </div>
 );
 
-export default Section;
+export default Block;

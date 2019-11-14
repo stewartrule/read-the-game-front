@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
-import Section from "../Section";
+import Block from "../Block";
 import SimpleRadarGraph, { Stat } from "./SimpleRadarGraph";
 
 const stats: Stat[] = [
@@ -14,17 +14,17 @@ const stats: Stat[] = [
 ];
 
 storiesOf("SimpleRadarGraph", module)
-  .addDecorator(getStory => <Section>{getStory()}</Section>)
+  .addDecorator(getStory => <Block>{getStory()}</Block>)
   .add("Background", () => (
     <>
-      <Section theme="primary">
+      <Block theme="primary">
         <SimpleRadarGraph stats={stats} />
-      </Section>
-      <Section theme="dark">
+      </Block>
+      <Block theme="dark">
         <SimpleRadarGraph stats={stats} />
-      </Section>
-      <Section theme="secondary">
+      </Block>
+      <Block theme="secondary">
         <SimpleRadarGraph stats={stats} />
-      </Section>
+      </Block>
     </>
   ));

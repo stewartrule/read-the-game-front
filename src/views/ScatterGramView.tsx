@@ -6,7 +6,7 @@ import { players } from "../components/PlayerItem/fixture";
 import Row, { Cell } from "../components/Row";
 import ScatterGram from "../components/ScatterGram";
 import { teamFixture } from "../components/ScatterGram/fixture";
-import Section from "../components/Section";
+import Block from "../components/Block";
 import { BrandColor } from "../util/skin";
 
 const ScatterGramView: React.FC = ({}) => {
@@ -33,7 +33,7 @@ const ScatterGramView: React.FC = ({}) => {
 };
 
 const PlayerList = () => (
-  <Section>
+  <Block>
     {players.slice(0, 5).map((player, i) => (
       <PlayerItem
         key={player.id}
@@ -50,7 +50,7 @@ const PlayerList = () => (
         }
       />
     ))}
-  </Section>
+  </Block>
 );
 
 export default ScatterGramView;

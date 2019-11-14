@@ -3,11 +3,11 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
 import { BrandColor } from "../../util/skin";
-import Section from "../Section";
+import Block from "../Block";
 import AngledLines from "./AngledLines";
 
 storiesOf("AngledLines", module)
-  .addDecorator(getStory => <Section>{getStory()}</Section>)
+  .addDecorator(getStory => <Block>{getStory()}</Block>)
   .addDecorator(withKnobs)
   .add("Interactive", () => {
     const amount = number(

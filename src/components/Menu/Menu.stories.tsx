@@ -1,15 +1,15 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
-import Section from "../Section";
+import Block from "../Block";
 import Menu from "./";
 import MenuItem from "./MenuItem";
 
 storiesOf("Menu", module)
   .addDecorator(getStory => (
-    <Section secondary>
+    <Block theme="secondary">
       {getStory()}
-    </Section>
+    </Block>
   ))
   .add("Menu", () => (
     <Menu head="Kein Vergleich">

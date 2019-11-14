@@ -4,7 +4,7 @@ import { useState } from "react";
 import ButtonGroup, { Button } from "../components/ButtonGroup";
 import ApolloErrorMessage from "../components/Error/ApolloErrorMessage";
 import Row, { Cell } from "../components/Row";
-import Block from "../components/Section";
+import Block from "../components/Block";
 import SimpleRadarGraph from "../components/SimpleRadarGraph";
 import TabGroup, { Tab } from "../components/TabGroup";
 import { useTeamCompareQuery, useTeamUpdatedSubscription } from "../graph/team";

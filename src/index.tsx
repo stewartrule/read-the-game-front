@@ -16,7 +16,7 @@ import { useTransition, animated } from "react-spring";
 
 import client from "./client";
 import Nav, { NavItem } from "./components/Nav";
-import Block from "./components/Section"; //fixme
+import Block from "./components/Block"; //fixme
 import GameControlView from "./views/GameControlView";
 import GameListView from "./views/GameListView";
 import PeriodGraphView from "./views/PeriodGraphView";

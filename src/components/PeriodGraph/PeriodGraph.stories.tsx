@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import { useState } from "react";
 import { BrandColor } from "../../util/skin";
-import Section from "../Section";
+import Block from "../Block";
 import PeriodGraph, { PeriodGraphPeriod } from "./PeriodGraph";
 import { Button } from "../ButtonGroup";
 
@@ -23,7 +23,7 @@ function createPeriods(): PeriodGraphPeriod[] {
 }
 
 storiesOf("PeriodGraph", module)
-  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
+  .addDecorator(getStory => <Block padding={[1]}>{getStory()}</Block>)
   .addDecorator(withKnobs)
   .add("PeriodGraph", () => {
     const [periods, setPeriods] = useState(createPeriods());

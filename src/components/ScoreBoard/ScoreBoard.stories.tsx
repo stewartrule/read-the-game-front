@@ -1,10 +1,10 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
-import Section from "../Section";
+import Block from "../Block";
 import { game } from "./fixture";
 import ScoreBoard from "./ScoreBoard";
 
 storiesOf("ScoreBoard", module)
-  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
+  .addDecorator(getStory => <Block padding={[1]}>{getStory()}</Block>)
   .add("ScoreBoard", () => <ScoreBoard game={game} />);

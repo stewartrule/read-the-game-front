@@ -1,13 +1,13 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
-import Section from "../Section";
+import Block from "../Block";
 import AreaSelect from "./";
 
 const { useState } = React;
 
 storiesOf("AreaSelect", module)
-  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
+  .addDecorator(getStory => <Block padding={[1]}>{getStory()}</Block>)
   .add("AreaSelect", () => {
     const [index, setIndex] = useState<number | undefined>(undefined);
 

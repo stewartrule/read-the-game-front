@@ -1,12 +1,12 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
-import Section from "../Section";
+import Block from "../Block";
 import Tab from "./Tab";
 import TabGroup from "./";
 
 storiesOf("Tab", module)
-  .addDecorator(getStory => <Section dark>{getStory()}</Section>)
+  .addDecorator(getStory => <Block theme="dark">{getStory()}</Block>)
   .add("toggle", () => (
     <TabGroup>
       <Tab primary>

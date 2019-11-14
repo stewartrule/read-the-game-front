@@ -2,12 +2,12 @@ import { select, withKnobs } from "@storybook/addon-knobs";
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
-import Section from "../Section";
+import Block from "../Block";
 import FieldActivity from "./FieldActivity";
 import { getActivity } from "./fixture";
 
 storiesOf("FieldActivity", module)
-  .addDecorator(getStory => <Section>{getStory()}</Section>)
+  .addDecorator(getStory => <Block>{getStory()}</Block>)
   .addDecorator(withKnobs)
   .add("1 team", () => {
     const key = select(

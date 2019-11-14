@@ -2,12 +2,12 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
 import { BrandColor } from "../../util/skin";
-import Section from "../Section";
+import Block from "../Block";
 import { players } from "./fixture";
 import PlayerItem from ".";
 
 storiesOf("PlayerItem", module)
-  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
+  .addDecorator(getStory => <Block padding={[1]}>{getStory()}</Block>)
   .add("PlayerItem", () => (
     <>
       {players.map((player, i) => (

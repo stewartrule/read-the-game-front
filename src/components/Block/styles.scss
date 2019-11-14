@@ -1,36 +1,36 @@
-.section {
+.block {
   margin: 0;
   padding: 0;
 }
 
-.section--center {
+.block--center {
   display: flex;
   justify-content: center;
 }
 
-.section--soft {
+.block--soft {
   background-color: #f6f6f6;
 }
 
-.section--primary {
+.block--primary {
   background-color: #0076ff;
 }
 
-.section--secondary {
+.block--secondary {
   background-color: #42dd84;
 }
 
-.section--dark {
+.block--dark {
   background-color: #000;
 }
 
-.section--fit {
+.block--fit {
   flex: 1;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.section--scrollable {
+.block--scrollable {
   overflow-y: scroll;
 }

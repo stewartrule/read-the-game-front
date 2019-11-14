@@ -3,16 +3,16 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
 import { BrandColor } from "../../util/skin";
-import Section from "../Section";
+import Block from "../Block";
 import Donut from "./Donut";
 
 storiesOf("Donut", module)
   .addDecorator(getStory => (
-    <Section>
+    <Block>
       <svg width={120} height={120}>
         {getStory()}
       </svg>
-    </Section>
+    </Block>
   ))
   .addDecorator(withKnobs)
   .add("Donut", () => {

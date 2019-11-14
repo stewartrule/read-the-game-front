@@ -3,7 +3,7 @@ import * as React from "react";
 
 import { BrandColor, FontFamily } from "../../util/skin";
 import RotaryKnob from "../RotaryKnob/RotaryKnob";
-import Section from "../Section";
+import Block from "../Block";
 import Predictor from "./Predictor";
 import {
   DurationItemType,
@@ -77,7 +77,7 @@ const reducer = (state: State, action: Action): State => {
 };
 
 storiesOf("Predictor", module)
-  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
+  .addDecorator(getStory => <Block padding={[1]}>{getStory()}</Block>)
   .add("Predictor", () => {
     const range = 60;
     const factor = 1 / range;

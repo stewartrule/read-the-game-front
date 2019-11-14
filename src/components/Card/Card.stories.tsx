@@ -1,14 +1,14 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
-import Section from "../Section";
+import Block from "../Block";
 import Card, { CardColumn, CardSection } from "./Card";
 
 storiesOf("Card", module)
   .addDecorator(getStory => (
-    <Section secondary padding={[1]}>
+    <Block theme="secondary" padding={[1]}>
       {getStory()}
-    </Section>
+    </Block>
   ))
   .add("Card", () => (
     <Card>

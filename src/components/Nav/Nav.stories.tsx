@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
-import Section from "../Section";
+import Block from "../Block";
 import Nav from ".";
 import NavItem from "./NavItem";
 
@@ -12,11 +12,11 @@ const items = [
   { label: "Timeline", active: false },
   { label: "Most Impactful Player", active: false },
   { label: "Offenses", active: false },
-  { label: "Social", active: false },
+  { label: "Social", active: false }
 ];
 
 storiesOf("Nav", module)
-  .addDecorator(getStory => <Section secondary>{getStory()}</Section>)
+  .addDecorator(getStory => <Block theme="secondary">{getStory()}</Block>)
   .add("Nav", () => (
     <Nav>
       {items.map(item => (

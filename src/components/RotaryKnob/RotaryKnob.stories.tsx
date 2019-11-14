@@ -2,13 +2,13 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
 import { BrandColor, FontFamily } from "../../util/skin";
-import Section from "../Section";
+import Block from "../Block";
 import RotaryKnob, { RenderOptions } from "./RotaryKnob";
 
 const { useState } = React;
 
 storiesOf("RotaryKnob", module)
-  .addDecorator(getStory => <Section>{getStory()}</Section>)
+  .addDecorator(getStory => <Block>{getStory()}</Block>)
   .add("Render value", () => {
     const [value, setValue] = useState(0);
 
