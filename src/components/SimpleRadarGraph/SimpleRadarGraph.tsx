@@ -7,16 +7,22 @@ export type Stat = {
   value: number;
 };
 
+type RGB = [number, number, number];
+
 type Props = {
   stats: Stat[];
   radius?: number;
   padding?: number;
+  color?: RGB;
 };
+
+const rgba = (rgb: RGB, alpha = 0.15) => `rgba(${rgb.join(", ")}, ${alpha})`;
 
 const SimpleRadarGraph: React.FC<Props> = ({
   radius = 60,
   padding = 12,
-  stats = []
+  stats = [],
+  color = [255, 255, 255]
 }) => {
   const total = stats.length;
   const step = 360 / total;
@@ -49,8 +55,8 @@ const SimpleRadarGraph: React.FC<Props> = ({
         />
         <polygon
           points={inner}
-          fill="rgba(255, 255, 255, 0.3)"
-          stroke="#fff"
+          fill={rgba(color, 0.2)}
+          stroke={rgba(color, 1)}
           strokeWidth="2"
           strokeLinejoin="round"
         />

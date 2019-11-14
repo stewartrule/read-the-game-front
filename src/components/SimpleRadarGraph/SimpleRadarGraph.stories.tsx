@@ -17,13 +17,13 @@ storiesOf("SimpleRadarGraph", module)
   .addDecorator(getStory => <Section>{getStory()}</Section>)
   .add("Background", () => (
     <>
-      <Section primary>
+      <Section theme="primary">
         <SimpleRadarGraph stats={stats} />
       </Section>
-      <Section dark>
+      <Section theme="dark">
         <SimpleRadarGraph stats={stats} />
       </Section>
-      <Section secondary>
+      <Section theme="secondary">
         <SimpleRadarGraph stats={stats} />
       </Section>
     </>
