@@ -1,8 +1,10 @@
 import * as React from "react";
+import { Spring } from "react-spring/renderprops";
 
+import { Point, getPolarPoint } from "../../util/geometry";
 import { BrandColor, FontFamily } from "../../util/skin";
+import { getArcPath } from "../../util/svg";
 import { Tuple } from "../../util/types";
-import { getPolarPoint, Point } from "../../util/geometry";
 import Donut from "../Donut/Donut";
 
 export type PeriodGraphValue = {
@@ -24,48 +26,36 @@ type Props = {
   colors?: RGB[];
   borderWidth?: number;
   middleOffset?: number;
+  /** Prevents animation if true */
+  immediate?: boolean;
+  /** Enable shadows */
+  shadow?: boolean;
 };
 
 type Dot = [Point, string];
 type DotLine = [string, string];
 
+const transparentFill = "rgba(0, 0, 0, 0)";
+const MS_DELAY = 100;
+
 const rgba = (rgb: RGB, alpha = 0.15) => `rgba(${rgb.join(", ")}, ${alpha})`;
-
-function getArcPath(
-  center: Point,
-  radius: number,
-  startAngle: number,
-  stopAngle: number
-) {
-  const start = getPolarPoint(center, radius, stopAngle);
-  const stop = getPolarPoint(center, radius, startAngle);
-  const largeArcFlag = stopAngle - startAngle <= 180 ? 0 : 1;
-
-  return [
-    "M",
-    start.x,
-    start.y,
-    "A",
-    radius,
-    radius,
-    0,
-    largeArcFlag,
-    0,
-    stop.x,
-    stop.y
-  ].join(" ");
-}
 
 const PeriodGraph: React.FC<Props> = ({
   periods,
   radius = 240,
   innerRadius = 60,
-  colors = [[66, 221, 132], [0, 118, 255]],
+  colors = [
+    [66, 221, 132],
+    [0, 118, 255]
+  ],
   borderWidth = 5,
-  middleOffset = 16
+  middleOffset = 16,
+  immediate = false,
+  shadow = false
 }) => {
   const range = (radius - innerRadius) / 2;
   const valueRange = range - middleOffset;
+  const valueRangeBorder = valueRange - borderWidth;
 
   const middleRadius = innerRadius + range;
   const middleInnerRadius = middleRadius - middleOffset;
@@ -76,65 +66,121 @@ const PeriodGraph: React.FC<Props> = ({
   const center = { x: radius, y: radius };
 
   const outer = periods.map(({ outer }, i) => (
-    <Donut
+    <Spring
       key={`outer_${i}`}
-      cx={radius}
-      cy={radius}
-      radius={middleOuterRadius + valueRange * outer.value}
-      innerRadius={middleOuterRadius}
-      segments={[
-        { value: i * angle, fill: "rgba(0, 0, 0, 0)" },
-        { value: angle, fill: rgba(colors[(i + 1) % colors.length]) }
-      ]}
-    />
+      from={{
+        r: middleOuterRadius,
+        ir: middleOuterRadius
+      }}
+      to={{
+        r: middleOuterRadius + valueRange * outer.value,
+        ir: middleOuterRadius
+      }}
+      delay={i * MS_DELAY}
+      immediate={immediate}
+    >
+      {({ ir, r }) => (
+        <Donut
+          cx={radius}
+          cy={radius}
+          radius={r}
+          innerRadius={ir}
+          segments={[
+            { value: i * angle, fill: transparentFill },
+            { value: angle, fill: rgba(colors[(i + 1) % colors.length]) }
+          ]}
+        />
+      )}
+    </Spring>
   ));
 
   const outerBorder = periods.map(({ outer }, i) => {
-    const donutRadius = middleOuterRadius + valueRange * outer.value;
-
+    const donutRadius = middleOuterRadius + valueRangeBorder * outer.value;
     return (
-      <Donut
+      <Spring
         key={`outer_border_${i}`}
-        cx={radius}
-        cy={radius}
-        radius={donutRadius}
-        innerRadius={donutRadius - borderWidth}
-        segments={[
-          { value: i * angle, fill: "rgba(0, 0, 0, 0)" },
-          { value: angle, fill: rgba(colors[(i + 1) % colors.length], 1) }
-        ]}
-      />
+        from={{
+          r: middleOuterRadius
+        }}
+        to={{
+          r: donutRadius
+        }}
+        delay={i * MS_DELAY}
+        immediate={immediate}
+      >
+        {({ r }) => (
+          <Donut
+            cx={radius}
+            cy={radius}
+            radius={r + borderWidth}
+            innerRadius={r}
+            segments={[
+              { value: i * angle, fill: transparentFill },
+              { value: angle, fill: rgba(colors[(i + 1) % colors.length], 1) }
+            ]}
+          />
+        )}
+      </Spring>
     );
   });
 
   const inner = periods.map(({ inner }, i) => (
-    <Donut
+    <Spring
       key={`inner_${i}`}
-      cx={radius}
-      cy={radius}
-      radius={middleInnerRadius}
-      innerRadius={middleInnerRadius - valueRange * inner.value}
-      segments={[
-        { value: i * angle, fill: "rgba(0, 0, 0, 0)" },
-        { value: angle, fill: rgba(colors[i % colors.length]) }
-      ]}
-    />
+      from={{
+        r: middleInnerRadius,
+        ir: middleInnerRadius
+      }}
+      to={{
+        r: middleInnerRadius,
+        ir: middleInnerRadius - valueRange * inner.value
+      }}
+      delay={i * MS_DELAY}
+      immediate={immediate}
+    >
+      {({ r, ir }) => (
+        <Donut
+          cx={radius}
+          cy={radius}
+          radius={r}
+          innerRadius={ir}
+          segments={[
+            { value: i * angle, fill: transparentFill },
+            { value: angle, fill: rgba(colors[i % colors.length]) }
+          ]}
+        />
+      )}
+    </Spring>
   ));
 
   const innerBorder = periods.map(({ inner }, i) => {
-    const donutRadius = middleInnerRadius - valueRange * inner.value;
+    const donutRadius = middleInnerRadius - valueRangeBorder * inner.value;
+
     return (
-      <Donut
+      <Spring
         key={`inner_border_${i}`}
-        cx={radius}
-        cy={radius}
-        radius={donutRadius + borderWidth}
-        innerRadius={donutRadius}
-        segments={[
-          { value: i * angle, fill: "rgba(0, 0, 0, 0)" },
-          { value: angle, fill: rgba(colors[i % colors.length], 1) }
-        ]}
-      />
+        from={{
+          r: middleInnerRadius
+        }}
+        to={{
+          r: donutRadius
+        }}
+        delay={i * MS_DELAY}
+        immediate={immediate}
+      >
+        {({ r }) => (
+          <Donut
+            cx={radius}
+            cy={radius}
+            radius={r}
+            innerRadius={r - borderWidth}
+            segments={[
+              { value: i * angle, fill: transparentFill },
+              { value: angle, fill: rgba(colors[i % colors.length], 1) }
+            ]}
+          />
+        )}
+      </Spring>
     );
   });
 
@@ -169,104 +215,111 @@ const PeriodGraph: React.FC<Props> = ({
     labels.push({ color, center: stop, value: (i + 1) * 15 });
   });
 
+  const shadowId = "period_graph_shadow";
+  const shadowUrl = shadow ? `url(#${shadowId})` : undefined;
+
   return (
-    <svg width="100%" height="100%" viewBox={`0 0 ${size} ${size}`}>
-      <defs>
-        <filter id="period_graph_shadow">
-          <feDropShadow dx="1" dy="1" stdDeviation="3" floodOpacity="0.3" />
-        </filter>
-      </defs>
+    <div>
+      <svg width="100%" height="100%" viewBox={`0 0 ${size} ${size}`}>
+        {shadow && (
+          <defs>
+            <filter id={shadowId}>
+              <feDropShadow dx="1" dy="1" stdDeviation="3" floodOpacity="0.3" />
+            </filter>
+          </defs>
+        )}
 
-      {inner}
-      {outer}
+        {inner}
+        {outer}
 
-      {innerBorder}
-      {outerBorder}
+        {innerBorder}
+        {outerBorder}
 
-      <rect
-        x={radius - borderWidth}
-        y={0}
-        width={borderWidth * 2}
-        height={size}
-        fill="#fff"
-      />
-      <rect
-        x={0}
-        y={radius - borderWidth}
-        width={size}
-        height={borderWidth * 2}
-        fill="#fff"
-      />
+        <rect
+          x={radius - borderWidth}
+          y={0}
+          width={borderWidth * 2}
+          height={size}
+          fill="#fff"
+        />
+        <rect
+          x={0}
+          y={radius - borderWidth}
+          width={size}
+          height={borderWidth * 2}
+          fill="#fff"
+        />
 
-      <line
-        x1={0}
-        x2={size}
-        y1={radius}
-        y2={radius}
-        strokeWidth={3}
-        strokeDasharray="3, 3"
-        stroke="#000"
-      />
-      <line
-        x1={radius}
-        x2={radius}
-        y1={radius}
-        y2={size}
-        strokeWidth={3}
-        strokeDasharray="3, 3"
-        stroke="#000"
-      />
+        <line
+          x1={0}
+          x2={size}
+          y1={radius}
+          y2={radius}
+          strokeWidth={3}
+          strokeDasharray="3, 3"
+          stroke="#000"
+        />
+        <line
+          x1={radius}
+          x2={radius}
+          y1={radius}
+          y2={size}
+          strokeWidth={3}
+          strokeDasharray="3, 3"
+          stroke="#000"
+        />
 
-      <circle
-        cx={radius}
-        cy={radius}
-        r={innerRadius}
-        fill="#fff"
-        filter="url(#period_graph_shadow)"
-      />
-
-      <g filter="url(#period_graph_shadow)">
-        <Donut
+        <circle
           cx={radius}
           cy={radius}
-          radius={middleOuterRadius}
-          innerRadius={middleInnerRadius}
-          segments={[
-            { value: 0, fill: "rgba(0, 0, 0, 0)" },
-            { value: 0.79, fill: "#fff" }
-          ]}
+          r={innerRadius}
+          fill="#fff"
+          filter={shadowUrl}
         />
-      </g>
 
-      {dots.map(([point, color]) => (
-        <circle
-          cx={point.x}
-          cy={point.y}
-          key={`${point.x}_${point.y}`}
-          fill={color}
-          r={3}
-        />
-      ))}
+        <g filter={shadowUrl}>
+          <Donut
+            cx={radius}
+            cy={radius}
+            radius={middleOuterRadius}
+            innerRadius={middleInnerRadius}
+            segments={[
+              { value: 0, fill: transparentFill },
+              { value: 0.79, fill: "#fff" }
+            ]}
+          />
+        </g>
 
-      {dotLines.map(([d, color], i) => (
-        <path
-          d={d}
-          key={i}
-          stroke={color}
-          fill="transparent"
-          strokeDasharray="2, 2"
-        />
-      ))}
+        {dots.map(([point, color]) => (
+          <circle
+            cx={point.x}
+            cy={point.y}
+            key={`${point.x}_${point.y}`}
+            fill={color}
+            r={3}
+          />
+        ))}
 
-      {labels.map(({ center, value, color }) => (
-        <Label
-          key={`${center.x}_${center.y}`}
-          center={center}
-          value={value}
-          color={color}
-        />
-      ))}
-    </svg>
+        {dotLines.map(([d, color], i) => (
+          <path
+            d={d}
+            key={i}
+            stroke={color}
+            fill="transparent"
+            strokeDasharray="2, 2"
+          />
+        ))}
+
+        {labels.map(({ center, value, color }) => (
+          <Label
+            key={`${center.x}_${center.y}`}
+            center={center}
+            value={value}
+            color={color}
+          />
+        ))}
+      </svg>
+    </div>
   );
 };
 
