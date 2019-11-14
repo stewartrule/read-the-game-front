@@ -9,31 +9,28 @@ type Padding =
   | [PaddingValue, PaddingValue, PaddingValue, PaddingValue];
 
 type Props = {
+  fit?: boolean;
   center?: boolean;
-  dark?: boolean;
-  primary?: boolean;
-  secondary?: boolean;
-  soft?: boolean;
+  scrollable?: boolean;
+  theme?: "dark" | "primary" | "secondary" | "soft";
   padding?: Padding;
 };
 
 const Section: React.FC<Props> = ({
   children,
+  fit = false,
   center = false,
-  dark = false,
-  primary = false,
-  secondary = false,
-  soft = false,
+  scrollable = false,
+  theme = "",
   padding
 }) => (
   <div
     className={bem({
       section: {
+        "--fit": fit,
         "--center": center,
-        "--dark": dark,
-        "--primary": primary,
-        "--secondary": secondary,
-        "--soft": soft
+        "--scrollable": scrollable,
+        [`--${theme}`]: theme.length > 0
       }
     })}
     style={
