@@ -9,7 +9,7 @@ type Props = {
   border?: number;
   valueBorder?: number;
   radius?: number;
-  bgSize?: number;
+  outerBorder?: number;
   color?: BrandColor;
 };
 
@@ -19,10 +19,10 @@ const Avatar: React.FC<Props> = ({
   radius = 20,
   border = 2,
   valueBorder = 4,
-  bgSize = 12,
+  outerBorder = 12,
   color = BrandColor.primary
 }) => {
-  const outerRadius = radius + border + Math.max(bgSize, valueBorder);
+  const outerRadius = radius + border + Math.max(outerBorder, valueBorder);
   const pieRadius = radius + border + valueBorder;
   const size = outerRadius * 2;
   const imageSize = radius * 2;
@@ -67,8 +67,8 @@ const Avatar: React.FC<Props> = ({
         />
         <image
           href={image}
-          x={border + bgSize}
-          y={border + bgSize}
+          x={border + outerBorder}
+          y={border + outerBorder}
           height={imageSize}
           width={imageSize}
           mask={`url(#${maskId}`}
