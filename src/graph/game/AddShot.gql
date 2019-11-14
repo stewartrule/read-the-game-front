@@ -1,0 +1,23 @@
+mutation AddShot(
+  $gameId: Int!
+  $teamId: Int!
+  $playerId: Int!
+  $shotTypeId: Int!
+  $hit: Boolean!
+) {
+  addShot(
+    data: {
+      gameId: $gameId
+      teamId: $teamId
+      playerId: $playerId
+      shotTypeId: $shotTypeId
+      hit: $hit
+    }
+  ) {
+    gameId
+    teamId
+    playerId
+    typeId
+    hit
+  }
+}

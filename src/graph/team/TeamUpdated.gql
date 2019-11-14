@@ -1,0 +1,12 @@
+subscription TeamUpdated {
+  teamUpdated {
+    id
+    name
+    shotCount
+    hitCount
+    passCount
+    interceptCount
+    involvedPlayerCount
+    averageStrength
+  }
+}

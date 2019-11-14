@@ -1,0 +1,12 @@
+query TeamCompare {
+  teams(take: 12) {
+    id
+    name
+    shotCount
+    hitCount
+    passCount
+    interceptCount
+    involvedPlayerCount
+    averageStrength
+  }
+}

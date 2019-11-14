@@ -1,0 +1,27 @@
+fragment team on Team {
+  id
+  name
+  abbr
+  players {
+    id
+    lastName
+  }
+}
+
+query GetSchedule {
+  shotTypes {
+    id
+    name
+  }
+  games(take: 12) {
+    id
+    start
+    stop
+    homeTeam {
+      ...team
+    }
+    awayTeam {
+      ...team
+    }
+  }
+}
