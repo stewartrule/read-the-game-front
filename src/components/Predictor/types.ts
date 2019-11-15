@@ -1,3 +1,5 @@
+import { AreaCode } from "../AreaSelect";
+
 export enum PredictorItemState {
   active = "active",
   disabled = "disabled"
@@ -13,7 +15,7 @@ export type TextItemType = {
 export type PositionItemType = {
   id: number;
   type: "position";
-  value: string;
+  value: AreaCode;
   state?: PredictorItemState;
 };
 

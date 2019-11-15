@@ -1,6 +1,6 @@
 .predictor {
   overflow: hidden;
-  background: #000;
+  background: #111;
   padding: 0.5rem 1.25rem 1.25rem 1.25rem;
 }
 
@@ -13,12 +13,14 @@
   display: inline-block;
   padding: 0.25rem 0;
   margin: 0.2rem 0;
+  transition: opacity 300ms ease-in-out;
 }
 
 .predictor__item--interactive {
   padding: 0.25rem 0.5rem;
   border: 0.2rem solid #42dd84;
   margin: 0.25rem 0.25rem;
+  cursor: pointer;
 }
 
 .predictor__item--active {
@@ -27,6 +29,6 @@
 }
 
 .predictor__item--disabled {
-  opacity: 0.5;
+  opacity: 0.3;
   pointer-events: none;
 }
