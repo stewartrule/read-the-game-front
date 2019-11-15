@@ -11,18 +11,19 @@ import {
   Switch,
   useLocation
 } from "react-router-dom";
-
-import { useTransition, animated } from "react-spring";
+import { animated, useTransition, config } from "react-spring";
 
 import client from "./client";
-import Nav, { NavItem } from "./components/Nav";
 import Block from "./components/Block"; //fixme
+import Nav, { NavItem } from "./components/Nav";
+import TabGroup, { Tab } from "./components/TabGroup";
 import GameControlView from "./views/GameControlView";
 import GameListView from "./views/GameListView";
+import GameView from "./views/GameView";
 import PeriodGraphView from "./views/PeriodGraphView";
-import TeamCompareView from "./views/TeamCompareView";
+import PredictorView from "./views/PredictorView";
 import ScatterGramView from "./views/ScatterGramView";
-import TabGroup, { Tab } from "./components/TabGroup";
+import TeamCompareView from "./views/TeamCompareView";
 
 const routes = [
   {
@@ -37,6 +38,18 @@ const routes = [
       </Block>
     )
   },
+
+  {
+    label: "Game",
+    exact: true,
+    path: "/game",
+    render: () => (
+      <Block fit scrollable theme="soft">
+        <GameView />
+      </Block>
+    )
+  },
+
   {
     label: "Period Graph",
     exact: true,
@@ -61,6 +74,29 @@ const routes = [
       </Block>
     )
   },
+
+  {
+    label: "Prediction",
+    exact: true,
+    path: "/prediction",
+    render: () => (
+      <Block fit>
+        <TabGroup scrollable>
+          <Tab primary>Ajax</Tab>
+          <Tab primary active>
+            Feyenoord
+          </Tab>
+          <Tab primary>Utrecht</Tab>
+          <Tab primary>Utrecht</Tab>
+          <Tab primary>Utrecht</Tab>
+        </TabGroup>
+        <Block fit scrollable>
+          <PredictorView />
+        </Block>
+      </Block>
+    )
+  },
+
   {
     label: "Team Compare",
     exact: true,
@@ -104,7 +140,7 @@ const Main = () => {
   });
 
   return (
-    <>
+    <div className="main">
       {transitions.map(({ item, props, key }) => {
         return (
           <animated.div key={key} style={props} className="animated-route">
@@ -116,7 +152,7 @@ const Main = () => {
           </animated.div>
         );
       })}
-    </>
+    </div>
   );
 };
 
@@ -129,9 +165,7 @@ const App = () => (
         </NavItem>
       ))}
     </Nav>
-    <div className="body">
-      <Main />
-    </div>
+    <Main />
   </Router>
 );
 
