@@ -4,6 +4,14 @@ import * as React from "react";
 
 import bem from "../../util/bem";
 
+export type Icon =
+  | "ok"
+  | "cancel"
+  | "down-open"
+  | "up-open"
+  | "right-open"
+  | "left-open";
+
 export type Props = {
   type?: "button" | "submit" | "reset";
   active?: boolean;
@@ -11,6 +19,7 @@ export type Props = {
   compact?: boolean;
   inverted?: boolean;
   primary?: boolean;
+  icon?: Icon;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
@@ -21,6 +30,7 @@ const Button: React.FC<Props> = ({
   disabled = false,
   primary = false,
   type = "button",
+  icon,
   onClick,
   children
 }) => (
@@ -39,6 +49,8 @@ const Button: React.FC<Props> = ({
     })}
   >
     {children}
+
+    {icon && <span className={`icon-${icon}`}></span>}
   </button>
 );
 
