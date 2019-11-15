@@ -1,14 +1,14 @@
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
-import { createTransformerLink, isSubscription } from "apollo-client-transform";
 import { split } from "apollo-link";
 import { createHttpLink } from "apollo-link-http";
 import { WebSocketLink } from "apollo-link-ws";
 
+import { createTransformerLink, isSubscription } from "./client-transformer";
 import typeDefs from "./schema.gql";
 import { transformers } from "./transformers";
 
-const host = 'localhost'
+const host = "localhost";
 
 const httpLink = createHttpLink({
   uri: `http://${host}:3000/graphql`
