@@ -6,11 +6,7 @@ import Menu from "./";
 import MenuItem from "./MenuItem";
 
 storiesOf("Menu", module)
-  .addDecorator(getStory => (
-    <Block theme="secondary">
-      {getStory()}
-    </Block>
-  ))
+  .addDecorator(getStory => <Block theme="secondary">{getStory()}</Block>)
   .add("Menu", () => (
     <Menu head="Kein Vergleich">
       <MenuItem>Borussia Dortmund</MenuItem>

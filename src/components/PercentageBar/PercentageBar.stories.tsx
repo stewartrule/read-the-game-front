@@ -11,7 +11,7 @@ storiesOf("PercentageBar", module)
   .add("Without gap", () => (
     <>
       {ratio.map(left => (
-        <Block key={left} padding={[2]}>
+        <Block key={left} padding={[4, 2, 0, 2]}>
           <PercentageBar left={left} right={1 - left} />
         </Block>
       ))}
@@ -20,7 +20,7 @@ storiesOf("PercentageBar", module)
   .add("With gap", () => (
     <>
       {ratio.map(left => (
-        <Block key={left} padding={[2]}>
+        <Block key={left} padding={[4, 2, 0, 2]}>
           <PercentageBar left={left} right={(1 - left) / 2} />
         </Block>
       ))}

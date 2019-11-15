@@ -37,7 +37,6 @@ const InView: React.FC<Props> = ({
     ref.current && observer.observe(ref.current);
 
     return () => {
-      ref.current && observer.unobserve(ref.current);
       observer.disconnect();
     };
   }, [ref.current]);

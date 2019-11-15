@@ -28,11 +28,12 @@ storiesOf("PeriodGraph", module)
   .add("PeriodGraph", () => {
     const [periods, setPeriods] = useState(createPeriods());
     const animate = boolean("Animate", true);
+    const shadow = boolean("Shadow", true);
 
     return (
       <>
         <Button onClick={() => setPeriods(createPeriods())}>Randomize</Button>
-        <PeriodGraph periods={periods} immediate={!animate} />
+        <PeriodGraph periods={periods} immediate={!animate} shadow={shadow} />
       </>
     );
   });

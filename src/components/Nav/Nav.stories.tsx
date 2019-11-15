@@ -1,9 +1,10 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
+import { HashRouter as Router } from "react-router-dom";
 
 import Block from "../Block";
-import Nav from ".";
 import NavItem from "./NavItem";
+import Nav from ".";
 
 const items = [
   { label: "Games", active: false },
@@ -16,11 +17,15 @@ const items = [
 ];
 
 storiesOf("Nav", module)
-  .addDecorator(getStory => <Block theme="secondary">{getStory()}</Block>)
+  .addDecorator(getStory => (
+    <Router>
+      <Block fit>{getStory()}</Block>
+    </Router>
+  ))
   .add("Nav", () => (
     <Nav>
-      {items.map(item => (
-        <NavItem to="/" key={item.label}>
+      {items.map((item, i) => (
+        <NavItem to={i === 0 ? "/" : `/_${i}`} key={item.label}>
           {item.label}
         </NavItem>
       ))}
