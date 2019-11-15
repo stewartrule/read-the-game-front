@@ -2,7 +2,24 @@ import * as React from "react";
 
 import bem from "../../util/bem";
 
-const grids = [
+export type AreaCode =
+  | "LO"
+  | "ZO"
+  | "RO"
+  | "LOM"
+  | "ZOM"
+  | "ROM"
+  | "LM"
+  | "ZM"
+  | "RM"
+  | "LDM"
+  | "ZDM"
+  | "RDM"
+  | "LD"
+  | "ZD"
+  | "RD";
+
+const grids: AreaCode[] = [
   "LO",
   "ZO",
   "RO",
@@ -25,24 +42,24 @@ const grids = [
 ];
 
 type Props = {
-  selectedIndex?: number;
-  onSelect: (index: number) => void;
+  selectedArea?: AreaCode;
+  onSelect: (code: AreaCode) => void;
 };
 
-const AreaSelect: React.FC<Props> = ({ selectedIndex, onSelect }) => (
+const AreaSelect: React.FC<Props> = ({ selectedArea, onSelect }) => (
   <div className="area-select">
-    {grids.map((abbr, index) => (
+    {grids.map((code) => (
       <div
-        key={abbr}
+        key={code}
         role="button"
-        onPointerUp={() => onSelect(index)}
+        onPointerUp={() => onSelect(code)}
         className={bem({
           "area-select__cell": true,
-          "area-select__cell--active": index === selectedIndex
+          "area-select__cell--active": code === selectedArea
         })}
       >
         <div>
-          <strong>{abbr}</strong>
+          <strong>{code}</strong>
         </div>
       </div>
     ))}
