@@ -1,4 +1,5 @@
 import { Period } from "./types";
+import { Controlled } from "./types";
 
 const homePlayers = Array.from("abcdefghijk").map((name, i) => ({
   id: 1 + i,
@@ -76,3 +77,24 @@ for (let time = 0; time < duration; time += interval) {
     }
   }
 }
+
+export type ActivateAction = {
+  type: "activate";
+  period: Controlled;
+};
+
+export type Action = ActivateAction;
+
+export const reducer = (state: Controlled[], action: Action): Controlled[] => {
+  switch (action.type) {
+    case "activate":
+      return state.map(period =>
+        period.start === action.period.start
+          ? { ...period, active: true }
+          : { ...period, active: false }
+      );
+
+    default:
+      return state;
+  }
+};
