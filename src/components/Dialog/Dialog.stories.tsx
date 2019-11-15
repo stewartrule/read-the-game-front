@@ -31,7 +31,6 @@ const PlayerList = () => (
   </Block>
 );
 
-
 storiesOf("Dialog", module)
   .addDecorator(getStory => (
     <div
@@ -76,9 +75,11 @@ storiesOf("Dialog", module)
               </div>
             </DialogHeader>
             <DialogBody>
-              <PlayerList />
+              <Block padding={[2, 4]}>
+                <PlayerList />
+              </Block>
             </DialogBody>
-            <DialogBody compact>
+            <DialogBody>
               <Button primary onClick={close}>
                 Phasendaueranalyse
                 <span className="icon-right-open"></span>
@@ -103,34 +104,11 @@ storiesOf("Dialog", module)
           </div>
         </DialogHeader>
         <DialogBody>
-          <AreaSelect onSelect={() => {}} />
+          <Block padding={[2, 4]}>
+            <AreaSelect onSelect={() => {}} />
+          </Block>
         </DialogBody>
-        <DialogBody compact>
-          <Button primary>
-            Phasendaueranalyse
-            <span className="icon-right-open"></span>
-          </Button>
-        </DialogBody>
-      </Dialog>
-    </Block>
-  ))
-  .add("with players", () => (
-    <Block padding={[2]}>
-      <Dialog>
-        <DialogHeader>
-          <div>
-            <h4>Wichtigste spieler</h4>
-            <p>Devensives Mittelfeld</p>
-          </div>
-          <div>
-            <IconButton icon="cancel" margin={[0, 1, 0, 0]} />
-            <IconButton icon="ok" success />
-          </div>
-        </DialogHeader>
         <DialogBody>
-          <PlayerList />
-        </DialogBody>
-        <DialogBody compact>
           <Button primary>
             Phasendaueranalyse
             <span className="icon-right-open"></span>

@@ -1,6 +1,6 @@
 .dialog {
   background-color: #fff;
-  border-radius: 0.25rem;
+  border-radius: 0.25rem 0.25rem 0 0;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   display: block;
@@ -17,10 +17,5 @@
 }
 
 .dialog__body {
-  padding: 0.5rem 1.25rem;
-  display: flex;
-}
-
-.dialog__body--compact {
   padding: 0;
 }
