@@ -8,20 +8,17 @@ const Overlay: React.FC<{ open?: boolean; onClick?: () => void }> = ({
 }) => {
   const style = {
     position: "absolute",
-    top: 0,
     bottom: 0,
     right: 0,
     left: 0,
-    height: "100vh",
     width: "100%",
     display: "flex",
-    flexShrink: 0,
-    flexGrow: 1,
+    flexShrink: 1,
     flexDirection: "column",
     alignItems: "flex-end",
     justifyContent: "flex-end",
     boxSizing: "border-box",
-    padding: 10
+    padding: "1rem 1rem 0 1rem"
   } as const;
 
   const props = useSpring({
@@ -31,7 +28,12 @@ const Overlay: React.FC<{ open?: boolean; onClick?: () => void }> = ({
 
   return (
     <animated.div style={{ ...props, ...style }} onClick={onClick}>
-      {children}
+      <div
+        style={{ width: "100%", display: "flex" }}
+        onClick={e => e.stopPropagation()}
+      >
+        {children}
+      </div>
     </animated.div>
   );
 };
