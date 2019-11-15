@@ -1,30 +1,24 @@
 import * as React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
 import ButtonGroup, { Button } from "../components/ButtonGroup";
 import ApolloErrorMessage from "../components/Error/ApolloErrorMessage";
+import InView from "../components/InView";
 import PeriodGraph, { PeriodGraphPeriod } from "../components/PeriodGraph";
 import Row, { Cell } from "../components/Row";
-
-import InView from "../components/InView";
-import {
-  useGetShotCountByPeriodQuery,
-  useGetShotCountByPeriodLazyQuery
-} from "../graph/game";
+import { useGetShotCountByPeriodQuery } from "../graph/game";
 import {
   GetShotCountByPeriod_games as RawGame,
   GetShotCountByPeriod_games_shotCountByPeriod_homeTeam as RawPeriod
 } from "../graph/types/GetShotCountByPeriod";
 import { BrandColor } from "../util/skin";
-
-const getMaxCount = (periods: RawPeriod[]) =>
-  periods.reduce((max, period) => (period.count > max ? period.count : max), 0);
+import { maxOf } from "../util/array";
 
 const parseGamePeriods = ({
   shotCountByPeriod: { awayTeam, homeTeam }
 }: RawGame): PeriodGraphPeriod[] => {
-  const homeMax = getMaxCount(homeTeam);
-  const awayMax = getMaxCount(awayTeam);
+  const homeMax = maxOf(homeTeam, "count");
+  const awayMax = maxOf(awayTeam, "count");
   const max = Math.max(homeMax, awayMax);
   const factor = 1 / max;
 
@@ -51,10 +45,7 @@ const PeriodGraphSelect: React.FC<{ games: RawGame[] }> = ({ games }) => {
   return (
     <>
       {selectedGame && (
-        <PeriodGraph
-          periods={parseGamePeriods(selectedGame)}
-          shadow
-        />
+        <PeriodGraph periods={parseGamePeriods(selectedGame)} shadow />
       )}
       <Row>
         <Cell padding={[2, 4]}>
@@ -77,7 +68,7 @@ const PeriodGraphSelect: React.FC<{ games: RawGame[] }> = ({ games }) => {
 };
 
 const PeriodGraphView: React.FC<{}> = ({}) => {
-  const { data, loading, error } = useGetShotCountByPeriodQuery();
+  const { data, error } = useGetShotCountByPeriodQuery();
 
   if (error) {
     return (
@@ -127,11 +118,12 @@ const IntroText = () => (
 
 const Wrapper = () => (
   <InView>
-    {({ seen, isIntersecting }) =>
+    {({ isIntersecting }) =>
       isIntersecting ? <PeriodGraphView /> : <PlaceholderView />
     }
   </InView>
 );
+
 export default Wrapper;
 
 export function emptyGraph(): PeriodGraphPeriod[] {
