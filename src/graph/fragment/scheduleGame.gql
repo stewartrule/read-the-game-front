@@ -1,0 +1,33 @@
+fragment team on Team {
+  id
+  name
+  abbr
+}
+
+fragment shot on Shot {
+  id
+  time
+  hit
+  player {
+    id
+    lastName
+  }
+}
+
+fragment scheduleGame on Game {
+  id
+  start
+  stop
+  homeTeamShots {
+    ...shot
+  }
+  awayTeamShots {
+    ...shot
+  }
+  homeTeam {
+    ...team
+  }
+  awayTeam {
+    ...team
+  }
+}

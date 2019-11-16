@@ -1,28 +1,28 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
-import Section from "../Section";
+import Block from "../Block";
 import PercentageBar from "./";
 
 const ratio = [0.15, 0.2, 0.3, 0.5, 0.7];
 
 storiesOf("PercentageBar", module)
-  .addDecorator(getStory => <Section>{getStory()}</Section>)
+  .addDecorator(getStory => <Block>{getStory()}</Block>)
   .add("Without gap", () => (
     <>
       {ratio.map(left => (
-        <Section key={left} padding={[2]}>
+        <Block key={left} padding={[4, 2, 0, 2]}>
           <PercentageBar left={left} right={1 - left} />
-        </Section>
+        </Block>
       ))}
     </>
   ))
   .add("With gap", () => (
     <>
       {ratio.map(left => (
-        <Section key={left} padding={[2]}>
+        <Block key={left} padding={[4, 2, 0, 2]}>
           <PercentageBar left={left} right={(1 - left) / 2} />
-        </Section>
+        </Block>
       ))}
     </>
   ));

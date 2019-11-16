@@ -1,5 +1,5 @@
 .tab {
-  font: 1rem/1rem "Montserrat", Verdana;
+  font: bold 1rem/1rem "Montserrat", Verdana;
   color: #fff;
   background-color: #42dd84;
   display: flex;
@@ -23,6 +23,7 @@
   justify-content: space-between;
   padding: 0;
   background-color: #0076ff;
+  flex-shrink: 0;
 }
 
 .tab-group--scrollable {
@@ -40,7 +41,7 @@
   white-space: nowrap;
   display: block;
   padding: 1.25rem 1.5rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .tab-group--scrollable .tab--active {

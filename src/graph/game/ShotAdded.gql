@@ -1,0 +1,8 @@
+subscription ShotAdded {
+  shotAdded {
+    id
+    gameId
+    playerId
+    teamId
+  }
+}

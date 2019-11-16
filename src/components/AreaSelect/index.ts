@@ -1,3 +1,3 @@
 import "./styles.scss";
 
-export { default } from './AreaSelect'
+export { default, AreaCode } from './AreaSelect'

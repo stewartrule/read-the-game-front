@@ -7,7 +7,7 @@ fragment countByPeriod on TeamShotCountByPeriod {
 }
 
 query GetShotCountByPeriod {
-  games(take: 1) {
+  games(take: 2) {
     id
     shotCountByPeriod {
       homeTeam {

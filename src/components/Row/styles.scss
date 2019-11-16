@@ -2,8 +2,8 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  flex-shrink: 0;
   background: #fff;
-  color: #fff;
 }
 
 .row--light {
@@ -20,6 +20,7 @@
 
 .row--dark {
   background-color: #000;
+  color: #fff;
 }
 
 .row__cell {

@@ -3,13 +3,13 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
 import { BrandColor, FontFamily } from "../../util/skin";
-import Section from "../Section";
+import Block from "../Block";
 import CircularBarGraph from "./CircularBarGraph";
 
 const { useState } = React;
 
 storiesOf("CircularBarGraph", module)
-  .addDecorator(getStory => <Section>{getStory()}</Section>)
+  .addDecorator(getStory => <Block>{getStory()}</Block>)
   .addDecorator(withKnobs)
   .add("CircularBarGraph", () => {
     const amount = number(

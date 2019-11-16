@@ -2,11 +2,13 @@ import * as React from "react";
 
 import AngledLines from "../AngledLines/AngledLines";
 import Donut from "../Donut/Donut";
+import { BrandColor } from "../../util/skin";
 
 type Props = {
   radius?: number;
   border?: number;
   value?: number;
+  color?: BrandColor;
   children: (value: number) => React.ReactNode;
 };
 
@@ -14,6 +16,7 @@ const Timer: React.FC<Props> = ({
   radius = 40,
   border = 8,
   value = 0,
+  color = BrandColor.primary,
   children
 }) => {
   const size = 2 * radius;
@@ -39,7 +42,7 @@ const Timer: React.FC<Props> = ({
         cy={size / 2}
         radius={radius}
         innerRadius={5}
-        segments={[{ value, fill: "#0076ff" }]}
+        segments={[{ value, fill: color }]}
       />
       <AngledLines
         amount={60}
@@ -55,7 +58,7 @@ const Timer: React.FC<Props> = ({
         center={center}
         innerRadius={() => radius - border * 0.75}
         outerRadius={() => radius}
-        stroke={() => "rgba(0, 0, 0, 0.25)"}
+        stroke={() => "rgba(0, 0, 0, 0.3)"}
         strokeWidth={2}
       />
       <circle
@@ -75,7 +78,7 @@ const Timer: React.FC<Props> = ({
         fontWeight="bold"
         style={{ textAlign: "center" }}
         fontSize="20px"
-        fill="#0076ff"
+        fill={color}
       >
         {children(value)}
       </text>

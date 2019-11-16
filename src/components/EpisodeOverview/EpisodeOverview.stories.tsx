@@ -2,14 +2,14 @@ import { withKnobs, number } from "@storybook/addon-knobs";
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
-import Section from "../Section";
+import Block from "../Block";
 import EpisodeOverview from "./";
 import { getPeriods } from "./fixture";
 
 const odds = [0.2, 0.5, 0.8];
 
 const story = storiesOf("EpisodeOverview", module)
-  .addDecorator(getStory => <Section>{getStory()}</Section>)
+  .addDecorator(getStory => <Block>{getStory()}</Block>)
   .addDecorator(withKnobs);
 
 odds.forEach(value => {

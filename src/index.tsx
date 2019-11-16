@@ -2,180 +2,176 @@ import "./scss/reset.scss";
 import "./scss/base.scss";
 import "./scss/fontello.scss";
 
+import { ApolloProvider } from "@apollo/react-hooks";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import {
+  Route,
+  HashRouter as Router,
+  Switch,
+  useLocation
+} from "react-router-dom";
+import { animated, useTransition, config } from "react-spring";
 
-import AreaSelect from "./components/AreaSelect";
-import ButtonGroup, { Button } from "./components/ButtonGroup";
-import Dialog, { DialogBody, DialogHeader } from "./components/Dialog";
-import FieldActivity from "./components/FieldActivity";
-import { getActivity } from "./components/FieldActivity/fixture";
-import GameCard from "./components/GameCard";
-import { games } from "./components/GameCard/fixtures";
-import IconButton from "./components/IconButton/IconButton";
-import Menu, { MenuItem } from "./components/Menu";
+import client from "./client";
+import Block from "./components/Block"; //fixme
 import Nav, { NavItem } from "./components/Nav";
-import PeriodGraph from "./components/PeriodGraph";
-import { periodGraphPeriods } from "./components/PeriodGraph/fixture";
-import Row, { Cell } from "./components/Row";
-import ScatterGram from "./components/ScatterGram";
-import { teamFixture } from "./components/ScatterGram/fixture";
-import ScoreBoard from "./components/ScoreBoard";
-import { game } from "./components/ScoreBoard/fixture";
-import Section from "./components/Section";
-import SimpleRadarGraph from "./components/SimpleRadarGraph";
-import { createStats } from "./components/SimpleRadarGraph/fixture";
 import TabGroup, { Tab } from "./components/TabGroup";
+import GameControlView from "./views/GameControlView";
+import GameListView from "./views/GameListView";
+import GameView from "./views/GameView";
+import PeriodGraphView from "./views/PeriodGraphView";
+import PredictorView from "./views/PredictorView";
+import ScatterGramView from "./views/ScatterGramView";
+import TeamCompareView from "./views/TeamCompareView";
+
+const routes = [
+  {
+    label: "Schedule",
+    exact: true,
+    path: "/",
+    render: () => (
+      <Block fit scrollable theme="soft">
+        <Block padding={[0, 2, 2, 2]}>
+          <GameListView />
+        </Block>
+      </Block>
+    )
+  },
+
+  {
+    label: "Game",
+    exact: true,
+    path: "/game",
+    render: () => (
+      <Block fit scrollable theme="soft">
+        <GameView />
+      </Block>
+    )
+  },
+
+  {
+    label: "Period Graph",
+    exact: true,
+    path: "/graph",
+    render: () => (
+      <Block fit>
+        <TabGroup scrollable>
+          <Tab primary>Ajax</Tab>
+          <Tab primary active>
+            Feyenoord
+          </Tab>
+          <Tab primary>Utrecht</Tab>
+          <Tab primary>Utrecht</Tab>
+          <Tab primary>Utrecht</Tab>
+        </TabGroup>
+        <Block fit scrollable>
+          <ScatterGramView />
+          <Block padding={[2]}>
+            <PeriodGraphView />
+          </Block>
+        </Block>
+      </Block>
+    )
+  },
+
+  {
+    label: "Prediction",
+    exact: true,
+    path: "/prediction",
+    render: () => (
+      <Block fit>
+        <TabGroup scrollable>
+          <Tab primary>Ajax</Tab>
+          <Tab primary active>
+            Feyenoord
+          </Tab>
+          <Tab primary>Utrecht</Tab>
+          <Tab primary>Utrecht</Tab>
+          <Tab primary>Utrecht</Tab>
+        </TabGroup>
+        <Block fit scrollable>
+          <PredictorView />
+        </Block>
+      </Block>
+    )
+  },
+
+  {
+    label: "Team Compare",
+    exact: true,
+    path: "/team-compare",
+    render: () => <TeamCompareView />
+  },
+  {
+    label: "Admin",
+    exact: true,
+    path: "/admin",
+    render: () => (
+      <Block fit scrollable>
+        <Block padding={[0, 1, 1, 1]}>
+          <GameControlView />
+        </Block>
+      </Block>
+    )
+  }
+];
+
+let prevIndex = 0;
+const Main = () => {
+  const location = useLocation();
+  const index = routes.findIndex(({ path }) => path === location.pathname);
+  const reverse = index < prevIndex;
+  prevIndex = index;
+
+  const transitions = useTransition(location, location => location.pathname, {
+    from: {
+      transform: `translate3d(${reverse ? "-100%" : "100%"}, 0, 0)`
+    },
+    enter: {
+      transform: "translate3d(0%, 0, 0)"
+    },
+    leave: {
+      transform: `translate3d(${reverse ? "100%" : "-100%"}, 0, 0)`
+    },
+    initial: {
+      transform: "translate3d(0%, 0, 0)"
+    }
+  });
+
+  return (
+    <div className="main">
+      {transitions.map(({ item, props, key }) => {
+        return (
+          <animated.div key={key} style={props} className="animated-route">
+            <Switch location={item}>
+              {routes.map(({ exact, path, render }) => (
+                <Route key={path} exact={exact} path={path} render={render} />
+              ))}
+            </Switch>
+          </animated.div>
+        );
+      })}
+    </div>
+  );
+};
+
+const App = () => (
+  <Router>
+    <Nav>
+      {routes.map(({ path, label }) => (
+        <NavItem key={path} to={path}>
+          {label}
+        </NavItem>
+      ))}
+    </Nav>
+    <Main />
+  </Router>
+);
 
 ReactDOM.render(
-  <div>
-    <ScoreBoard game={game} />
-    <Section padding={[2, 4]}>
-      <h2>Torzeitpunkt</h2>
-      <p>Torzeitpunkt</p>
-    </Section>
-    <Section padding={[1, 3]}>
-      <PeriodGraph periods={periodGraphPeriods} />
-    </Section>
-    <Section padding={[2, 5]}>
-      <ButtonGroup>
-        <Button compact>Gesamt</Button>
-        <Button compact active>
-          Vergleich
-        </Button>
-      </ButtonGroup>
-    </Section>
-    <TabGroup scrollable>
-      <Tab primary>
-        <strong>All Teams</strong>
-      </Tab>
-      <Tab primary active>
-        <strong>Dortmund</strong>
-      </Tab>
-      <Tab primary>
-        <strong>Bayern</strong>
-      </Tab>
-      <Tab primary>
-        <strong>Bayern</strong>
-      </Tab>
-      <Tab primary>
-        <strong>Bayern</strong>
-      </Tab>
-    </TabGroup>
-    <Section>
-      <ScatterGram team={teamFixture} itemRadius={20} />
-    </Section>
-    <Nav>
-      <NavItem>Team</NavItem>
-      <NavItem active>Team</NavItem>
-      <NavItem>Team</NavItem>
-      <NavItem>Team</NavItem>
-      <NavItem>Team</NavItem>
-      <NavItem>Team</NavItem>
-      <NavItem>Team</NavItem>
-      <NavItem>Team</NavItem>
-      <NavItem>Team</NavItem>
-      <NavItem>Team</NavItem>
-      <NavItem>Team</NavItem>
-    </Nav>
-    <TabGroup>
-      <Tab primary>
-        Heim: <strong>Bayern</strong>
-      </Tab>
-      <Tab active>
-        Ausw: <strong>Dortmund</strong>
-      </Tab>
-    </TabGroup>
-    <Section secondary padding={[3, 3]}>
-      <ButtonGroup>
-        <Button>Gesamt</Button>
-        <Button>Heim</Button>
-        <Button active>Vergleich</Button>
-      </ButtonGroup>
-    </Section>
-    <Section secondary>
-      <Menu head="Kein Vergleich">
-        <MenuItem>Borussia Dortmund</MenuItem>
-        <MenuItem>Borussia Mönchengladbach</MenuItem>
-        <MenuItem>Eintracht Frankfurt</MenuItem>
-        <MenuItem>FC Augsburg</MenuItem>
-        <MenuItem>FC Bayern München</MenuItem>
-        <MenuItem>FC Ingolstadt 04</MenuItem>
-        <MenuItem>FC Schalke 04</MenuItem>
-        <MenuItem active>RB Leipzig</MenuItem>
-        <MenuItem>Hamburger SV</MenuItem>
-      </Menu>
-    </Section>
-    <TabGroup>
-      <Tab primary>
-        Heim: <strong>Bayern</strong>
-      </Tab>
-      <Tab active>
-        Ausw: <strong>Dortmund</strong>
-      </Tab>
-    </TabGroup>
-    <Section primary padding={[3, 3]}>
-      <ButtonGroup>
-        <Button>Gesamt</Button>
-        <Button active>Heim</Button>
-        <Button>Vergleich</Button>
-      </ButtonGroup>
-    </Section>
-    {[1, 2, 3].map(x => (
-      <Row primary key={x} padding={[0, 1, 2, 1]}>
-        <Cell center padding={[0, 2]}>
-          <SimpleRadarGraph stats={createStats()} />
-          <h6 style={{ color: "rgba(255, 255, 255, 0.7)" }}>Dortmund</h6>
-        </Cell>
-        <Cell center padding={[0, 2]}>
-          <SimpleRadarGraph stats={createStats()} />
-          <h6 style={{ color: "rgba(255, 255, 255, 0.7)" }}>Dortmund</h6>
-        </Cell>
-        <Cell center padding={[0, 2]}>
-          <SimpleRadarGraph stats={createStats()} />
-          <h6 style={{ color: "rgba(255, 255, 255, 0.7)" }}>Dortmund</h6>
-        </Cell>
-      </Row>
-    ))}
-    <Section padding={[0, 1, 2, 1]}>
-      {games.slice(0, 3).map(game => (
-        <GameCard game={game} key={game.start.valueOf()} />
-      ))}
-    </Section>
-    <Dialog>
-      <DialogHeader>
-        <div>
-          <h4>Zentrales Devensives</h4>
-          <p>Devensives Mittelfeld</p>
-        </div>
-        <div>
-          <IconButton icon="cancel" margin={[0, 1, 0, 0]} />
-          <IconButton icon="ok" success />
-        </div>
-      </DialogHeader>
-      <DialogBody>
-        <AreaSelect onSelect={() => {}} />
-      </DialogBody>
-      <DialogBody compact>
-        <Button primary>
-          Phasendaueranalyse
-          <span className="icon-right-open"></span>
-        </Button>
-      </DialogBody>
-    </Dialog>
-    <Row dark padding={[1]}>
-      <Cell>Zentrales Devensives</Cell>
-    </Row>
-    <Row>
-      <Cell padding={[1]}>
-        <FieldActivity teams={[getActivity("intercepts")]} />
-      </Cell>
-    </Row>
-    <Row>
-      <Cell padding={[1]}>
-        <FieldActivity teams={[getActivity("passes"), getActivity("passes")]} />
-      </Cell>
-    </Row>
-  </div>,
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
   document.getElementById("root")
 );

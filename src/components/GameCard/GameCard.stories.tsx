@@ -1,12 +1,12 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
-import Section from "../Section";
+import Block from "../Block";
 import GameCard from ".";
 import { games } from "./fixtures";
 
 storiesOf("GameCard", module)
-  .addDecorator(getStory => <Section padding={[1, 2]}>{getStory()}</Section>)
+  .addDecorator(getStory => <Block padding={[1, 2]}>{getStory()}</Block>)
   .add("GameCard", () => <GameCard game={games[0]} />)
   .add("GameCards", () => (
     <>

@@ -16,7 +16,7 @@ const Meter: React.FC<Props> = ({
   value = 0,
   radius = 50,
   fontSize = 24,
-  color = "#42dd84",
+  color = BrandColor.primary,
   border = 4,
   children
 }) => {

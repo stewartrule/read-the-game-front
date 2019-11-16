@@ -32,10 +32,8 @@ const Donut: React.FC<Props> = ({
 
   let cumulative = 0;
   const paths = segments.map(({ value, fill }) => {
-    const portion = value / 1;
-
     let d: Path = [];
-    if (portion === 1) {
+    if (value === 1) {
       if (innerRadius) {
         let x2 = cx - 0.01;
         let y1 = cy - radius;
@@ -80,7 +78,7 @@ const Donut: React.FC<Props> = ({
       radius,
       radius,
       0,
-      portion > 0.5 ? 1 : 0,
+      value > 0.5 ? 1 : 0,
       1,
       scale(cumulativeValue, radius),
       "L"
@@ -93,7 +91,7 @@ const Donut: React.FC<Props> = ({
         innerRadius,
         innerRadius,
         0,
-        portion > 0.5 ? 1 : 0,
+        value > 0.5 ? 1 : 0,
         0,
         scale(cumulative, innerRadius)
       );

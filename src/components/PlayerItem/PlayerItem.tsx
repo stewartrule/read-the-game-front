@@ -24,6 +24,7 @@ type Props = {
   imageRadius?: number;
   imageBorder?: number;
   valueBorder?: number;
+  outerBorder?: number;
   color?: BrandColor;
 };
 
@@ -32,6 +33,7 @@ const Player: React.FC<Props> = ({
   imageRadius = 20,
   imageBorder = 1,
   valueBorder = 3,
+  outerBorder = 12,
   color = BrandColor.primary
 }) => {
   const uid = `player_item_${imageRadius}_${player.id}`;
@@ -46,6 +48,7 @@ const Player: React.FC<Props> = ({
         radius={imageRadius}
         border={imageBorder}
         valueBorder={valueBorder}
+        outerBorder={outerBorder}
         color={color}
       />
       <div>

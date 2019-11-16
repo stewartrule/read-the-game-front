@@ -2,37 +2,16 @@ import { number, withKnobs } from "@storybook/addon-knobs";
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
-import Section from "../Section";
+import Block from "../Block";
 import EpisodeTimeline from "./";
-import { periods as fixture } from "./fixture";
+import { periods as fixture, reducer } from "./fixture";
 import { Controlled, Uncontrolled } from "./types";
 import { formatTime } from "./util";
 
 const { useReducer } = React;
 
-type ActivateAction = {
-  type: "activate";
-  period: Controlled;
-};
-
-type Action = ActivateAction;
-
-const reducer = (state: Controlled[], action: Action): Controlled[] => {
-  switch (action.type) {
-    case "activate":
-      return state.map(period =>
-        period.start === action.period.start
-          ? { ...period, active: true }
-          : { ...period, active: false }
-      );
-
-    default:
-      return state;
-  }
-};
-
 storiesOf("EpisodeTimeline", module)
-  .addDecorator(getStory => <Section padding={[1]}>{getStory()}</Section>)
+  .addDecorator(getStory => <Block padding={[1]}>{getStory()}</Block>)
   .addDecorator(withKnobs)
   .add("EpisodeTimeline", () => {
     const scale = number(

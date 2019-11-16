@@ -1,11 +1,10 @@
-import { useQuery } from "@apollo/react-hooks";
 import * as React from "react";
 
 import Card, { CardSection } from "../components/Card";
 import ApolloErrorMessage from "../components/Error/ApolloErrorMessage";
 import GameCard from "../components/GameCard";
-import { Game } from "../queries";
-import { GetGames, GetGames_games as RawGame } from "../queries/types/GetGames";
+import { useGameUpdatedSubscription, useGetGamesQuery } from "../graph/game";
+import { GetGames_games as RawGame } from "../graph/types/GetGames";
 
 const GameCardPlaceholder = () => (
   <Card>
@@ -34,7 +33,9 @@ const parseRawGame = (game: RawGame) => {
 };
 
 const GameListView: React.FC = ({}) => {
-  const { data, loading, error } = useQuery<GetGames>(Game.GetGames);
+  const { data, loading, error } = useGetGamesQuery();
+
+  useGameUpdatedSubscription();
 
   if (error) {
     return (
@@ -49,7 +50,7 @@ const GameListView: React.FC = ({}) => {
   if (loading) {
     return (
       <>
-        {Array.from({ length: 10 }, (_, i) => (
+        {Array.from({ length: 4 }, (_, i) => (
           <GameCardPlaceholder key={i} />
         ))}
       </>

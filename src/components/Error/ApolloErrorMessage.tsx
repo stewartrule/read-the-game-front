@@ -16,7 +16,7 @@ const ApolloErrorMessage: React.FC<Props> = ({ error, message, file }) => {
         <p className="error__body">{message}</p>
         <div className="error__info">
           <p>{file}</p>
-          <p>{error.networkError ? error.networkError.name : ""}</p>
+          {error.networkError && <p>{error.networkError.name}</p>}
           <p>{error.message}</p>
         </div>
       </div>

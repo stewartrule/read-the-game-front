@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
-import Section from "../Section";
+import Block from "../Block";
 import IconButton from "./";
 import { Icon } from "./IconButton";
 
@@ -15,23 +15,23 @@ const icons: Icon[] = [
 ];
 
 storiesOf("IconButton", module)
-  .addDecorator(getStory => <Section>{getStory()}</Section>)
+  .addDecorator(getStory => <Block>{getStory()}</Block>)
   .add("IconButtons", () => (
     <>
-      <Section padding={[1]}>
+      <Block padding={[1]}>
         {icons.map(icon => (
           <IconButton key={icon} icon={icon} margin={[0, 1, 0, 0]} />
         ))}
-      </Section>
-      <Section padding={[1]}>
+      </Block>
+      <Block padding={[1]}>
         {icons.map(icon => (
           <IconButton key={icon} icon={icon} margin={[0, 1, 0, 0]} success />
         ))}
-      </Section>
-      <Section padding={[1]}>
+      </Block>
+      <Block padding={[1]}>
         {icons.map(icon => (
           <IconButton key={icon} icon={icon} margin={[0, 1, 0, 0]} primary />
         ))}
-      </Section>
+      </Block>
     </>
   ));

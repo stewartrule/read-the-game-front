@@ -1,4 +1,4 @@
-const DateTimeTransformer = {
+const dateTimeTransformer = {
   parseValue(dateTime: string) {
     return new Date(dateTime);
   },
@@ -12,35 +12,33 @@ const DateTimeTransformer = {
 };
 
 export const transformers = {
-  /* Entities */
   Game: {
-    start: DateTimeTransformer,
-    stop: DateTimeTransformer
+    start: dateTimeTransformer,
+    stop: dateTimeTransformer
   },
 
   Shot: {
-    time: DateTimeTransformer
+    time: dateTimeTransformer
   },
 
   Pass: {
-    time: DateTimeTransformer
+    time: dateTimeTransformer
   },
 
   Intercept: {
-    time: DateTimeTransformer
+    time: dateTimeTransformer
   },
 
   Player: {
-    dob: DateTimeTransformer
+    dob: dateTimeTransformer
   },
 
-  /* Object Types */
   ActionCount: {
-    time: DateTimeTransformer
+    time: dateTimeTransformer
   },
 
   TeamShotCountByPeriod: {
-    start: DateTimeTransformer,
-    stop: DateTimeTransformer
+    start: dateTimeTransformer,
+    stop: dateTimeTransformer
   }
 };

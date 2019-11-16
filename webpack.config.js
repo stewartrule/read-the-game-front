@@ -11,14 +11,30 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js"]
   },
 
+  devtool: "source-map",
+
   output: {
-    path: path.join(__dirname, "/dist"),
-    filename: "bundle.min.js"
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].[hash].js"
+  },
+
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name(module) {
+            return /react/.test(module.context) ? "react" : "vendor";
+          }
+        }
+      }
+    }
   },
 
   node: {
-    __filename: true,
-    __dirname: true
+    __dirname: true,
+    __filename: true
   },
 
   module: {

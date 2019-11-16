@@ -59,7 +59,7 @@ const FieldActivity: React.FC<Props> = ({ teams }) => {
           </defs>
         )}
 
-        {areas.map(([team, _, [r, g, b]]) => (
+        {areas.map(([team, _offset, [r, g, b]]) => (
           <AreaActivity
             key={team.id}
             team={team}
