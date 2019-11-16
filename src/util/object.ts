@@ -1,8 +1,10 @@
+export type AnyObject = Record<string, any>;
+
 export function getPrototypeOf(obj: unknown) {
   return Object.getPrototypeOf(obj);
 }
 
-export function isPlainObject(obj: unknown) {
+export function isPlainObject(obj: unknown): obj is AnyObject {
   if (typeof obj !== "object" || obj === null) return false;
 
   const proto = getPrototypeOf(obj);

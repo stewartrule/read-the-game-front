@@ -1,7 +1,6 @@
 import { ApolloLink, FetchResult, Observable } from "apollo-link";
-import { getMainDefinition } from "apollo-utilities";
-import { DocumentNode } from "graphql";
-import { isPlainObject } from "../util/object";
+
+import { AnyObject, isPlainObject } from "../util/object";
 
 type Transformer = {
   parseValue: (value: any) => any;
@@ -16,13 +15,13 @@ type Transformers = {
   [typename: string]: TransformerMap;
 };
 
-function parseObject(transformers: Transformers, object: any): void {
+function parseObject(transformers: Transformers, object: unknown): void {
   if (!object) {
     return;
   }
 
   if (Array.isArray(object)) {
-    return object.forEach(i => parseObject(transformers, i));
+    return object.forEach(value => parseObject(transformers, value));
   }
 
   if (!isPlainObject(object)) {
@@ -40,7 +39,7 @@ function parseObject(transformers: Transformers, object: any): void {
   }
 }
 
-function parseObjectValues(map: TransformerMap, object: any) {
+function parseObjectValues(map: TransformerMap, object: AnyObject) {
   for (let key in map) {
     if (object[key]) {
       object[key] = map[key].parseValue(object[key]);
@@ -54,15 +53,6 @@ function parseResponse(response: FetchResult, transformers: Transformers) {
   }
 
   return response;
-}
-
-export function isSubscription(query: DocumentNode) {
-  const definition = getMainDefinition(query);
-
-  return (
-    definition.kind === "OperationDefinition" &&
-    definition.operation === "subscription"
-  );
 }
 
 export function createTransformerLink(transformers: Transformers) {
