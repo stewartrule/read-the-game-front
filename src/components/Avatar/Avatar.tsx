@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Donut from "../Donut/Donut";
+import Arc from "../Arc";
 import { BrandColor } from "../../util/skin";
 
 type Props = {
@@ -23,7 +23,6 @@ const Avatar: React.FC<Props> = ({
   color = BrandColor.primary
 }) => {
   const outerRadius = radius + border + Math.max(outerBorder, valueBorder);
-  const pieRadius = radius + border + valueBorder;
   const size = outerRadius * 2;
   const imageSize = radius * 2;
   const maskId = `avatar_${radius}_${value}`;
@@ -58,12 +57,14 @@ const Avatar: React.FC<Props> = ({
           strokeWidth={0}
           fill="#ccc"
         />
-        <Donut
+        <Arc
           cx={outerRadius}
           cy={outerRadius}
-          radius={pieRadius}
-          innerRadius={5}
-          segments={[{ value, fill: color }]}
+          r={outerRadius}
+          strokeWidth={6}
+          value={value}
+          stroke={color}
+          strokeAlign="inside"
         />
         <image
           href={image}

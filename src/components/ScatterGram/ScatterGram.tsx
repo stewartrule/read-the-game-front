@@ -215,7 +215,7 @@ const Item: React.FC<ItemProps> = ({
         cy={cy}
         r={radius}
         strokeWidth="0"
-        fill={"#fff"}
+        fill={"#000"}
       />
       <image
         href={avatar}
