@@ -51,6 +51,7 @@
       "start": "webpack-dev-server --mode development --open --hot",
       "build": "webpack --mode production",
       "storybook": "start-storybook -s ./public --ci -p 6006",
-      "create-query-types": "./create-query-types.sh"
+      "build-storybook": "./scripts/build-storybook.sh",
+      "create-query-types": "./scripts/create-query-types.sh"
    }
 }

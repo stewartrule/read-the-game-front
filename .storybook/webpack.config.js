@@ -10,7 +10,7 @@ module.exports = {
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, "../public"),
-        to: path.resolve(__dirname, "../dist"),
+        to: path.resolve(__dirname, "../.out"),
         ignore: ["index.html"]
       }
     ])
