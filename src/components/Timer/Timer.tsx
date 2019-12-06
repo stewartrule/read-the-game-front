@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import AngledLines from "../AngledLines/AngledLines";
-import Donut from "../Donut/Donut";
+import Arc from "../Arc";
 import { BrandColor } from "../../util/skin";
 
 type Props = {
@@ -37,12 +37,13 @@ const Timer: React.FC<Props> = ({
         strokeWidth="0"
         fill="#eee"
       />
-      <Donut
+      <Arc
         cx={size / 2}
         cy={size / 2}
-        radius={radius}
-        innerRadius={5}
-        segments={[{ value, fill: color }]}
+        r={radius}
+        strokeWidth={radius}
+        value={value}
+        stroke={color}
       />
       <AngledLines
         amount={60}

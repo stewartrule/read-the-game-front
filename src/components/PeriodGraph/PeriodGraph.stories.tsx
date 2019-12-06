@@ -22,18 +22,45 @@ function createPeriods(): PeriodGraphPeriod[] {
   });
 }
 
+const Story = ({
+  immediate,
+  shadow
+}: {
+  immediate: boolean;
+  shadow: boolean;
+}) => {
+  const [periods, setPeriods] = useState(createPeriods());
+
+  return (
+    <>
+      <Button onClick={() => setPeriods(createPeriods())}>Randomize</Button>
+      <PeriodGraph periods={periods} immediate={immediate} shadow={shadow} />
+    </>
+  );
+};
+
 storiesOf("PeriodGraph", module)
   .addDecorator(getStory => <Block padding={[1]}>{getStory()}</Block>)
   .addDecorator(withKnobs)
-  .add("PeriodGraph", () => {
-    const [periods, setPeriods] = useState(createPeriods());
+  .add("Fixed", () => {
+    const periods = Array.from({ length: 6 }, (_, i) => {
+      return {
+        inner: {
+          fill: i % 2 === 0 ? BrandColor.primary : BrandColor.secondary,
+          value: i * (1 / 5)
+        },
+        outer: {
+          fill: i % 2 === 0 ? BrandColor.secondary : BrandColor.primary,
+          value: i * (1 / 5)
+        }
+      };
+    });
+
+    return <PeriodGraph periods={periods} immediate shadow />;
+  })
+  .add("Random", () => {
     const animate = boolean("Animate", true);
     const shadow = boolean("Shadow", true);
 
-    return (
-      <>
-        <Button onClick={() => setPeriods(createPeriods())}>Randomize</Button>
-        <PeriodGraph periods={periods} immediate={!animate} shadow={shadow} />
-      </>
-    );
+    return <Story immediate={!animate} shadow={shadow} />;
   });

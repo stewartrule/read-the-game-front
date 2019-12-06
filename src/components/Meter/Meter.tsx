@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import Donut from "../Donut/Donut";
-import { FontFamily, BrandColor } from "../../util/skin";
+import { BrandColor } from "../../util/skin";
+import Arc from "../Arc";
 
 type Props = {
   value: number;
@@ -23,12 +23,13 @@ const Meter: React.FC<Props> = ({
   return (
     <svg width={radius * 2} height={radius * 2}>
       <circle strokeWidth="0" cx={radius} cy={radius} r={radius} fill="#eee" />
-      <Donut
+      <Arc
         cx={radius}
         cy={radius}
-        radius={radius}
-        innerRadius={radius - 40}
-        segments={[{ value, fill: color }]}
+        r={radius}
+        strokeWidth={radius}
+        stroke={color}
+        value={value}
       />
       <circle
         strokeWidth="0"

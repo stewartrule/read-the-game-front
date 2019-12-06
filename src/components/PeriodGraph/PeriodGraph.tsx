@@ -5,7 +5,7 @@ import { Point, getPolarPoint } from "../../util/geometry";
 import { BrandColor, FontFamily } from "../../util/skin";
 import { getArcPath } from "../../util/svg";
 import { Tuple } from "../../util/types";
-import Donut from "../Donut/Donut";
+import Arc from "../Arc";
 
 export type PeriodGraphValue = {
   fill: BrandColor;
@@ -35,7 +35,6 @@ type Props = {
 type Dot = [Point, string];
 type DotLine = [string, string];
 
-const transparentFill = "rgba(0, 0, 0, 0)";
 const MS_DELAY = 100;
 
 const rgba = (rgb: RGB, alpha = 0.15) => `rgba(${rgb.join(", ")}, ${alpha})`;
@@ -80,15 +79,14 @@ const PeriodGraph: React.FC<Props> = ({
       immediate={immediate}
     >
       {({ ir, r }) => (
-        <Donut
+        <Arc
           cx={radius}
           cy={radius}
-          radius={r}
-          innerRadius={ir}
-          segments={[
-            { value: i * angle, fill: transparentFill },
-            { value: angle, fill: rgba(colors[(i + 1) % colors.length]) }
-          ]}
+          r={r}
+          strokeWidth={r - ir}
+          startAngle={-90 + i * angle * 360}
+          value={angle}
+          stroke={rgba(colors[(i + 1) % colors.length])}
         />
       )}
     </Spring>
@@ -109,15 +107,14 @@ const PeriodGraph: React.FC<Props> = ({
         immediate={immediate}
       >
         {({ r }) => (
-          <Donut
+          <Arc
             cx={radius}
             cy={radius}
-            radius={r + borderWidth}
-            innerRadius={r}
-            segments={[
-              { value: i * angle, fill: transparentFill },
-              { value: angle, fill: rgba(colors[(i + 1) % colors.length], 1) }
-            ]}
+            r={r + borderWidth}
+            strokeWidth={borderWidth}
+            startAngle={-90 + i * angle * 360}
+            value={angle}
+            stroke={rgba(colors[(i + 1) % colors.length], 1)}
           />
         )}
       </Spring>
@@ -139,15 +136,14 @@ const PeriodGraph: React.FC<Props> = ({
       immediate={immediate}
     >
       {({ r, ir }) => (
-        <Donut
+        <Arc
           cx={radius}
           cy={radius}
-          radius={r}
-          innerRadius={ir}
-          segments={[
-            { value: i * angle, fill: transparentFill },
-            { value: angle, fill: rgba(colors[i % colors.length]) }
-          ]}
+          r={r}
+          strokeWidth={r - ir}
+          startAngle={-90 + i * angle * 360}
+          value={angle}
+          stroke={rgba(colors[i % colors.length])}
         />
       )}
     </Spring>
@@ -169,15 +165,14 @@ const PeriodGraph: React.FC<Props> = ({
         immediate={immediate}
       >
         {({ r }) => (
-          <Donut
+          <Arc
             cx={radius}
             cy={radius}
-            radius={r}
-            innerRadius={r - borderWidth}
-            segments={[
-              { value: i * angle, fill: transparentFill },
-              { value: angle, fill: rgba(colors[i % colors.length], 1) }
-            ]}
+            r={r}
+            strokeWidth={borderWidth}
+            startAngle={-90 + i * angle * 360}
+            value={angle}
+            stroke={rgba(colors[i % colors.length], 1)}
           />
         )}
       </Spring>
@@ -278,15 +273,13 @@ const PeriodGraph: React.FC<Props> = ({
         />
 
         <g filter={shadowUrl}>
-          <Donut
+          <Arc
             cx={radius}
             cy={radius}
-            radius={middleOuterRadius}
-            innerRadius={middleInnerRadius}
-            segments={[
-              { value: 0, fill: transparentFill },
-              { value: 0.79, fill: "#fff" }
-            ]}
+            r={middleOuterRadius}
+            strokeWidth={middleOuterRadius - middleInnerRadius}
+            value={0.79}
+            stroke="#fff"
           />
         </g>
 
