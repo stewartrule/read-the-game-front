@@ -60,11 +60,11 @@ const Avatar: React.FC<Props> = ({
         <Arc
           cx={outerRadius}
           cy={outerRadius}
-          r={outerRadius}
+          r={radius + border}
           strokeWidth={6}
           value={value}
           stroke={color}
-          strokeAlign="inside"
+          strokeAlign="outside"
         />
         <image
           href={image}

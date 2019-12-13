@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import AreaSelect, { AreaCode } from "../components/AreaSelect";
+import AreaSelect from "../components/AreaSelect";
 import Block from "../components/Block";
 import { Button } from "../components/ButtonGroup";
 import Dialog, { DialogBody, DialogHeader } from "../components/Dialog";
