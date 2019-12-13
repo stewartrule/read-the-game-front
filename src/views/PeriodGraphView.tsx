@@ -7,10 +7,7 @@ import InView from "../components/InView";
 import PeriodGraph, { PeriodGraphPeriod } from "../components/PeriodGraph";
 import Row, { Cell } from "../components/Row";
 import { useGetShotCountByPeriodQuery } from "../graph/game";
-import {
-  GetShotCountByPeriod_games as RawGame,
-  GetShotCountByPeriod_games_shotCountByPeriod_homeTeam as RawPeriod
-} from "../graph/types/GetShotCountByPeriod";
+import { GetShotCountByPeriod_games as RawGame } from "../graph/types/GetShotCountByPeriod";
 import { BrandColor } from "../util/skin";
 import { maxOf } from "../util/array";
 

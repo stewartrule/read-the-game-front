@@ -11,7 +11,7 @@ import {
   Switch,
   useLocation
 } from "react-router-dom";
-import { animated, useTransition, config } from "react-spring";
+import { animated, useTransition } from "react-spring";
 
 import client from "./client";
 import Block from "./components/Block"; //fixme

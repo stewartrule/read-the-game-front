@@ -71,10 +71,10 @@ storiesOf("AngledLines", module)
         <AngledLines
           center={center}
           amount={amount}
-          stroke={i => BrandColor.primary}
+          stroke={() => BrandColor.primary}
           strokeWidth={strokeWidth}
-          innerRadius={i => innerRadius}
-          outerRadius={i => radius}
+          innerRadius={() => innerRadius}
+          outerRadius={() => radius}
         />
       </svg>
     );

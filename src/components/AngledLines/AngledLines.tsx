@@ -22,7 +22,7 @@ const AngledLines: React.FC<Props> = ({
   stroke = () => "black",
   innerRadius = () => 10,
   outerRadius = () => 20,
-  filter = i => true,
+  filter = () => true,
   onSelect
 }) => (
   <>

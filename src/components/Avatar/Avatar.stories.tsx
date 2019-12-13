@@ -20,7 +20,7 @@ const players = [
   }
 ];
 
-const mapped = players.map(({ id, shots }, i) => {
+const mapped = players.map(({ id }, i) => {
   return {
     id,
     value: 0.2 + i * 0.3,
@@ -32,7 +32,7 @@ storiesOf("Avatar", module)
   .addDecorator(getStory => <Block padding={[1]}>{getStory()}</Block>)
   .add("Primary", () => (
     <>
-      {mapped.map((player, i) => (
+      {mapped.map((player) => (
         <Avatar
           key={player.id}
           image={player.image}

@@ -79,7 +79,7 @@ const CircularBarGraph: React.FC<Props> = ({
             : "rgba(0, 118, 255, 0.4)"
         }
         strokeWidth={24}
-        innerRadius={i => radius}
+        innerRadius={() => radius}
         outerRadius={i => radius + values[i].max * growth}
         onSelect={onSelect}
       />
@@ -90,7 +90,7 @@ const CircularBarGraph: React.FC<Props> = ({
           i === selectedIndex ? BrandColor.secondary : "rgba(0, 118, 255, 1)"
         }
         strokeWidth={24}
-        innerRadius={i => radius}
+        innerRadius={() => radius}
         outerRadius={i => radius + (values[i].min / 2) * growth}
         onSelect={onSelect}
       />
@@ -99,8 +99,8 @@ const CircularBarGraph: React.FC<Props> = ({
         amount={amount}
         stroke={() => "rgba(0, 0, 0, 0.25)"}
         strokeWidth={2}
-        innerRadius={i => radius - borderSize / 2}
-        outerRadius={i => radius}
+        innerRadius={() => radius - borderSize / 2}
+        outerRadius={() => radius}
         filter={i => i % 4 !== 0}
       />
       <AngledLines
@@ -108,8 +108,8 @@ const CircularBarGraph: React.FC<Props> = ({
         amount={amount / 4}
         stroke={() => "rgba(0, 0, 0, 0.25)"}
         strokeWidth={5}
-        innerRadius={i => radius - borderSize * 0.75}
-        outerRadius={i => radius}
+        innerRadius={() => radius - borderSize * 0.75}
+        outerRadius={() => radius}
       />
       <circle
         cx={center.x}

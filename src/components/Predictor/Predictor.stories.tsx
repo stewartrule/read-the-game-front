@@ -29,7 +29,7 @@ storiesOf("Predictor", module)
               item
             });
           }}
-          onChangePosition={item => {}}
+          onChangePosition={() => {}}
         />
 
         {active && active.type === "duration" && (
