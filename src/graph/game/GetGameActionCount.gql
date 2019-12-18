@@ -1,11 +1,11 @@
-fragment teamActionCount on ActionCount {
+fragment teamActionCount on TeamAreaActionCount {
   count
   time
   x
   y
 }
 
-fragment areaActionCount on AreaActionCount {
+fragment gameActionCount on GameActionCount {
   homeTeam {
     ...teamActionCount
   }
@@ -14,17 +14,17 @@ fragment areaActionCount on AreaActionCount {
   }
 }
 
-query GetAreaActionCount {
+query GetGameActionCount {
   games(take: 3) {
     id
     shotCountByArea {
-      ...areaActionCount
+      ...gameActionCount
     }
     hitCountByArea {
-      ...areaActionCount
+      ...gameActionCount
     }
     passCountByArea {
-      ...areaActionCount
+      ...gameActionCount
     }
   }
 }

@@ -6,7 +6,7 @@
 // GraphQL fragment: scheduleGame
 // ====================================================
 
-export interface scheduleGame_homeTeamShots_player {
+export interface scheduleGame_homeTeamShots_fromPlayer {
   __typename: "Player";
   id: string;
   lastName: string;
@@ -17,10 +17,10 @@ export interface scheduleGame_homeTeamShots {
   id: string;
   time: Date;
   hit: boolean;
-  player: scheduleGame_homeTeamShots_player;
+  fromPlayer: scheduleGame_homeTeamShots_fromPlayer;
 }
 
-export interface scheduleGame_awayTeamShots_player {
+export interface scheduleGame_awayTeamShots_fromPlayer {
   __typename: "Player";
   id: string;
   lastName: string;
@@ -31,7 +31,7 @@ export interface scheduleGame_awayTeamShots {
   id: string;
   time: Date;
   hit: boolean;
-  player: scheduleGame_awayTeamShots_player;
+  fromPlayer: scheduleGame_awayTeamShots_fromPlayer;
 }
 
 export interface scheduleGame_homeTeam_players {

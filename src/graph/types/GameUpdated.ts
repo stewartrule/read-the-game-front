@@ -6,7 +6,7 @@
 // GraphQL subscription operation: GameUpdated
 // ====================================================
 
-export interface GameUpdated_gameUpdated_homeTeamShots_player {
+export interface GameUpdated_gameUpdated_homeTeamShots_fromPlayer {
   __typename: "Player";
   id: string;
   lastName: string;
@@ -17,10 +17,10 @@ export interface GameUpdated_gameUpdated_homeTeamShots {
   id: string;
   time: Date;
   hit: boolean;
-  player: GameUpdated_gameUpdated_homeTeamShots_player;
+  fromPlayer: GameUpdated_gameUpdated_homeTeamShots_fromPlayer;
 }
 
-export interface GameUpdated_gameUpdated_awayTeamShots_player {
+export interface GameUpdated_gameUpdated_awayTeamShots_fromPlayer {
   __typename: "Player";
   id: string;
   lastName: string;
@@ -31,7 +31,7 @@ export interface GameUpdated_gameUpdated_awayTeamShots {
   id: string;
   time: Date;
   hit: boolean;
-  player: GameUpdated_gameUpdated_awayTeamShots_player;
+  fromPlayer: GameUpdated_gameUpdated_awayTeamShots_fromPlayer;
 }
 
 export interface GameUpdated_gameUpdated_homeTeam_players {

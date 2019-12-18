@@ -7,7 +7,7 @@
 // ====================================================
 
 export interface teamActionCount {
-  __typename: "ActionCount";
+  __typename: "TeamAreaActionCount";
   count: number;
   time: Date;
   x: number;

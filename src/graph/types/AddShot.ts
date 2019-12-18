@@ -9,9 +9,9 @@
 export interface AddShot_addShot {
   __typename: "Shot";
   gameId: number;
-  teamId: number;
-  playerId: number;
-  typeId: number;
+  fromTeamId: number;
+  fromPlayerId: number;
+  shotTypeId: number;
   hit: boolean;
 }
 
@@ -21,8 +21,8 @@ export interface AddShot {
 
 export interface AddShotVariables {
   gameId: number;
-  teamId: number;
-  playerId: number;
+  fromTeamId: number;
+  fromPlayerId: number;
   shotTypeId: number;
   hit: boolean;
 }

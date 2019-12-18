@@ -8,7 +8,7 @@ fragment shot on Shot {
   id
   time
   hit
-  player {
+  fromPlayer {
     id
     lastName
   }
