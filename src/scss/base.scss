@@ -6,6 +6,7 @@ $minScreen: 20rem;
 $maxScreen: 60rem;
 $minFont: 0.7rem;
 $maxFont: 2rem;
+$maxFont: 1.5rem;
 
 html {
   -moz-osx-font-smoothing: grayscale;
@@ -87,15 +88,6 @@ strong {
   font-weight: 700;
 }
 
-table {
-  width: 100%;
-
-  td,
-  th {
-    border: 2px solid #fff;
-  }
-}
-
 #root {
   width: 100%;
   height: 100vh;
@@ -115,4 +107,32 @@ table {
   width: 100%;
   height: 100%;
   transform: translate3d(0, 0, 0);
+}
+
+/* fixme */
+.table {
+  width: 100%;
+  margin: 1rem;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: auto 100px 100px 100px 100px 100px;
+  grid-column-gap: 3px;
+  margin: 0 0 3px 0;
+  padding: 0 0 3px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.table-cell {
+  display: flex;
+  align-items: center;
+}
+
+.table-cell--padded {
+  padding: 0.25rem;
+}
+
+.table-cell--grow {
+  flex-grow: 1;
 }

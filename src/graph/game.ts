@@ -9,7 +9,7 @@ import {
 import AddShot from "./game/AddShot.gql";
 
 /** Queries */
-import GetAreaActionCount from "./game/GetAreaActionCount.gql";
+import GetGameActionCount from "./game/GetGameActionCount.gql";
 import GetGames from "./game/GetGames.gql";
 import GetSchedule from "./game/GetSchedule.gql";
 import GetShotCountByPeriod from "./game/GetShotCountByPeriod.gql";
@@ -21,7 +21,7 @@ import GameUpdated from "./game/GameUpdated.gql";
 /** Types */
 import { AddShot as AddShotType } from "./types/AddShot";
 import { GameUpdated as GameUpdatedType } from "./types/GameUpdated";
-import { GetAreaActionCount as GetAreaActionCountType } from "./types/GetAreaActionCount";
+import { GetGameActionCount as GetGameActionCountType } from "./types/GetGameActionCount";
 import { GetGames as GetGamesType } from "./types/GetGames";
 import { GetSchedule as GetScheduleType } from "./types/GetSchedule";
 import { GetShotCountByPeriod as GetShotCountByPeriodType } from "./types/GetShotCountByPeriod";
@@ -37,8 +37,8 @@ export const useGetShotCountByPeriodLazyQuery = () =>
 
 export const useGetGamesQuery = () => useQuery<GetGamesType>(GetGames);
 
-export const useGetAreaActionCountQuery = () =>
-  useQuery<GetAreaActionCountType>(GetAreaActionCount);
+export const useGetGameActionCountQuery = () =>
+  useQuery<GetGameActionCountType>(GetGameActionCount);
 
 export const useGetScheduleQuery = () => useQuery<GetScheduleType>(GetSchedule);
 

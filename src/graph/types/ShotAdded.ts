@@ -10,8 +10,8 @@ export interface ShotAdded_shotAdded {
   __typename: "Shot";
   id: string;
   gameId: number;
-  playerId: number;
-  teamId: number;
+  fromPlayerId: number;
+  fromTeamId: number;
 }
 
 export interface ShotAdded {

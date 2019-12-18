@@ -6,7 +6,7 @@
 // GraphQL query operation: GetGames
 // ====================================================
 
-export interface GetGames_games_homeTeamShots_player {
+export interface GetGames_games_homeTeamShots_fromPlayer {
   __typename: "Player";
   id: string;
   lastName: string;
@@ -17,10 +17,10 @@ export interface GetGames_games_homeTeamShots {
   id: string;
   time: Date;
   hit: boolean;
-  player: GetGames_games_homeTeamShots_player;
+  fromPlayer: GetGames_games_homeTeamShots_fromPlayer;
 }
 
-export interface GetGames_games_awayTeamShots_player {
+export interface GetGames_games_awayTeamShots_fromPlayer {
   __typename: "Player";
   id: string;
   lastName: string;
@@ -31,7 +31,7 @@ export interface GetGames_games_awayTeamShots {
   id: string;
   time: Date;
   hit: boolean;
-  player: GetGames_games_awayTeamShots_player;
+  fromPlayer: GetGames_games_awayTeamShots_fromPlayer;
 }
 
 export interface GetGames_games_homeTeam_players {

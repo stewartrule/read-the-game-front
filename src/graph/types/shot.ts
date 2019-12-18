@@ -6,7 +6,7 @@
 // GraphQL fragment: shot
 // ====================================================
 
-export interface shot_player {
+export interface shot_fromPlayer {
   __typename: "Player";
   id: string;
   lastName: string;
@@ -17,5 +17,5 @@ export interface shot {
   id: string;
   time: Date;
   hit: boolean;
-  player: shot_player;
+  fromPlayer: shot_fromPlayer;
 }

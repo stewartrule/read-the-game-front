@@ -1,23 +1,23 @@
 mutation AddShot(
   $gameId: Int!
-  $teamId: Int!
-  $playerId: Int!
+  $fromTeamId: Int!
+  $fromPlayerId: Int!
   $shotTypeId: Int!
   $hit: Boolean!
 ) {
   addShot(
     data: {
       gameId: $gameId
-      teamId: $teamId
-      playerId: $playerId
+      fromTeamId: $fromTeamId
+      fromPlayerId: $fromPlayerId
       shotTypeId: $shotTypeId
       hit: $hit
     }
   ) {
     gameId
-    teamId
-    playerId
-    typeId
+    fromTeamId
+    fromPlayerId
+    shotTypeId
     hit
   }
 }
