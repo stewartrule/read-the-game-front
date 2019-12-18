@@ -36,7 +36,7 @@ const getShots = () =>
       id: `${j + 1}`,
       hit: Math.random() > 0.7,
       time: time(j * 3),
-      player: {
+      fromPlayer: {
         id: `${j + 1}`,
         lastName: player
       }

@@ -17,7 +17,7 @@ const TeamScoreList = ({ shots }: { shots: Shot[] }) => (
             {shot.time.getMinutes()}
             {`' `}
           </strong>
-          {shot.player.lastName}
+          {shot.fromPlayer.lastName}
         </p>
       ))}
   </>

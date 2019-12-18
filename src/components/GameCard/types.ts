@@ -1,8 +1,8 @@
 export type Shot = {
-  id: string
+  id: string;
   hit: boolean;
   time: Date;
-  player: {
+  fromPlayer: {
     id: string;
     lastName: string;
   };
@@ -18,8 +18,8 @@ export type Game = {
   id: string;
   start: Date;
   stop: Date;
-  homeTeamShots: Shot[]
-  awayTeamShots: Shot[]
+  homeTeamShots: Shot[];
+  awayTeamShots: Shot[];
   homeTeam: Team;
   awayTeam: Team;
 };
