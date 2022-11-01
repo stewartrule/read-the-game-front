@@ -12,6 +12,7 @@ import { BrandColor } from "../util/skin";
 const { useReducer } = React;
 
 const padStart = (num: number) => num.toString().padStart(2, "0");
+
 const formatTime = (time: number) => {
   const minutes = Math.floor(time / 60);
   const seconds = time - minutes * 60;
@@ -28,7 +29,7 @@ const GameView: React.FC = ({}) => {
   );
 
   const [controlled, dispatch] = useReducer(reducer, initialState);
-  const active = controlled.find(period => period.control && period.active);
+  const active = controlled.find((period) => period.control && period.active);
 
   const max = 60;
   const f = 1 / max;
@@ -41,7 +42,7 @@ const GameView: React.FC = ({}) => {
           scale={1}
           controlled={controlled}
           uncontrolled={uncontrolled}
-          onSelectPeriod={period => {
+          onSelectPeriod={(period) => {
             dispatch({ type: "activate", period });
           }}
         />
@@ -57,7 +58,7 @@ const GameView: React.FC = ({}) => {
                   : BrandColor.secondary
               }
             >
-              {value => value * max}
+              {(value) => value * max}
             </Timer>
           )}
           {active && (

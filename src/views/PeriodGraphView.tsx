@@ -19,12 +19,12 @@ const parseGamePeriods = ({
   const max = Math.max(homeMax, awayMax);
   const factor = 1 / max;
 
-  const homeValues = homeTeam.map(period => ({
+  const homeValues = homeTeam.map((period) => ({
     value: period.count * factor,
     fill: BrandColor.primary
   }));
 
-  const awayValues = awayTeam.map(period => ({
+  const awayValues = awayTeam.map((period) => ({
     value: period.count * factor,
     fill: BrandColor.secondary
   }));
@@ -37,7 +37,7 @@ const parseGamePeriods = ({
 
 const PeriodGraphSelect: React.FC<{ games: RawGame[] }> = ({ games }) => {
   const [gameId, setGameId] = useState(games.length ? games[0].id : "");
-  const selectedGame = games.find(game => game.id === gameId);
+  const selectedGame = games.find((game) => game.id === gameId);
 
   return (
     <>
@@ -47,7 +47,7 @@ const PeriodGraphSelect: React.FC<{ games: RawGame[] }> = ({ games }) => {
       <Row>
         <Cell padding={[2, 4]}>
           <ButtonGroup>
-            {games.map(game => (
+            {games.map((game) => (
               <Button
                 key={game.id}
                 compact

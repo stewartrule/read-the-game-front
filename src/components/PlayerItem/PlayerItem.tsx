@@ -52,9 +52,7 @@ const Player: React.FC<Props> = ({
         color={color}
       />
       <div>
-        <h4>
-          {player.lastname}
-        </h4>
+        <h4>{player.lastname}</h4>
         <p>{player.dob.toLocaleDateString()}</p>
       </div>
     </div>

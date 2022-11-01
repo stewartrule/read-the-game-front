@@ -2,6 +2,8 @@ import { ApolloLink, FetchResult, Observable } from "apollo-link";
 
 import { AnyObject, isPlainObject } from "../util/object";
 
+import { isSubscription } from "./index";
+
 type Transformer = {
   parseValue: (value: any) => any;
   serialize: (value: any) => any;
@@ -21,7 +23,7 @@ function parseObject(transformers: Transformers, object: unknown): void {
   }
 
   if (Array.isArray(object)) {
-    return object.forEach(value => parseObject(transformers, value));
+    return object.forEach((value) => parseObject(transformers, value));
   }
 
   if (!isPlainObject(object)) {
@@ -56,12 +58,17 @@ function parseResponse(response: FetchResult, transformers: Transformers) {
 }
 
 export function createTransformerLink(transformers: Transformers) {
-  return new ApolloLink(
-    (operation, forward) =>
-      new Observable<FetchResult>(observer =>
-        forward(operation).subscribe(response =>
+  return new ApolloLink((operation, forward) => {
+    if (isSubscription(operation.query)) {
+      return new Observable<FetchResult>((observer) =>
+        forward(operation).subscribe((response) =>
           observer.next(parseResponse(response, transformers))
         )
-      )
-  );
+      );
+    }
+
+    return forward(operation).map((response) =>
+      parseResponse(response, transformers)
+    );
+  });
 }

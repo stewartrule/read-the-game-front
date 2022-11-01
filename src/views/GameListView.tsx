@@ -63,7 +63,7 @@ const GameListView: React.FC = ({}) => {
 
   return (
     <>
-      {data.games.map(parseRawGame).map(game => (
+      {data.games.map(parseRawGame).map((game) => (
         <GameCard game={game} key={game.id} />
       ))}
     </>

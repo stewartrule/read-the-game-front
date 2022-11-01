@@ -13,7 +13,8 @@ import { TeamCompare as TeamCompareType } from "./types/TeamCompare";
 import { TeamUpdated as TeamUpdatedType } from "./types/TeamUpdated";
 
 export const useTeamCompareQuery = () => useQuery<TeamCompareType>(TeamCompare);
-export const useTeamCompareLazyQuery = () => useLazyQuery<TeamCompareType>(TeamCompare);
+export const useTeamCompareLazyQuery = () =>
+  useLazyQuery<TeamCompareType>(TeamCompare);
 
 export const useTeamUpdatedSubscription = () =>
   useSubscription<TeamUpdatedType>(TeamUpdated);

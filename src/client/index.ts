@@ -11,13 +11,14 @@ import { createTransformerLink } from "./transformer-link";
 import { transformers } from "./transformers";
 
 const host = "localhost";
+const port = 3000;
 
 const httpLink = createHttpLink({
-  uri: `http://${host}:3000/graphql`
+  uri: `http://${host}:${port}/graphql`
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://${host}:3000/graphql`,
+  uri: `ws://${host}:${port}/graphql`,
   options: {
     reconnect: true,
     lazy: true
@@ -26,7 +27,7 @@ const wsLink = new WebSocketLink({
 
 const transformerLink = createTransformerLink(transformers);
 
-function isSubscription(query: DocumentNode) {
+export function isSubscription(query: DocumentNode) {
   const definition = getMainDefinition(query);
 
   return (

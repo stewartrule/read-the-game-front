@@ -51,9 +51,8 @@ const GameListView: React.FC = ({}) => {
   const [passDialogState, setPassDialogState] = useState<PassDialogState>({
     open: false
   });
-  const [interceptDialogState, setInterceptDialogState] = useState<
-    InterceptDialogState
-  >({ open: false });
+  const [interceptDialogState, setInterceptDialogState] =
+    useState<InterceptDialogState>({ open: false });
 
   if (error) {
     return (
@@ -81,7 +80,7 @@ const GameListView: React.FC = ({}) => {
 
   return (
     <>
-      {data.games.map(game => (
+      {data.games.map((game) => (
         <GameControlCard
           game={game}
           shotTypes={data.shotTypes}
@@ -111,7 +110,7 @@ const GameListView: React.FC = ({}) => {
           <DialogBody>
             {passDialogState.data && (
               <ul>
-                {passDialogState.data.team.players.map(player => (
+                {passDialogState.data.team.players.map((player) => (
                   <li key={player.id}>{player.lastName}</li>
                 ))}
               </ul>
@@ -126,7 +125,7 @@ const GameListView: React.FC = ({}) => {
           <DialogBody>
             <div className="table">
               {interceptDialogState.data &&
-                interceptDialogState.data.otherTeam.players.map(player => (
+                interceptDialogState.data.otherTeam.players.map((player) => (
                   <div className="table-row" key={player.id}>
                     <div className="table-cell table-cell--grow table-cell--padded">
                       <strong>{player.lastName}</strong>
@@ -198,7 +197,7 @@ const TeamControl: React.FC<{
         <strong>{team.name}</strong>
       </div>
       <div className="table-body">
-        {team.players.map(player => (
+        {team.players.map((player) => (
           <div key={player.id} className="table-row">
             <div className="table-cell table-cell--grow table-cell--padded">
               <strong>{player.lastName}</strong>
@@ -271,8 +270,8 @@ const GameControlCard: React.FC<{
           game={game}
           team={game.homeTeam}
           shotTypes={shotTypes}
-          onPass={player => onPass(player, game.homeTeam)}
-          onIntercept={player =>
+          onPass={(player) => onPass(player, game.homeTeam)}
+          onIntercept={(player) =>
             onIntercept(player, game.homeTeam, game.awayTeam)
           }
         />
@@ -280,8 +279,8 @@ const GameControlCard: React.FC<{
           game={game}
           team={game.awayTeam}
           shotTypes={shotTypes}
-          onPass={player => onPass(player, game.awayTeam)}
-          onIntercept={player =>
+          onPass={(player) => onPass(player, game.awayTeam)}
+          onIntercept={(player) =>
             onIntercept(player, game.awayTeam, game.homeTeam)
           }
         />

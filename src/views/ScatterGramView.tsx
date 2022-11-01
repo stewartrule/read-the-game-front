@@ -12,7 +12,7 @@ import { BrandColor } from "../util/skin";
 const ScatterGramView: React.FC = ({}) => {
   return (
     <>
-      <ScatterGram team={teamFixture} dark />
+      <ScatterGram team={teamFixture} />
       <Row>
         <Cell padding={[2, 4]}>
           <ButtonGroup>
@@ -40,7 +40,7 @@ const PlayerList = () => (
         player={player}
         imageBorder={0}
         valueBorder={3}
-        outerBorder={3}
+        outerBorder={5}
         color={
           i % 4 === 3
             ? BrandColor.warn
